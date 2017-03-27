@@ -1,0 +1,14 @@
+{
+  "name": "smartmeet",
+  "version": "0.0.0",
+  "description": "A minute taking application",
+  "main": "./dist/main.js",
+  "dependencies": {
+    "vue": "^2.1.10",
+    "vue-electron": "^1.0.6",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.1.2"
+  },
+  "devDependencies": {},
+  "author": "Dennis Wanyoike <dwanyoike@codedcell.com>"
+}
