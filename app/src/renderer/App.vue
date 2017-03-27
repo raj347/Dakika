@@ -11,10 +11,10 @@
     import Sidebar from './components/Sidebar.vue'
     import Minute from './components/Minute.vue'
     export default {
-        components: {
-            Sidebar,
-            Minute
-        }
+      components: {
+        Sidebar,
+        Minute
+      }
     }
 </script>
 

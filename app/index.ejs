@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Minutes</title>
     <style>
+        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+
         html,
         body,
         .grid,
         .column {
-            min-height: 100% !important;
+            height: 100% !important;
+            overflow-y: hidden !important;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            font-weight: 400 !important;
+        }
+
+        ::-webkit-scrollbar {
+            background-color: #fff;
+            width: .1em
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive,
+        ::-webkit-scrollbar-thumb {
+            background:  black
         }
     </style>
     <% if (htmlWebpackPlugin.options.appModules) { %>
-      <!-- Add `app/node_modules` to global paths so `require` works properly in development -->
-      <script>
+    <!-- Add `app/node_modules` to global paths so `require` works properly in development -->
+    <script>
         require('module').globalPaths.push('<%= htmlWebpackPlugin.options.appModules.replace(/\\/g, '\\\\') %>')
-      </script>
+    </script>
     <% } %>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- webpack builds are automatically injected -->
-  </body>
+</head>
+<body>
+<div id="app"></div>
+<!-- webpack builds are automatically injected -->
+<script>window.$ = window.jQuery = require('jquery/dist/jquery.js')</script>
+<script>
+    $('.sidebar')
+        .sticky({
+            context: '#example1'
+        })
+    ;
+</script>
+</body>
 </html>

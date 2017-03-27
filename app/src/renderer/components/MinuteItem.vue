@@ -3,9 +3,7 @@
         <div class="content">
             <a class="header">12 Years a Slave</a>
             <div class="description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad consequatur dicta
-                            dolores, enim harum incidunt ipsam, non obcaecati omnis quisquam quo saepe sint, sit
-                            suscipit vel veniam vitae voluptatem.</p>
+                <p>{{minute.minute}}</p>
             </div>
             <div class="extra">
                 <div class="ui label">IMAX</div>
@@ -16,7 +14,9 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+        props: ['minute'],
+    }
 </script>
 
 <style>
