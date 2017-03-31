@@ -1,7 +1,10 @@
 <template>
 
     <div>
-        <div class="ui form" style="padding: 3px">
+
+
+        <div class="ui tiny header title-h" style="margin-top: 0px; ">Attendants ({{attendants.length}})</div>
+        <div class="ui form" style="padding-left: 1px; padding-right:1px;">
             <div class=" field">
                 <div class="ui mini icon input">
                     <input v-on:keyup.enter="addAttendant" v-model="attendant" type="text" placeholder="Add Attendants">
@@ -9,11 +12,11 @@
                 </div>
             </div>
         </div>
-        <div class="ui tiny header">Attendants ({{attendants.length}})</div>
-        <div class="ui relaxed divided list">
+        <div class="ui relaxed divided list" style="margin-top: 1px; ">
             <attendant :attendant="attendant" v-for="attendant in attendants"></attendant>
+            <div class="ui divider"></div>
         </div>
-        <div class="ui divider"></div>
+
 
     </div>
 
@@ -63,5 +66,14 @@
 <style>
     .avatar-header {
         color: white !important;
+    }
+    .title-h{
+        border-bottom: 1px solid rgba(34, 36, 38, 0.15) !important;
+        padding-bottom: 0.5em !important;
+        padding-top: 0.5em !important;
+        text-align: center;
+        font-weight: bold !important;
+        background: #f5f5f5;
+        margin-bottom: 3px !important;
     }
 </style>
