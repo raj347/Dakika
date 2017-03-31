@@ -13,6 +13,7 @@
             <div class="data-content">
                 <div class="ui divided items minute-item">
                     <Item :minute="minute" v-for="minute in minutes"></Item>
+
                 </div>
             </div>
 
@@ -21,6 +22,8 @@
 </template>
 
 <script>
+    /* eslint-disable indent */
+    import moment from 'moment'
     import Item from './MinuteItem.vue'
     export default {
         props: ['attendants'],
@@ -32,13 +35,12 @@
                 minutes: [],
                 minute: '',
                 tags: '',
-                attendants: '',
                 modified_minute: ''
             }
         },
         methods: {
             getTags: function findHashtags(searchText) {
-                var regexp = /\B\#\w\w+\b/g
+                var regexp = /\B\#\w\w+\b/g;
                 var result = searchText.match(regexp);
                 if (result) {
                     return result;
@@ -89,7 +91,9 @@
                     modified_minute: this.modified_minute,
                     tags: this.tags,
                     people: this.people,
-                    attendants: this.attendants
+                    attendants: this.attendants,
+                    date: moment().format('YYYY-M-D'),
+                    time: moment().format('h:mm')
                 }
 
                 this.minutes.push(minuteObject)
@@ -100,6 +104,11 @@
             },
             editLastMinute: function () {
                 this.minute = this.minutes.slice(-1)[0].minute
+            }
+        },
+        watch: {
+            minutes: function () {
+                this.$emit('minute',this.minutes);
             }
         }
     }

@@ -8,9 +8,10 @@ import 'semantic-ui-css/semantic.css'
 import App from './App'
 import routes from './routes'
 
-import 'semantic-ui-css/components/sticky.min.js'
+
 
 Vue.use(Electron)
+
 Vue.use(Resource)
 Vue.use(Router)
 Vue.config.debug = true

@@ -1,19 +1,38 @@
 <template>
+    <div class="container">
+        <div class="nav">
 
-        <router-view></router-view>
+        </div>
+        <div class="main">
+            <div class="ui three column grid">
+                <div class="column">
+                <a class="ui card" href="http://www.dog.com">
+                    <div class="content">
+                        <div class="header">Cute Dog</div>
+                        <div class="meta">
+                            <span class="category">Animals</span>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="right floated author">
+                            <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Matt
 
+                    </div>
+                    </div>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
     /* eslint-disable indent,semi */
-
-    import Attendant from './components/Attendant/Attendant.vue'
-    import Minute from './components/Minute/Minute.vue'
     export default {
-      components: {
-        Attendant,
-        Minute
-      },
+      components: {},
       data: function () {
         return {
           attendants: [],
