@@ -1,19 +1,20 @@
 <template>
     <div class="item">
-        <i class="large user middle aligned icon"></i>
+        <img class="ui avatar image" src="/dist/rachel.png">
         <div class="content">
-            <div class="header avatar-header">{{attendant.attendant}}</div>
+            <a class="header">{{attendant.attendant}}-({{attendant.acronym}})</a>
+            <div class="description">Items</div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['attendant'],
+      props: ['attendant']
     }
 </script>
 
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Lato:300);
+
 
 </style>

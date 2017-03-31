@@ -6,13 +6,7 @@
     <style>
         @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
 
-        html,
-        body,
-        .grid,
-        .column {
-            height: 100% !important;
-            overflow-y: hidden !important;
-        }
+
 
         body {
             font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
@@ -26,7 +20,7 @@
 
         ::-webkit-scrollbar-thumb:window-inactive,
         ::-webkit-scrollbar-thumb {
-            background:  black
+            background: black
         }
     </style>
     <% if (htmlWebpackPlugin.options.appModules) { %>
@@ -40,12 +34,6 @@
 <div id="app"></div>
 <!-- webpack builds are automatically injected -->
 <script>window.$ = window.jQuery = require('jquery/dist/jquery.js')</script>
-<script>
-    $('.sidebar')
-        .sticky({
-            context: '#example1'
-        })
-    ;
-</script>
+
 </body>
 </html>

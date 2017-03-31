@@ -16,12 +16,12 @@ Vue.use(Router)
 Vue.config.debug = true
 
 const router = new Router({
-    scrollBehavior: () => ({y: 0}),
-    routes
+  scrollBehavior: () => ({y: 0}),
+  routes
 })
 
 /* eslint-disable no-new */
 new Vue({
-    router,
-    ...App
+  router,
+  ...App
 }).$mount('#app')

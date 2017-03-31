@@ -1,9 +1,9 @@
 <template>
 
-    <div class="four wide blue column sidebar">
+    <div class=" sidebar">
 
         <div class="ui form">
-            <div class="sixteen wide field">
+            <div class=" field">
                 <div class="ui mini icon input">
                     <input v-on:keyup.enter="addAttendant" v-model="attendant" type="text" placeholder="Add Attendants">
                     <i class="add user icon"></i>
@@ -33,28 +33,33 @@
             }
         },
         methods: {
+            createAcronym: function (str) {
+                var matches = str.match(/\b(\w)/g);              // ['J','S','O','N']
+                return matches.join('');
+            },
             addAttendant: function () {
-                console.log(this.attendant);
+
+                var acronym = this.createAcronym(this.attendant);
                 var attendantObject = {
-                    attendant: this.attendant
-                };
-                this.attendants.push(attendantObject);
-                console.log(this.attendants);
-                this.attendant = '';
+                    attendant: this.attendant,
+                    acronym: acronym
+                }
+                this.attendants.push(attendantObject)
+                this.$emit('addAttendant', this.attendants);
+                console.log(this.attendants)
+                this.attendant = ''
             },
             deleteattendant: function () {
 
             },
             editLastAttendant: function () {
-                this.attendant = this.attendants.slice(-1)[0].attendant;
+                this.attendant = this.attendants.slice(-1)[0].attendant
             }
         }
     }
 </script>
 
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Lato:300);
-
     .avatar-header {
         color: white !important;
     }

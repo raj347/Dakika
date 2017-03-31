@@ -1,13 +1,18 @@
 <template>
-    <div class="item">
+    <div class="item item-minute">
         <div class="content">
-            <a class="header">12 Years a Slave</a>
+            <div class="header minute-heading">
+                     <span v-for="person in minute.people">
+{{person}}
+                     </span>
+            </div>
             <div class="description">
-                <p>{{minute.minute}}</p>
+                <p>{{minute.modified_minute}}</p>
             </div>
             <div class="extra">
-                <div class="ui label">IMAX</div>
-                <div class="ui label"><i class="globe icon"></i> Additional Languages</div>
+                <span v-for="tag in minute.tags">
+                     <div class="ui label">{{tag.replace('#', "")}}</div>
+                </span>
             </div>
         </div>
     </div>
@@ -15,11 +20,17 @@
 
 <script>
     export default {
-        props: ['minute'],
+        props: ['minute']
     }
 </script>
 
 <style>
     @import url(https://fonts.googleapis.com/css?family=Lato:300);
+
+    .minute-heading {
+        font-size: 1.1em !important;
+        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        font-weight: 800 !important;
+    }
 
 </style>
