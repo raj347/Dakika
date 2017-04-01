@@ -40,7 +40,7 @@
 
 <script>
     export default {
-        props: ['minute']
+      props: ['minute']
     }
 </script>
 

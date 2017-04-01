@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        props: ['attendant']
+      props: ['attendant']
     }
 </script>
 

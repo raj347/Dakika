@@ -8,8 +8,6 @@ import 'semantic-ui-css/semantic.css'
 import App from './App'
 import routes from './routes'
 
-
-
 Vue.use(Electron)
 
 Vue.use(Resource)

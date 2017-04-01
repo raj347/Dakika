@@ -2,6 +2,7 @@
     <div class="container">
         <div class="nav">
             <attendant v-on:addAttendant="attendantAdded"></attendant>
+            <div v-on:click="setupMeeting">Setup your Meeting</div>
         </div>
 
         <div class="main">
@@ -10,30 +11,61 @@
 
         <div class="ui long test modal">
             <div class="header">
-                Profile Picture
-              </div>
+                Set Up your Meeting
+
+
+
+
+
+
+
+
+
+
+
+            </div>
             <div class="image content">
-                <div class="ui medium image">
-                    <img src="/images/wireframe/image.png">
-                </div>
                 <div class="description">
-                    <div class="ui header">Modal Header</div>
-                    <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                    <form class="ui form">
+                        <div class="ui grid">
+                            <div class="eight wide field">
+                                <div class="ui icon input">
+                                    <input type="text" placeholder="Agenda">
+                                    <i class="inverted circular briefcase link icon"></i>
+                                </div>
+                            </div>
+                            <div class="eight wide field">
+                                <div class="ui icon input">
+                                    <i class="inverted circular clock link icon"></i>
+                                    <input type="text" placeholder="Minutes">
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
                     <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
-                    <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
-                    <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
-                    <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
-                    <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
-                    <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
-                    <div class="ui divider"></div>
-                    <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                    <div class="ui list">
+                        <a class="item">
+                            <i class="right triangle icon"></i>
+                            <div class="content">
+                                <div class="description">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>
+                            </div>
+                        </a>
+                        <a class="item">
+                            <i class="right triangle icon"></i>
+                            <div class="content">
+                                <div class="description">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>
+                            </div>
+                        </a>
+                        <a class="item">
+                            <i class="right triangle icon"></i>
+                            <div class="content">
+                                <div class="description">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>
+                            </div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
             <div class="actions">
@@ -55,27 +87,30 @@
     import 'semantic-ui-css/components/dimmer.min.js'
     import 'semantic-ui-css/components/transition.min.js'
     export default {
-      components: {
-        Attendant,
-        Minute
-      },
-      mounted: function () {
-        $('.long.modal').modal('show');
-      },
-      data: function () {
-        return {
-          attendants: [],
-          minutes: []
-        }
-      },
-      methods: {
-        attendantAdded: function ($attendants) {
-          this.attendants = $attendants;
+        components: {
+            Attendant,
+            Minute
         },
-        minuteChanged: function (minutes) {
-          this.minutes = minutes;
+        mounted: function () {
+
+        },
+        data: function () {
+            return {
+                attendants: [],
+                minutes: []
+            }
+        },
+        methods: {
+            setupMeeting: function () {
+                $('.long.modal').modal('show');
+            },
+            attendantAdded: function ($attendants) {
+                this.attendants = $attendants;
+            },
+            minuteChanged: function (minutes) {
+                this.minutes = minutes;
+            }
         }
-      }
     }
 </script>
 
@@ -87,6 +122,10 @@
         height: 100%;
         padding: 0;
         margin: 0;
+    }
+
+    .modal {
+        border-radius: 0px;
     }
 
     .container {

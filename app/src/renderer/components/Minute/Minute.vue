@@ -39,54 +39,53 @@
             }
         },
         methods: {
-            getTags: function findHashtags(searchText) {
-                var regexp = /\B\#\w\w+\b/g;
-                var result = searchText.match(regexp);
-                if (result) {
-                    return result;
-                } else {
-                    return false;
-                }
+            getTags: function findHashtags (searchText) {
+                var regexp = /\B\#\w\w+\b/g
+            var result = searchText.match(regexp)
+            if (result) {
+                    return result
+            } else {
+                    return false
+            }
             },
-            getPeople: function findHashtags(searchText) {
+            getPeople: function findHashtags (searchText) {
                 var regexp = /\B\@\w\w+\b/g
-                var result = searchText.match(regexp);
-                var items = [];
-                if (result == null) {
+                var result = searchText.match(regexp)
+            var items = []
+            if (result == null) {
                     return []
                 }
                 for (var i = 0; i < result.length; i++) {
-                    var item = result[i];
-                    item = item.replace(/@(\w+)/g, "$1");
-                    var x = this.attendants.findIndex(x => x.acronym == item)
-                    console.log(x);
-                    if (x > -1) {
-                        items.push(this.attendants[x].attendant);
-                    }
-
+                    var item = result[i]
+                item = item.replace(/@(\w+)/g, '$1')
+                var x = this.attendants.findIndex(x => x.acronym == item)
+                    console.log(x)
+                if (x > -1) {
+                        items.push(this.attendants[x].attendant)
                 }
+            }
                 if (result) {
-                    return items;
-                } else {
-                    return false;
-                }
+                    return items
+            } else {
+                    return false
+            }
             },
             substitutePeople: function (minute) {
-                console.log(this.attendants);
-                for (var key in this.attendants) {
-                    var attendant = this.attendants[key].attendant;
-                    var acronym = this.attendants[key].acronym;
-                    var replace = '@' + acronym;
-                    minute = minute.replace(replace, attendant);
-                }
-                return minute;
-            },
+                console.log(this.attendants)
+            for (var key in this.attendants) {
+                    var attendant = this.attendants[key].attendant
+                var acronym = this.attendants[key].acronym
+                var replace = '@' + acronym
+                minute = minute.replace(replace, attendant)
+            }
+                return minute
+        },
             addMinute: function () {
-                this.tags = this.getTags(this.minute);
-                this.people = this.getPeople(this.minute);
-                this.modified_minute = this.minute.replace(/#(\w+)/g, "$1")
-                this.modified_minute = this.substitutePeople(this.modified_minute);
-                var minuteObject = {
+                this.tags = this.getTags(this.minute)
+            this.people = this.getPeople(this.minute)
+            this.modified_minute = this.minute.replace(/#(\w+)/g, '$1')
+                this.modified_minute = this.substitutePeople(this.modified_minute)
+            var minuteObject = {
                     minute: this.minute,
                     modified_minute: this.modified_minute,
                     tags: this.tags,
@@ -108,8 +107,8 @@
         },
         watch: {
             minutes: function () {
-                this.$emit('minute',this.minutes);
-            }
+                this.$emit('minute', this.minutes)
+        }
         }
     }
 </script>
