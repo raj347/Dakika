@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d31f8b8-2f79-415c-b984-19d135f43e77" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/renderer/components/MeetingSetup.vue" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/renderer/components/LandingPageView/CurrentPage.vue" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/renderer/components/LandingPageView/Links.vue" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/renderer/components/LandingPageView/Versions.vue" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/renderer/components/LandingPageView/assets/logo.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/App.vue" afterPath="$PROJECT_DIR$/app/src/renderer/App.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/main.js" afterPath="$PROJECT_DIR$/app/src/renderer/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,24 +30,51 @@
       <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/App.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="15" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeetingView.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="69" column="12" lean-forward="false" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
               <folding>
-                <marker date="1491034186958" expanded="true" signature="2231:2246" ph="..." />
+                <element signature="e#452#501#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/renderer/routes.js">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-              <folding>
-                <marker date="1491034186966" expanded="true" signature="15:258" ph="[...]" />
-                <marker date="1491034186966" expanded="true" signature="19:214" ph="{&quot;name&quot;: 'landing-page'...}" />
-              </folding>
+            <state relative-caret-position="405">
+              <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="84" column="21" lean-forward="true" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeetingSetup.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingSetup.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="90" column="16" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,22 +86,27 @@
               <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1491034375675" expanded="true" signature="325:371" ph="{&quot;routes&quot;: routes...}" />
-                <marker date="1491034375675" expanded="true" signature="374:401" ph="/*...*/" />
-                <marker date="1491034375675" expanded="true" signature="410:432" ph="{&quot;router&quot;: router...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modal.min.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/semantic-ui-css/components/modal.min.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="225">
+              <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AgendaView.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="699">
+              <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,8 +114,8 @@
       <file leaf-file-name="AttendantItem.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+            <state relative-caret-position="810">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -86,33 +124,13 @@
       <file leaf-file-name="Attendant.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="72" column="38" lean-forward="false" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="38" />
+            <state relative-caret-position="90">
+              <caret line="42" column="6" lean-forward="false" selection-start-line="42" selection-start-column="6" selection-end-line="52" selection-end-column="10" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AgendaView.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MeetingView.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="36" column="45" lean-forward="false" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -141,13 +159,17 @@
         <option value="$PROJECT_DIR$/app/src/renderer/components/Minute.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/components/Meeting.vue" />
-        <option value="$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue" />
-        <option value="$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/routes.js" />
         <option value="$PROJECT_DIR$/app/src/renderer/main.js" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/App.vue" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/SetupMeeting.vue" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/s.vue" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/MeetingSetup.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" />
       </list>
     </option>
@@ -166,10 +188,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1358" />
+    <option name="x" value="1592" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -191,21 +213,21 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -215,11 +237,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -237,11 +259,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -263,11 +285,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -280,6 +302,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smart-Meetings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smart-Meetings" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -297,7 +337,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="node.js.selected.package.eslint" value="C:\Users\dwanyoike\smartmeet\node_modules\eslint" />
+    <property name="node.js.selected.package.eslint" value="C:\Users\dwany\Smart-Meetings\node_modules\eslint" />
     <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="js.eslint.eslintPackage" value="C:\Users\dwanyoike\smartmeet\node_modules\eslint" />
@@ -415,14 +455,15 @@
       <workItem from="1490955776179" duration="10441000" />
       <workItem from="1490978021638" duration="12671000" />
       <workItem from="1491036263718" duration="3114000" />
+      <workItem from="1491150825906" duration="949000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35299000" />
+    <option name="totallyTimeSpent" value="38829000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1592" y="-8" width="1616" height="876" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -456,56 +497,12 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.main.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.renderer.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4522">
-          <caret line="119" column="31" lean-forward="false" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue" />
     <entry file="file://$PROJECT_DIR$/app/src/renderer/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="12" column="20" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding>
-            <marker date="1491034186958" expanded="true" signature="2231:2246" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -522,7 +519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -547,13 +543,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue" />
     <entry file="file://$PROJECT_DIR$/.eslintignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -565,9 +555,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="12" column="20" lean-forward="true" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding>
-            <marker date="1491034186958" expanded="true" signature="2231:2246" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -608,13 +596,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue" />
     <entry file="file://$PROJECT_DIR$/app/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -622,13 +604,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/LandingPageView/CurrentPage.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-675">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/LandingPageView/CurrentPage.vue" />
     <entry file="file://$PROJECT_DIR$/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -654,7 +630,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -674,13 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.eslintrc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -689,20 +657,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/LandingPageView/Versions.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
-          <caret line="52" column="59" lean-forward="false" selection-start-line="52" selection-start-column="59" selection-end-line="52" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/LandingPageView/Versions.vue" />
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Sidebar.vue" />
     <entry file="file://$PROJECT_DIR$/app/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-782">
@@ -717,24 +673,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue" />
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" />
     <entry file="file://$PROJECT_DIR$/app/src/renderer/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding>
-            <marker date="1491034186966" expanded="true" signature="15:258" ph="[...]" />
-            <marker date="1491034186966" expanded="true" signature="19:214" ph="{&quot;name&quot;: 'landing-page'...}" />
-          </folding>
+          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -748,33 +690,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="46" column="7" lean-forward="false" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding>
+            <element signature="e#715#742#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1491034375675" expanded="true" signature="325:371" ph="{&quot;routes&quot;: routes...}" />
-            <marker date="1491034375675" expanded="true" signature="374:401" ph="/*...*/" />
-            <marker date="1491034375675" expanded="true" signature="410:432" ph="{&quot;router&quot;: router...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/SetupMeeting.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/SetupMeeting.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="8" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <marker date="1491034186958" expanded="true" signature="2231:2246" ph="..." />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="15" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="72" column="38" lean-forward="false" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="38" />
+        <state relative-caret-position="90">
+          <caret line="42" column="6" lean-forward="false" selection-start-line="42" selection-start-column="6" selection-end-line="52" selection-end-column="10" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -785,17 +774,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="699">
+          <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingSetup.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="90" column="16" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="84" column="21" lean-forward="true" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="36" column="45" lean-forward="false" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-          <folding />
+        <state relative-caret-position="540">
+          <caret line="69" column="12" lean-forward="false" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
+          <folding>
+            <element signature="e#452#501#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

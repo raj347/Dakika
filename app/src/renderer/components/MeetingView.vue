@@ -1,5 +1,7 @@
 <template>
+
     <div class="container">
+
         <div class="nav">
             <attendant v-on:addAttendant="attendantAdded"></attendant>
             <div v-on:click="setupMeeting">Setup your Meeting</div>
@@ -7,74 +9,10 @@
 
         <div class="main">
             <minute v-on:minute="minuteChanged" :attendants="attendants"></minute>
+            <setup></setup>
         </div>
 
-        <div class="ui long test modal">
-            <div class="header">
-                Set Up your Meeting
 
-
-
-
-
-
-
-
-
-
-
-            </div>
-            <div class="image content">
-                <div class="description">
-                    <form class="ui form">
-                        <div class="ui grid">
-                            <div class="eight wide field">
-                                <div class="ui icon input">
-                                    <input type="text" placeholder="Agenda">
-                                    <i class="inverted circular briefcase link icon"></i>
-                                </div>
-                            </div>
-                            <div class="eight wide field">
-                                <div class="ui icon input">
-                                    <i class="inverted circular clock link icon"></i>
-                                    <input type="text" placeholder="Minutes">
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-
-                    <div class="ui divider"></div>
-                    <div class="ui list">
-                        <a class="item">
-                            <i class="right triangle icon"></i>
-                            <div class="content">
-                                <div class="description">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>
-                            </div>
-                        </a>
-                        <a class="item">
-                            <i class="right triangle icon"></i>
-                            <div class="content">
-                                <div class="description">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>
-                            </div>
-                        </a>
-                        <a class="item">
-                            <i class="right triangle icon"></i>
-                            <div class="content">
-                                <div class="description">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="actions">
-                <div class="ui primary approve button">
-                    Proceed
-                    <i class="right chevron icon"></i>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -82,40 +20,64 @@
     /* eslint-disable indent,semi */
 
     import Attendant from './Attendant/Attendant.vue'
+    import Setup from './MeetingSetup.vue'
     import Minute from './Minute/Minute.vue'
     import 'semantic-ui-css/components/modal.min.js'
     import 'semantic-ui-css/components/dimmer.min.js'
     import 'semantic-ui-css/components/transition.min.js'
     export default {
-        components: {
-            Attendant,
-            Minute
+      components: {
+        Attendant,
+        Minute,
+        Setup
+      },
+      mounted: function () {
+        // const app = require('electron').remote.app;
+        // console.log(app);
+
+      },
+      data: function () {
+        return {
+          attendants: [],
+          minutes: [],
+          meeting: [],
+          agenda: []
+        }
+      },
+      methods: {
+        setupMeeting: function () {
+          $('.long.modal').modal('show');
         },
-        mounted: function () {
+        attendantAdded: function ($attendants) {
+          this.attendants = $attendants;
+        },
+        minuteChanged: function (minutes) {
+          this.minutes = minutes;
+        }
+      },
+      watch: {
+        attendants: function () {
 
         },
-        data: function () {
-            return {
-                attendants: [],
-                minutes: []
-            }
+        minutes: function () {
+          /*
+          const app = require('electron').remote.app;
+          var jsonfile = require('jsonfile')
+          var file = 'data.json'
+          jsonfile.writeFile(file, this.minutes, function(err, obj) {
+            console.dir(obj)
+          })
+          */
         },
-        methods: {
-            setupMeeting: function () {
-                $('.long.modal').modal('show');
-            },
-            attendantAdded: function ($attendants) {
-                this.attendants = $attendants;
-            },
-            minuteChanged: function (minutes) {
-                this.minutes = minutes;
-            }
+        agenda: function () {
+
         }
+      }
     }
 </script>
 
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Lato:300);
+    @import url('https://fonts.googleapis.com/css?family=Roboto|Rubik');
 
     html,
     body {
@@ -200,5 +162,51 @@
 
     .pic {
         padding-left: 2px;
+    }
+
+    .avatar-header {
+        color: white !important;
+    }
+
+    .title-h {
+        border-bottom: 1px solid rgba(34, 36, 38, 0.15) !important;
+        padding-bottom: 0.5em !important;
+        padding-top: 0.5em !important;
+        text-align: center;
+        font-weight: bold !important;
+        background: #f5f5f5;
+        margin-bottom: 3px !important;
+    }
+
+    .minute-heading {
+        font-size: 1.1em !important;
+        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        font-weight: 800 !important;
+        padding: 2px;
+    }
+
+    .description {
+        padding-left: 2px;
+    }
+
+    .minute-text {
+        font-family: 'Roboto', sans-serif;
+        font-size: 13px;
+    }
+
+    .extra {
+        font-family: 'Rubik', sans-serif;
+        padding-right: 2px;
+        padding-left: 2px;
+        font-weight: bold;
+    }
+
+    .hidden {
+        border: none;
+        width: 300px;
+    }
+
+    .hidden:focus {
+        outline: none;
     }
 </style>

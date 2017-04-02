@@ -45,29 +45,6 @@
 </script>
 
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Roboto|Rubik');
-
-    .minute-heading {
-        font-size: 1.1em !important;
-        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-        font-weight: 800 !important;
-        padding: 2px;
-    }
-
-    .description {
-        padding-left: 2px;
-    }
-    .minute-text{
-        font-family: 'Roboto', sans-serif;
-        font-size: 13px;
-    }
-
-    .extra {
-        font-family: 'Rubik', sans-serif;
-        padding-right: 2px;
-        padding-left: 2px;
-        font-weight: bold;
-    }
 
 
 </style>

@@ -1,9 +1,7 @@
 <template>
 
     <div>
-
-
-        <div class="ui tiny header title-h" style="margin-top: 0px; ">Attendants ({{attendants.length}})</div>
+        <div class="ui tiny header title-h" style="margin-top: 0px; height: 29px ">Attendants ({{attendants.length}})</div>
         <div class="ui form" style="padding-left: 1px; padding-right:1px;">
             <div class=" field">
                 <div class="ui mini icon input">
@@ -64,16 +62,5 @@
 </script>
 
 <style>
-    .avatar-header {
-        color: white !important;
-    }
-    .title-h{
-        border-bottom: 1px solid rgba(34, 36, 38, 0.15) !important;
-        padding-bottom: 0.5em !important;
-        padding-top: 0.5em !important;
-        text-align: center;
-        font-weight: bold !important;
-        background: #f5f5f5;
-        margin-bottom: 3px !important;
-    }
+
 </style>

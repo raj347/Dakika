@@ -16,11 +16,5 @@
 
 <style>
 
-.hidden{
-    border: none;
-    width: 300px;
-}
-.hidden:focus{
-    outline: none;
-}
+
 </style>
