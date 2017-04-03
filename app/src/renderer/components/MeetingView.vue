@@ -3,21 +3,25 @@
     <div class="container">
 
         <div class="nav">
-            <attendant v-on:addAttendant="attendantAdded"></attendant>
+            <attendant :saved_attendants="old_attendants" v-model="attendants"></attendant>
             <div v-on:click="setupMeeting">Setup your Meeting</div>
         </div>
-
         <div class="main">
-            <minute v-on:minute="minuteChanged" :attendants="attendants"></minute>
+            <minute :saved_minutes="old_minutes" v-model="minutes" :attendants="attendants"></minute>
             <setup></setup>
         </div>
+        <div id="overlay">
+            <div class="ui icon buttons">
+                <button v-on:click="newFile" class="ui violet button"><i class="align file outline icon"></i></button>
+                <button v-on:click="openFile" class="ui green button"><i class="align folder open icon"></i></button>
 
-
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    /* eslint-disable indent,semi */
+    /* eslint-disable indent,semi,no-undef,no-unused-vars */
 
     import Attendant from './Attendant/Attendant.vue'
     import Setup from './MeetingSetup.vue'
@@ -26,58 +30,141 @@
     import 'semantic-ui-css/components/dimmer.min.js'
     import 'semantic-ui-css/components/transition.min.js'
     export default {
-      components: {
-        Attendant,
-        Minute,
-        Setup
-      },
-      mounted: function () {
-        // const app = require('electron').remote.app;
-        // console.log(app);
+        components: {
+            Attendant,
+            Minute,
+            Setup
+        },
+        mounted: function () {
+            // const app = require('electron').remote.app;
+            // console.log(app);
 
-      },
-      data: function () {
-        return {
-          attendants: [],
-          minutes: [],
-          meeting: [],
-          agenda: []
-        }
-      },
-      methods: {
-        setupMeeting: function () {
-          $('.long.modal').modal('show');
-        },
-        attendantAdded: function ($attendants) {
-          this.attendants = $attendants;
-        },
-        minuteChanged: function (minutes) {
-          this.minutes = minutes;
-        }
-      },
-      watch: {
-        attendants: function () {
+            this.filename = this.$route.query.name
+            if (this.$route.query.type === 'new') {
+                this.newFile();
+            } else {
+                this.readFile(this.filename);
+            }
 
+            this.saving = 0;
         },
-        minutes: function () {
-          /*
-          const app = require('electron').remote.app;
-          var jsonfile = require('jsonfile')
-          var file = 'data.json'
-          jsonfile.writeFile(file, this.minutes, function(err, obj) {
-            console.dir(obj)
-          })
-          */
+        data: function () {
+            return {
+                attendants: [],
+                minutes: [],
+                meeting: [],
+                agenda: [],
+                old_minutes: [],
+                old_attendants: [],
+                filename: '',
+                saving: 1
+            }
         },
-        agenda: function () {
+        methods: {
+            readFile: function () {
+                var jsonfile = require('jsonfile')
+                var x = this;
+                jsonfile.readFile(this.filename, function (err, obj) {
+                    if (obj[2].minutes !== 'undefined' || obj[2].minutes !== null || obj[2].minutes !== undefined) {
+                        x.old_minutes = obj[2].minutes;
+                        x.minutes = obj[2].minutes;
+                    }
+                    if (obj[1].attendants !== 'undefined' || obj[1].attendants !== null || obj[1].attendants !== undefined) {
+                        x.old_attendants = obj[1].attendants;
+                        x.attendants = obj[1].attendants;
+                    }
 
+                })
+            },
+            setupMeeting: function () {
+                $('.long.modal').modal('show')
+            },
+            attendantAdded: function ($attendants) {
+                this.attendants = $attendants;
+            },
+            minuteChanged: function (minutes) {
+                this.minutes = minutes;
+            },
+            newFile: function () {
+                const app = require('electron').remote.dialog;
+
+                var x = this;
+                app.showSaveDialog({title: 'Create a New Meeting Recording'}, function (fileNames) {
+                    if (fileNames === undefined) {
+
+                    } else {
+                        x.attendants = []
+                        x.minutes = []
+                        x.meeting = []
+                        x.agenda = []
+                        x.old_minutes = []
+                        x.old_attendants = []
+                        x.filename = ''
+                        x.filename = fileNames;
+                        console.log('gh')
+                    }
+
+                });
+            },
+            saveFile: function () {
+                console.log('saving');
+                this.saving = 1;
+                const app = require('electron').remote.app;
+                var jsonfile = require('jsonfile')
+                var obj = [
+                    {
+                        agenda: this.agenda
+                    },
+                    {
+                        attendants: this.attendants
+                    },
+                    {
+                        minutes: this.minutes
+                    }
+                ]
+                jsonfile.writeFile(this.filename, obj, function (err, obj) {
+                    console.dir(obj)
+                });
+                this.saving = 0;
+            },
+            openFile: function () {
+                const app = require('electron').remote.dialog;
+                var x = this;
+                app.showOpenDialog({title: 'Open a Previous Meeting Recording'}, function (fileNames) {
+                    if (fileNames === undefined) {
+
+                    } else {
+                        x.filename = fileNames[0];
+                        x.readFile();
+                    }
+
+                });
+            }
+        },
+        watch: {
+            attendants: function () {
+                if (this.saving === 0) {
+                    this.saveFile();
+                }
+            },
+            minutes: function () {
+                if (this.saving === 0) {
+                    this.saveFile();
+                }
+            },
+            agenda: function () {
+
+            }
         }
-      }
     }
 </script>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Roboto|Rubik');
+
+    * {
+        border-radius: 0px !important;
+    }
 
     html,
     body {
@@ -88,6 +175,14 @@
 
     .modal {
         border-radius: 0px;
+    }
+
+    div#overlay {
+        position: fixed;
+        bottom: 0;
+        right: 30%;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 5px;
     }
 
     .container {
@@ -186,16 +281,16 @@
     }
 
     .description {
-        padding-left: 2px;
+        padding-left: 0px;
     }
 
     .minute-text {
-        font-family: 'Roboto', sans-serif;
+
         font-size: 13px;
     }
 
     .extra {
-        font-family: 'Rubik', sans-serif;
+
         padding-right: 2px;
         padding-left: 2px;
         font-weight: bold;

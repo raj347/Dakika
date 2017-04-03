@@ -1,16 +1,19 @@
+/* eslint-disable indent */
 export default [
-  {
-    path: '/',
-    name: 'landing-page',
-    component: require('components/MeetingView')
-  },
-  {
-    path: '/d',
-    name: 'start-meeting',
-    component: require('components/AgendaView')
-  },
-  {
-    path: '*',
-    redirect: '/'
-  }
+    {
+        path: '/meeting',
+        name: 'landing-page',
+        component: require('components/MeetingView'),
+        props: {default: true, sidebar: false}
+    },
+    {
+        path: '/',
+        name: 'start-meeting',
+        component: require('components/Start'),
+        props: true
+    },
+    {
+        path: '*',
+        redirect: '/'
+    }
 ]

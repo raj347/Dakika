@@ -1,17 +1,12 @@
 <template>
-    <div class="item item-minute" style="    padding-left: 0.3em;">
+    <div class="item item-minute" style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     border-top: 1px solid rgba(34, 36, 38, 0.05);">
 
-        <div class="ui tiny image">
-            <img class="pic" src="veronika.jpg">
-        </div>
         <div class="content">
-
             <div class="description">
                 <p class="minute-text">{{minute.modified_minute}}</p>
             </div>
             <div class="extra">
-
-                <div class="ui  orange label">
+                <div class="ui  green label">
                     <i class="white clock icon"></i>{{minute.time}}
 
                 </div>
