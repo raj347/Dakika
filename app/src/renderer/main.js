@@ -6,6 +6,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 Vue.use(ElementUI)
 import 'semantic-ui-css/semantic.css'
+import 'semantic-ui-css/components/icon.css'
 
 import App from './App'
 import routes from './routes'

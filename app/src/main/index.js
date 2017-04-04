@@ -24,7 +24,7 @@ function createWindow() {
         mainWindow = null
     })
 
-    Menu.setApplicationMenu(null);
+    //Menu.setApplicationMenu(null);
     // eslint-disable-next-line no-console
     console.log('mainWindow opened')
 }

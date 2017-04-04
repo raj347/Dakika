@@ -1,8 +1,8 @@
 <template>
-    <div class="item item-minute" style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     border-top: 1px solid rgba(34, 36, 38, 0.05);">
+    <div class="item item-minute" style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     ">
 
         <div class="content">
-            <div class="description">
+            <div class="description" style="padding-right: 2px !important;">
                 <p class="minute-text">{{minute.modified_minute}}</p>
             </div>
             <div class="extra">
@@ -10,7 +10,7 @@
                     <i class="white clock icon"></i>{{minute.time}}
 
                 </div>
-                &nbsp;&nbsp;
+                &nbsp;&nbsp;<a class="ui teal  label" v-if="minute.agenda">  <i class="tasks icon"></i> {{minute.agenda}}</a>
                 <a class="ui teal image label" v-for="person in minute.people">
                     <img src="jenny.jpg">
                     {{person}}
