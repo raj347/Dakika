@@ -30,132 +30,143 @@
     import 'semantic-ui-css/components/dimmer.min.js'
     import 'semantic-ui-css/components/transition.min.js'
     export default {
-        components: {
-            Attendant,
-            Minute,
-            Setup
-        },
-        mounted: function () {
-            // const app = require('electron').remote.app;
-            // console.log(app);
+      components: {
+        Attendant,
+        Minute,
+        Setup
+      },
+      mounted: function () {
+        // const app = require('electron').remote.app;
+        // console.log(app);
 
-            this.filename = this.$route.query.name
-            if (this.$route.query.type === 'new') {
-                this.newFile();
-            } else {
-                this.readFile(this.filename);
-            }
-
-            this.saving = 0;
-        },
-        data: function () {
-            return {
-                attendants: [],
-                minutes: [],
-                meeting: [],
-                agenda: [],
-                old_minutes: [],
-                old_attendants: [],
-                filename: '',
-                saving: 1
-            }
-        },
-        methods: {
-            readFile: function () {
-                var jsonfile = require('jsonfile')
-                var x = this;
-                jsonfile.readFile(this.filename, function (err, obj) {
-                    if (obj[2].minutes !== 'undefined' || obj[2].minutes !== null || obj[2].minutes !== undefined) {
-                        x.old_minutes = obj[2].minutes;
-                        x.minutes = obj[2].minutes;
-                    }
-                    if (obj[1].attendants !== 'undefined' || obj[1].attendants !== null || obj[1].attendants !== undefined) {
-                        x.old_attendants = obj[1].attendants;
-                        x.attendants = obj[1].attendants;
-                    }
-
-                })
-            },
-            setupMeeting: function () {
-                $('.long.modal').modal('show')
-            },
-            attendantAdded: function ($attendants) {
-                this.attendants = $attendants;
-            },
-            minuteChanged: function (minutes) {
-                this.minutes = minutes;
-            },
-            newFile: function () {
-                const app = require('electron').remote.dialog;
-
-                var x = this;
-                app.showSaveDialog({title: 'Create a New Meeting Recording'}, function (fileNames) {
-                    if (fileNames === undefined) {
-
-                    } else {
-                        x.attendants = []
-                        x.minutes = []
-                        x.meeting = []
-                        x.agenda = []
-                        x.old_minutes = []
-                        x.old_attendants = []
-                        x.filename = ''
-                        x.filename = fileNames;
-                        console.log('gh')
-                    }
-
-                });
-            },
-            saveFile: function () {
-                console.log('saving');
-                this.saving = 1;
-                const app = require('electron').remote.app;
-                var jsonfile = require('jsonfile')
-                var obj = [
-                    {
-                        agenda: this.agenda
-                    },
-                    {
-                        attendants: this.attendants
-                    },
-                    {
-                        minutes: this.minutes
-                    }
-                ]
-                jsonfile.writeFile(this.filename, obj, function (err, obj) {
-                    console.dir(obj)
-                });
-                this.saving = 0;
-            },
-            openFile: function () {
-                const app = require('electron').remote.dialog;
-                var x = this;
-                app.showOpenDialog({title: 'Open a Previous Meeting Recording'}, function (fileNames) {
-                    if (fileNames === undefined) {
-
-                    } else {
-                        x.filename = fileNames[0];
-                        x.readFile();
-                    }
-
-                });
-            }
-        },
-        watch: {
-            attendants: function () {
-                if (this.saving === 0) {
-                    this.saveFile();
-                }
-            },
-            minutes: function () {
-                if (this.saving === 0) {
-                    this.saveFile();
-                }
-            },
-            agenda: function () {
-
-            }
+        this.filename = this.$route.query.name
+        if (this.$route.query.type === 'new') {
+          this.newFile();
+        } else {
+          this.readFile(this.filename);
         }
+
+        this.saving = 0;
+      },
+      data: function () {
+        return {
+          attendants: [],
+          minutes: [],
+          meeting: [],
+          agenda: [],
+          old_minutes: [],
+          old_attendants: [],
+          filename: '',
+          saving: 1
+        }
+      },
+      methods: {
+        readFile: function () {
+          var jsonfile = require('jsonfile')
+          var x = this;
+          jsonfile.readFile(this.filename, function (err, obj) {
+            if (x.checkFileValidity(obj) == false) {
+              const app = require('electron').remote.dialog;
+              app.showMessageBox({
+                title: 'Error Opening File',
+                detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
+              });
+              return 0;
+            }
+            if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
+              x.old_minutes = obj.minutes;
+              x.minutes = obj.minutes;
+            }
+            if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
+              x.old_attendants = obj.attendants;
+              x.attendants = obj.attendants;
+            }
+          })
+          this.saving = 1;
+        },
+        setupMeeting: function () {
+          $('.long.modal').modal('show')
+        },
+        attendantAdded: function ($attendants) {
+          this.attendants = $attendants;
+        },
+        minuteChanged: function (minutes) {
+          this.minutes = minutes;
+        },
+        checkFileValidity: function (obj) {
+          try {
+            JSON.parse(JSON.stringify(obj));
+          } catch (e) {
+            return false;
+          }
+          return true;
+
+        },
+        newFile: function () {
+          const app = require('electron').remote.dialog;
+
+          var x = this;
+          app.showSaveDialog({title: 'Create a New Meeting Recording'}, function (fileNames) {
+            console.log('there')
+            if (fileNames === undefined) {
+              console.log('Error')
+            } else {
+              console.log('here')
+              x.attendants = []
+              x.minutes = []
+              x.meeting = []
+              x.agenda = []
+              x.old_minutes = []
+              x.old_attendants = []
+              x.filename = ''
+              x.filename = fileNames;
+            }
+
+          });
+        },
+        saveFile: function () {
+          console.log('saving');
+          this.saving = 1;
+          const app = require('electron').remote.app;
+          var jsonfile = require('jsonfile')
+          var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+          jsonfile.writeFile(this.filename, obj, function (err, obj) {
+            console.dir(obj)
+          });
+          this.saving = 0;
+        },
+        openFile: function () {
+          const app = require('electron').remote.dialog;
+          var x = this;
+          app.showOpenDialog({title: 'Open a Previous Meeting Recording'}, function (fileNames) {
+            if (fileNames === undefined) {
+
+            } else {
+              x.filename = fileNames[0];
+              x.readFile();
+            }
+
+          });
+        }
+      }
+      ,
+      watch: {
+        attendants: function () {
+          if (this.saving === 0) {
+            this.saveFile();
+          }
+        }
+        ,
+        minutes: function () {
+          if (this.saving === 0) {
+            this.saveFile();
+          }
+        }
+        ,
+        agenda: function () {
+
+        }
+      }
     }
 </script>
 

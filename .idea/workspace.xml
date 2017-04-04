@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d31f8b8-2f79-415c-b984-19d135f43e77" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/renderer/components/Start.vue" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/renderer/components/LandingPageView.vue" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintignore" afterPath="$PROJECT_DIR$/.eslintignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.ejs" afterPath="$PROJECT_DIR$/app/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/index.js" afterPath="$PROJECT_DIR$/app/src/main/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Attendant/Attendant.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue" afterPath="$PROJECT_DIR$/app/src/renderer/components/Minute/MinuteItem.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/main.js" afterPath="$PROJECT_DIR$/app/src/renderer/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/renderer/routes.js" afterPath="$PROJECT_DIR$/app/src/renderer/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.js" afterPath="$PROJECT_DIR$/config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data.json" afterPath="$PROJECT_DIR$/data.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,21 +22,26 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+            <state relative-caret-position="495">
+              <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
               <folding>
-                <marker date="1491216440279" expanded="true" signature="49:344" ph="{&quot;name&quot;: 'landing-page'...}" />
+                <marker date="1491242918348" expanded="true" signature="395:398" ph="{&quot;path&quot;: '*'...}" />
+                <marker date="1491242918348" expanded="true" signature="395:400" ph="[...]" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Start.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Start.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Start.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
               <caret line="31" column="80" lean-forward="false" selection-start-line="31" selection-start-column="80" selection-end-line="31" selection-end-column="80" />
-              <folding />
+              <folding>
+                <marker date="1491244356944" expanded="true" signature="488:1148" ph="{...}" />
+                <marker date="1491244356944" expanded="true" signature="698:1148" ph="{...}" />
+                <marker date="1491244356944" expanded="true" signature="895:1148" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,7 +51,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
               <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding />
+              <folding>
+                <marker date="1491242918323" expanded="true" signature="93:631" ph="..." />
+                <marker date="1491242918323" expanded="true" signature="235:390" ph="{...}" />
+                <marker date="1491242918323" expanded="true" signature="420:491" ph="{...}" />
+                <marker date="1491242918323" expanded="true" signature="578:619" ph="{...}" />
+                <marker date="1491242918323" expanded="true" signature="682:930" ph="{...}" />
+                <marker date="1491242918323" expanded="true" signature="793:920" ph="..." />
+                <marker date="1491242918323" expanded="true" signature="947:1105" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,11 +67,12 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="14" />
+            <state relative-caret-position="315">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#228#265#0" expanded="true" />
+                <marker date="1491242918346" expanded="true" signature="426:472" ph="{&quot;routes&quot;: routes...}" />
+                <marker date="1491242918346" expanded="true" signature="475:502" ph="/*...*/" />
               </folding>
             </state>
           </provider>
@@ -80,29 +83,30 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1125">
               <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1491244362329" expanded="true" signature="885:888" ph="{...}" />
+                <marker date="1491244362329" expanded="true" signature="885:890" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-450">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MeetingView.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MeetingView.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="132" column="35" lean-forward="true" selection-start-line="132" selection-start-column="35" selection-end-line="132" selection-end-column="79" />
               <folding>
                 <element signature="e#854#903#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".eslintignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.eslintignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,8 +115,11 @@
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="3" column="47" lean-forward="true" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
-              <folding />
+              <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
+              <folding>
+                <marker date="1491244352027" expanded="true" signature="0:3260" ph="{&quot;name&quot;: &quot;smartmeet&quot;...}" />
+                <marker date="1491244352027" expanded="true" signature="3153:3258" ph="{&quot;jquery&quot;: &quot;^3.2.1&quot;...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,7 +127,7 @@
       <file leaf-file-name="webpack.main.config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpack.main.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2025">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -187,8 +194,9 @@
         <option value="$PROJECT_DIR$/config.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/app/index.ejs" />
-        <option value="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" />
         <option value="$PROJECT_DIR$/app/src/renderer/components/Start.vue" />
+        <option value="$PROJECT_DIR$/.eslintignore" />
+        <option value="$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue" />
       </list>
     </option>
   </component>
@@ -206,10 +214,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1358" />
+    <option name="x" value="1592" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -226,26 +234,25 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -255,11 +262,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -277,11 +284,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -303,11 +310,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -333,11 +340,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
+              <option name="myItemId" value="Smart-Meetings" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -346,46 +353,13 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="renderer" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Attendant" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartmeet" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -520,17 +494,15 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60866000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1592" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -548,6 +520,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -572,7 +545,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="12" column="20" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -625,7 +597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="12" column="20" lean-forward="true" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -682,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/wamp/www/Dakika-UI/index.html" />
     <entry file="file://$PROJECT_DIR$/app/dist/veronika.jpg" />
     <entry file="file://$PROJECT_DIR$/.eslintrc.js">
@@ -705,9 +669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -717,33 +678,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/LandingPageView.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/LandingPageView.vue" />
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/AgendaView.vue" />
     <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Attendant/AttendantItem.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="1" column="169" lean-forward="false" selection-start-line="1" selection-start-column="169" selection-end-line="1" selection-end-column="169" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -751,7 +694,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-135">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -773,10 +715,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/components/Minute/Minute.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5130">
-          <caret line="114" column="33" lean-forward="false" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
+        <state relative-caret-position="1350">
+          <caret line="30" column="8" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
           <folding>
             <element signature="e#717#744#0" expanded="true" />
+            <marker date="1491244358307" expanded="true" signature="804:4019" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="1157:3732" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="1693:1742" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="1799:2150" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="2044:2132" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="2179:2231" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="2237:2289" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="2353:2754" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="2449:2710" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="2791:3546" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="3099:3450" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="3586:3602" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="3644:3722" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="3749:4013" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="3784:3849" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="3890:4003" ph="{...}" />
+            <marker date="1491244358307" expanded="true" signature="4037:4048" ph="..." />
           </folding>
         </state>
       </provider>
@@ -795,7 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,14 +768,17 @@
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="3" column="47" lean-forward="true" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
-          <folding />
+          <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
+          <folding>
+            <marker date="1491244352027" expanded="true" signature="0:3260" ph="{&quot;name&quot;: &quot;smartmeet&quot;...}" />
+            <marker date="1491244352027" expanded="true" signature="3153:3258" ph="{&quot;jquery&quot;: &quot;^3.2.1&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/webpack.main.config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2025">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -835,27 +796,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1491244362329" expanded="true" signature="885:888" ph="{...}" />
+            <marker date="1491244362329" expanded="true" signature="885:890" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="14" />
+        <state relative-caret-position="315">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#228#265#0" expanded="true" />
+            <marker date="1491242918346" expanded="true" signature="426:472" ph="{&quot;routes&quot;: routes...}" />
+            <marker date="1491242918346" expanded="true" signature="475:502" ph="/*...*/" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/renderer/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        <state relative-caret-position="495">
+          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
-            <marker date="1491216440279" expanded="true" signature="49:344" ph="{&quot;name&quot;: 'landing-page'...}" />
+            <marker date="1491242918348" expanded="true" signature="395:398" ph="{&quot;path&quot;: '*'...}" />
+            <marker date="1491242918348" expanded="true" signature="395:400" ph="[...]" />
           </folding>
         </state>
       </provider>
@@ -864,16 +830,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="132" column="35" lean-forward="true" selection-start-line="132" selection-start-column="35" selection-end-line="132" selection-end-column="79" />
           <folding>
-            <element signature="e#854#903#0" expanded="true" />
+            <marker date="1491242918323" expanded="true" signature="93:631" ph="..." />
+            <marker date="1491242918323" expanded="true" signature="235:390" ph="{...}" />
+            <marker date="1491242918323" expanded="true" signature="420:491" ph="{...}" />
+            <marker date="1491242918323" expanded="true" signature="578:619" ph="{...}" />
+            <marker date="1491242918323" expanded="true" signature="682:930" ph="{...}" />
+            <marker date="1491242918323" expanded="true" signature="793:920" ph="..." />
+            <marker date="1491242918323" expanded="true" signature="947:1105" ph="..." />
           </folding>
         </state>
       </provider>
@@ -882,7 +846,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="31" column="80" lean-forward="false" selection-start-line="31" selection-start-column="80" selection-end-line="31" selection-end-column="80" />
+          <folding>
+            <marker date="1491244356944" expanded="true" signature="488:1148" ph="{...}" />
+            <marker date="1491244356944" expanded="true" signature="698:1148" ph="{...}" />
+            <marker date="1491244356944" expanded="true" signature="895:1148" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/renderer/components/MeetingView.vue">
+      <provider selected="true" editor-type-id="text-editor">
+          <folding>
+            <element signature="e#854#903#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
