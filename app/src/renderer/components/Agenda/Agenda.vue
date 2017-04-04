@@ -1,14 +1,6 @@
 <template>
 
     <div style="padding-right: 0.5em !important;">
-        Meeting Agenda ({{agendas.length}}) :
-
-
-
-
-
-
-
         <div class="ui form" style="padding-left: 1px; padding-right:1px; width: 99%;">
             <div class=" field">
                 <div class="ui mini icon input">

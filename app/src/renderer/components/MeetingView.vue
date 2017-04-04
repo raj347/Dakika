@@ -15,6 +15,7 @@
         <div id="overlay">
             <div class="ui icon buttons">
                 <button v-on:click="newFile" class="ui violet button"><i class="align file outline icon"></i></button>
+                <button v-on:click="pdfFile" class="ui maroon button"><i class="align pdf icon"></i></button>
                 <button v-on:click="saveFile" class="ui teal button"><i class="align save icon"></i></button>
                 <button v-on:click="openFile" class="ui green button"><i class="align folder open icon"></i></button>
 
@@ -30,6 +31,7 @@
     import Setup from './MeetingSetup.vue'
     import Minute from './Minute/Minute.vue'
     import debounce from 'debounce';
+
 
     export default {
         components: {
@@ -48,7 +50,7 @@
                 this.readFile(this.filename);
             }
 
-            this.saving = 0;
+
         },
         data: function () {
             return {
@@ -64,6 +66,9 @@
             }
         },
         methods: {
+            pdfFile: function () {
+                this.$router.push({path: '/pdf', query: {fileName: this.filename}})
+            },
             readFile: function () {
                 var jsonfile = require('jsonfile')
                 var x = this;
@@ -262,7 +267,7 @@
         left: 300px;
         right: 0px;
         opacity: 0.8;
-        background-color: #f8f8f8;
+        background-color: #f7f8f9;
         padding: 2px;
         box-shadow: 0 4px 2px -2px gray;
         z-index: 1000;
@@ -301,7 +306,7 @@
         padding-top: 0.5em !important;
         text-align: center;
         font-weight: bold !important;
-        background: #f5f5f5;
+        background-color: #f7f8f9;
         margin-bottom: 3px !important;
     }
 

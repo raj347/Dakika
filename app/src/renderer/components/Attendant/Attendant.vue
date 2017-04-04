@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="ui relaxed divided list" style="margin-top: 1px; ">
+        <div class="ui middle aligned selection list" >
             <attendant :attendant="attendant" v-for="attendant in attendants"></attendant>
         </div>
 

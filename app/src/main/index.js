@@ -1,6 +1,7 @@
 'use strict'
 
-import {app, BrowserWindow, Menu} from "electron";
+import {app, BrowserWindow, ipcMain, Menu, shell} from "electron";
+const fs = require('fs')
 
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
@@ -30,6 +31,22 @@ function createWindow() {
 }
 
 app.on('ready', createWindow)
+
+ipcMain.on('print-to-pdf', function (event) {
+    const pdfPath = 'print.pdf'
+    const win = BrowserWindow.fromWebContents(event.sender)
+    // Use default printing options
+    win.webContents.printToPDF({}, function (error, data) {
+        if (error) throw error
+        fs.writeFile(pdfPath, data, function (error) {
+            if (error) {
+                throw error
+            }
+            shell.openExternal('file://' + pdfPath)
+            event.sender.send('wrote-pdf', pdfPath)
+        })
+    })
+})
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {

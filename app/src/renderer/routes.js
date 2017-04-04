@@ -13,6 +13,12 @@ export default [
         props: true
     },
     {
+        path: '/pdf',
+        name: 'savepdf',
+        component: require('components/pdfView'),
+        props: true
+    },
+    {
         path: '*',
         redirect: '/'
     }
