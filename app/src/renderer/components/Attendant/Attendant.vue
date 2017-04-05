@@ -1,17 +1,8 @@
 <template>
 
     <div>
-        <div class="ui tiny header title-h"
-             style="margin-top: 0px; height: 29px;   border-top: 1px solid rgba(0, 0, 0, 0.05); ">
-            Attendants ({{attendants.length}})
 
-
-
-
-
-
-        </div>
-        <div class="ui form" style="padding-left: 1px; padding-right:1px;">
+        <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 5px;">
             <div class=" field">
                 <div class="ui mini icon input">
                     <input v-on:keyup.enter="addAttendant" v-model="attendant" type="text" placeholder="Add Attendants">
@@ -19,8 +10,8 @@
                 </div>
             </div>
         </div>
-        <div class="ui middle aligned selection list" >
-            <attendant :attendant="attendant" v-for="attendant in attendants"></attendant>
+        <div class="ui middle aligned selection list">
+            <attendant :attendant="attendant" v-on:delete-item="deleteItem" v-for="attendant in attendants"></attendant>
         </div>
 
 
@@ -49,6 +40,12 @@
 
         },
         methods: {
+            deleteItem: function (item) {
+                var index = this.attendants.indexOf(item)
+                if (index > -1) {
+                    this.attendants.splice(index, 1);
+                }
+            },
             createAcronym: function (str) {
                 var matches = str.match(/\b(\w)/g)              // ['J','S','O','N']
                 return matches.join('')

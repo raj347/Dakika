@@ -1,6 +1,7 @@
 <template>
     <div class="ui grid" style="margin: 5px;">
-        <div v-on:click="printData" class="no-print">Print</div>
+        <div v-on:click="printData" class="no-print ui secondary button">Print</div>
+        <div v-on:click="back" class="no-print ui primary button">Go Back</div>
 
         <table class="ui striped table" style="padding: 0px;">
             <thead>
@@ -9,17 +10,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="attendant in attendants">
+            <tr v-for="attendant in data.attendants">
                 <td>{{attendant.attendant}}</td>
             </tr>
             </tbody>
         </table>
-        <table class="ui celled  table" style="  page-break-inside: avoid;   padding-right: 0rem;  padding-left: 0rem;">
-            <tr v-for="minute in minutes" style="display: block;  page-break-inside: avoid; ">
+        <table class="ui striped table" style="  page-break-inside: avoid;   padding-right: 0rem;  padding-left: 0rem;">
+            <tr v-for="minute in data.minutes" style="display: block;  page-break-inside: avoid; ">
                 <td style="  page-break-inside: avoid; ">
+
                     <b>Agenda :</b> {{minute.agenda}}<br/>
                     <p style="padding: 2px;   page-break-inside: avoid; ">{{minute.modified_minute}}</p>
                     <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}}</span> &nbsp
+
+
+
+
+
+
 
 
                 </td>
@@ -31,56 +39,48 @@
 
 <script>
     /* eslint-disable indent,semi,no-undef,no-unused-vars */
-
+    const ipc = require('electron').ipcRenderer
     export default {
-      components: {},
-      mounted: function () {
-        // const app = require('electron').remote.app;
-        // console.log(app);
-        this.filename = this.$route.query.fileName
-        this.readFile()
+        components: {},
+        mounted: function () {
 
-      },
-      data: function () {
-        return {
-          attendants: [],
-          minutes: [],
-          meeting: [],
-          agenda: [],
-          old_minutes: [],
-          old_attendants: [],
-          old_agendas: [],
+            this.data = this.$route.params.data
+
+
+
+            ipc.on('wrote-pdf', (event, arg) => {
+                console.log(arg)
+            });
+
+        },
+        data: function () {
+            return {
+                data: {}
+
+            }
+        },
+        methods: {
+            back: function () {
+                 this.$router.push({name: 'landing-page', params: {fileName: this.data.fileName}})
+            },
+            printData: function () {
+                const dialog = require('electron').remote.dialog;
+                var x = this;
+                dialog.showSaveDialog({title: 'Create PDF of Minutes'}, function (fileNames) {
+                    if (fileNames === undefined) {
+                        console.log('Error')
+                    } else {
+                        ipc.send('print-to-pdf', fileNames)
+
+                    }
+
+                });
+
+
+            },
         }
-      },
-      methods: {
-        printData: function () {
-          const ipc = require('electron').ipcRenderer
-          ipc.send('print-to-pdf')
-          alert('d');
-        },
-        readFile: function () {
-          var jsonfile = require('jsonfile')
-          var x = this;
-          jsonfile.readFile(this.filename, function (err, obj) {
-
-            if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
-              x.old_minutes = obj.minutes;
-              x.minutes = obj.minutes;
-            }
-            if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
-              x.old_attendants = obj.attendants;
-              x.attendants = obj.attendants;
-            }
-            if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
-              x.old_agendas = obj.agenda;
-              x.agenda = obj.agenda;
-            }
-          })
-
-        },
-      }
-      ,
-      watch: {}
+        ,
+        watch: {}
     }
 </script>
 

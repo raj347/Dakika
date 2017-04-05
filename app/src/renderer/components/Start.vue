@@ -14,13 +14,19 @@
 </template>
 <script>
     /* eslint-disable indent,semi */
-
+    const ipc = require('electron').ipcRenderer
     export default {
 
         data: function () {
             return {
                 agenda: []
             }
+        },
+        mounted:function(){
+            ipc.on('file-opened', (event, arg) => {
+                console.log(arg)
+
+            });
         },
         methods: {
             addAgenda: function () {

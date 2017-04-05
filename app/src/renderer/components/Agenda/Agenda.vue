@@ -1,7 +1,7 @@
 <template>
 
     <div style="padding-right: 0.5em !important;">
-        <div class="ui form" style="padding-left: 1px; padding-right:1px; width: 99%;">
+        <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 4px; width: 99%;">
             <div class=" field">
                 <div class="ui mini icon input">
                     <input v-on:keyup.enter="addAgenda" v-model="agenda" type="text" placeholder="Add Agenda">
@@ -15,13 +15,6 @@
                 <div v-bind:class="{ active_agenda: agenda.active }" class="content">
                     <div class="description">
                         {{agenda.text}}
-
-
-
-
-
-
-
                     </div>
                 </div>
             </a>

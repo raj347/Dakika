@@ -8,20 +8,22 @@
                 </div>
             </div>
         </div>
-        <div class="view-pane" style="margin-top: 79px; height: 100%;">
+        <div class="view-pane" style="margin-top: 74px; height: 100%;">
             <div class="ui  grid" style="height: 100%;">
                 <div class="ten wide column"
-                     style="border-right: 1px solid rgba(0,0,0,0.1); padding-right: 0px !important;">
+                     style=" border-right: 1px solid rgba(0,0,0,0.1); padding-right: 0px !important; padding-top: 0px !important;">
 
                     <div style="height: 100%; overflow-y: scroll; padding-bottom: 80px;  ">
                         <div class="ui divided items minute-item">
-                            <Item :minute="minute" v-for="minute in minutes"></Item>
+                            <Item :minute="minute" v-on:edit-item="editMinute" v-on:delete-item="deleteMinute"
+                                  v-for="minute in minutes"></Item>
 
                         </div>
                     </div>
 
                 </div>
-                <div class="six wide column" style="height: 100%; overflow-y: scroll; padding-bottom: 80px; padding-left: 0px;padding-right: 4px;  ">
+                <div class="six wide column"
+                     style="padding-top: 0px !important;height: 100%; overflow-y: scroll; padding-bottom: 80px; padding-left: 0px;padding-right: 4px;  ">
 
                     <agenda :agendas="agendas" v-on:input="updateAgenda"></agenda>
 
@@ -57,7 +59,8 @@
                 tags: '',
                 modified_minute: '',
                 agenda: '',
-                agendas: []
+                agendas: [],
+                editing_minute: null
             }
         },
         methods: {
@@ -96,8 +99,11 @@
                 this.agendas = agenda;
                 this.$emit('agenda', agenda)
             },
+            editMinute: function (item) {
+                this.editing_minute = this.minutes.indexOf(item)
+                this.minute = item.minute.trim()
+            },
             substitutePeople: function (minute) {
-                console.log(this.attendants)
                 for (var key in this.attendants) {
                     var attendant = this.attendants[key].attendant
                     var acronym = this.attendants[key].acronym
@@ -108,7 +114,6 @@
             },
             getActiveAgenda: function () {
                 var x = this.agendas.findIndex(x => x.active == true)
-
                 if (x > -1) {
                     this.agenda = this.agendas[x].text
                 }
@@ -120,7 +125,7 @@
                 this.modified_minute = this.substitutePeople(this.modified_minute)
                 this.getActiveAgenda()
                 var minuteObject = {
-                    minute: this.minute,
+                    minute: this.minute.trim(),
                     modified_minute: this.modified_minute,
                     tags: this.tags,
                     people: this.people,
@@ -129,12 +134,22 @@
                     date: moment().format('YYYY-M-D'),
                     time: moment().format('h:mm')
                 }
+                if (this.editing_minute !== null) {
+                    this.minutes[this.editing_minute] = minuteObject
+                    this.editing_minute = null
 
-                this.minutes.push(minuteObject)
+                } else {
+                    this.minutes.push(minuteObject)
+                    this.editing_minute = null
+                }
+
                 this.minute = ''
             },
-            deleteMinute: function () {
-
+            deleteMinute: function (item) {
+                var index = this.minutes.indexOf(item)
+                if (index > -1) {
+                    this.minutes.splice(index, 1);
+                }
             },
             editLastMinute: function () {
                 this.minute = this.minutes.slice(-1)[0].minute

@@ -1,7 +1,9 @@
 <template>
-    <div class="item item-minute" style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     ">
+    <div class="item item-minute"
+         style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     "
+         v-on:click="editItem(minute)">
 
-        <div class="content">
+        <div class="content" style="cursor: pointer">
             <div class="description" style="padding-right: 2px !important;">
                 <p class="minute-text">{{minute.modified_minute}}</p>
             </div>
@@ -10,7 +12,7 @@
                     <i class="white clock icon"></i>{{minute.time}}
 
                 </div>
-                &nbsp;&nbsp;<a class="ui teal  label" v-if="minute.agenda">  <i class="tasks icon"></i> {{minute.agenda}}</a>
+                &nbsp;&nbsp;<a class="ui teal  label" v-if="minute.agenda"> <i class="tasks icon"></i> {{minute.agenda}}</a>
                 <a class="ui teal image label" v-for="person in minute.people">
                     <img src="jenny.jpg">
                     {{person}}
@@ -24,10 +26,14 @@
                     {{tag.replace('#', "")}}
 
 
-
                 </div>
 
+                <div class="ui  red right floated label" v-on:click="deleteItem(minute)"
+                     style="margin:0px; cursor: pointer">
+                    Delete
 
+
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +41,15 @@
 
 <script>
     export default {
-      props: ['minute']
+        props: ['minute'],
+        methods: {
+            deleteItem: function (item) {
+                this.$emit('delete-item', item)
+            },
+            editItem: function (item) {
+                this.$emit('edit-item', item)
+            }
+        }
     }
 </script>
 
