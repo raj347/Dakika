@@ -79,7 +79,6 @@
   },
   "dependencies": {
     "debounce": "^1.0.0",
-    "element-ui": "^1.2.7",
     "jsonfile": "^2.4.0",
     "moment": "^2.18.1",
     "semantic-ui-css": "^2.2.9"

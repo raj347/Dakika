@@ -104,9 +104,8 @@ function createWindow() {
             submenu: [
                 {role: 'reload'},
                 {role: 'toggledevtools'},
-                {type: 'separator'},
                 {role: 'resetzoom'},
-                {type: 'separator'},
+
             ]
         },
         {
@@ -142,7 +141,7 @@ function createWindow() {
 app.on('ready', createWindow)
 
 ipcMain.on('data-saved', function (event, args) {
-    appIcon.displayBalloon({title: 'Dakika', content: 'Minutes Saved'})
+    console.log('Saved')
 })
 ipcMain.on('print-to-pdf', function (event, args) {
     const pdfPath = args

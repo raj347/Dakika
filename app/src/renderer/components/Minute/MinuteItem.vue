@@ -1,13 +1,13 @@
 <template>
     <div class="item item-minute"
          style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     "
-         v-on:click="editItem(minute)">
+        >
 
         <div class="content" style="cursor: pointer">
-            <div class="description" style="padding-right: 2px !important;">
+            <div class="description"  v-on:click="editItem(minute)" style="padding-right: 2px !important;">
                 <p class="minute-text">{{minute.modified_minute}}</p>
             </div>
-            <div class="extra">
+            <div class="extra" style="padding-right: 2px;">
                 <div class="ui  green label">
                     <i class="white clock icon"></i>{{minute.time}}
 
@@ -54,6 +54,8 @@
 </script>
 
 <style>
+
+
 
 
 </style>
