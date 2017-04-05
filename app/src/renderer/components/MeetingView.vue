@@ -12,15 +12,7 @@
                     :attendants="attendants"></minute>
 
         </div>
-        <div id="overlay">
-            <div class="ui icon buttons">
-                <button v-on:click="newFile" class="ui violet button"><i class="align file outline icon"></i></button>
-                <button v-on:click="pdfFile" class="ui maroon button"><i class="align pdf icon"></i></button>
-                <button v-on:click="saveFile" class="ui teal button"><i class="align save icon"></i></button>
-                <button v-on:click="openFile" class="ui green button"><i class="align folder open icon"></i></button>
 
-            </div>
-        </div>
     </div>
 </template>
 
@@ -32,7 +24,9 @@
     import Minute from './Minute/Minute.vue'
     import debounce from 'debounce';
 
-
+    const ipc = require('electron').ipcRenderer
+    const app = require('electron').remote.dialog;
+    const jsonfile = require('jsonfile')
     export default {
         components: {
             Attendant,
@@ -41,14 +35,40 @@
         },
         mounted: function () {
             // const app = require('electron').remote.app;
-            // console.log(app);
 
-            this.filename = this.$route.query.name
-            if (this.$route.query.type === 'new') {
-                this.newFile();
-            } else {
-                this.readFile(this.filename);
+            var filename = this.$route.params.fileName;
+            if (typeof filename != 'undefined') {
+                this.filename = filename
+                this.readFile(filename);
             }
+            ipc.on('file-opened', (event, arg) => {
+                this.filename = arg;
+                this.readFile(this.filename);
+
+            });
+            ipc.on('new-file', (event, arg) => {
+                this.truncateData();
+                this.filename = arg;
+                console.log(arg)
+            });
+            ipc.on('save-file', (event, arg) => {
+                this.saveFile()
+            });
+
+            ipc.on('print-pdf', (event, arg) => {
+                this.$router.push({
+                    name: 'savepdf', params: {
+                        data: {
+                            agenda: this.agenda,
+                            attendants: this.attendants,
+                            minutes: this.minutes,
+                            fileName: this.filename
+                        },
+
+
+                    }
+                })
+            });
 
 
         },
@@ -62,19 +82,17 @@
                 old_attendants: [],
                 old_agendas: [],
                 filename: null,
-                saving: 1
+                saving: 1,
+
             }
         },
         methods: {
-            pdfFile: function () {
-                this.$router.push({path: '/pdf', query: {fileName: this.filename}})
-            },
+
             readFile: function () {
-                var jsonfile = require('jsonfile')
                 var x = this;
                 jsonfile.readFile(this.filename, function (err, obj) {
                     if (x.checkFileValidity(obj) == false) {
-                        const app = require('electron').remote.dialog;
+
                         app.showMessageBox({
                             title: 'Error Opening File',
                             detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
@@ -94,8 +112,10 @@
                         x.old_agendas = obj.agenda;
                         x.agenda = obj.agenda;
                     }
+
+
                 })
-                this.saving = 1;
+                this.saving = 0;
             },
             setupMeeting: function () {
                 $('.long.modal').modal('show')
@@ -122,20 +142,6 @@
                 return true;
 
             },
-            newFile: function () {
-                const app = require('electron').remote.dialog;
-
-                var x = this;
-                app.showSaveDialog({title: 'Create a New Meeting Recording'}, function (fileNames) {
-                    if (fileNames === undefined) {
-                        console.log('Error')
-                    } else {
-                        x.truncateData();
-                        x.filename = fileNames;
-                    }
-
-                });
-            },
             truncateData: function () {
                 this.attendants = []
                 this.minutes = []
@@ -143,53 +149,58 @@
                 this.agenda = []
                 this.old_minutes = []
                 this.old_attendants = []
+                this.old_agendas = []
+                this.editing_minute = null
                 this.filename = null
             },
             saveFile: function () {
-                console.log('saving');
+                if (this.saving === 1) {
+                    console.log(this.saving)
+                    return 0;
+                }
+                if (this.filename === null) {
 
+                    app.showMessageBox({
+                        title: 'Error Opening File',
+                        detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
+                    });
+                    return 0;
+                }
                 this.saving = 1;
-                const app = require('electron').remote.app;
-                var jsonfile = require('jsonfile')
+
+
                 var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+                var x = this;
                 jsonfile.writeFile(this.filename, obj, function (err, obj) {
-                    console.dir(obj)
+                    x.saving = 0;
+                    ipc.send('data-saved')
+                    console.log('saved')
                 });
-                this.saving = 0;
+
             },
             saveFileDebounce: debounce(function () {
                 this.saveFile()
-            }, 10000),
-            openFile: function () {
-                const app = require('electron').remote.dialog;
-                var x = this;
-                app.showOpenDialog({title: 'Open a Previous Meeting Recording'}, function (fileNames) {
-                    if (fileNames === undefined) {
-
-                    } else {
-                        x.filename = fileNames[0];
-                        x.readFile();
-                    }
-
-                });
-            }
-        }
-        ,
+            }, 10000)
+        },
         watch: {
             attendants: function () {
-                if (this.saving === 0) {
-                    this.saveFileDebounce;
-                }
+
+                this.saveFileDebounce;
+
             }
             ,
             minutes: function () {
-                if (this.saving === 0) {
-                    this.saveFileDebounce;
-                }
+
+                this.saveFileDebounce;
+
             }
             ,
             agenda: function () {
 
+            },
+            filename: function () {
+                document.title = 'Dakika : ' + this.filename.split('\\').pop().split('/').pop();
+                ;
             }
         }
     }
@@ -214,14 +225,6 @@
         border-radius: 0px;
     }
 
-    div#overlay {
-        position: fixed;
-        bottom: 0;
-        right: 30%;
-        background: rgba(0, 0, 0, 0.4);
-        padding: 5px;
-    }
-
     .container {
         height: 100%;
         display: -ms-flexbox;
@@ -238,7 +241,7 @@
     }
 
     .nav {
-        background: #ffffff;
+        background: #fffeff;
         width: 300px;
         -ms-flex: 0 100px;
         -webkit-box-flex: 0;
@@ -267,9 +270,9 @@
         left: 300px;
         right: 0px;
         opacity: 0.8;
-        background-color: #f7f8f9;
+
         padding: 2px;
-        box-shadow: 0 4px 2px -2px gray;
+
         z-index: 1000;
 
     }
