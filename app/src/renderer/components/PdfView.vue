@@ -1,5 +1,5 @@
 <template>
-    <div class="ui grid" style="margin: 5px;">
+    <div  style="margin: 5px;">
         <div v-on:click="printData" class="no-print ui secondary button">Print</div>
         <div v-on:click="back" class="no-print ui primary button">Go Back</div>
 
@@ -15,7 +15,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="ui striped table" style="  page-break-inside: avoid;   padding-right: 0rem;  padding-left: 0rem;">
+        <table class="ui striped table" style="    padding-right: 0rem;  padding-left: 0rem;">
             <tr v-for="minute in data.minutes" style="display: block;  page-break-inside: avoid; ">
                 <td style="  page-break-inside: avoid; ">
 
@@ -95,9 +95,7 @@
         overflow: auto;
     }
 
-    table, tr, td, th, tbody, thead, tfoot {
-        page-break-inside: avoid !important;
-    }
+
 
     thead {
         display: table-header-group
