@@ -1,3 +1,4 @@
+!include "FileAssociation.nsh"
 # define installer name
 OutFile "Dakika.exe"
  
@@ -16,7 +17,7 @@ File /r "C:\Users\dwanyoike\Dakika\builds\Dakika-win32-x64\*"
 # define uninstaller name
 WriteUninstaller $INSTDIR\uninstaller.exe
  
- 
+${registerExtension} "$INSTDIR\Dakika.exe" ".min" "Minute File" 
 #-------
 # default section end
 SectionEnd
