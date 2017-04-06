@@ -20,7 +20,7 @@
                 <td style="  page-break-inside: avoid; ">
 
                     <b>Agenda :</b> {{minute.agenda}}<br/>
-                    <p style="padding: 2px;   page-break-inside: avoid; ">{{minute.modified_minute}}</p>
+                    <p style="text-align: justify; text-justify: inter-word; padding: 2px;   page-break-inside: avoid; ">{{minute.modified_minute}}</p>
                     <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}}</span> &nbsp
 
 

@@ -9,14 +9,23 @@
                 </div>
             </div>
         </div>
-        <div class="ui relaxed divided list" style="margin-top: 1px; ">
-            <a class="item" v-for="agenda in agendas" v-bind:class="{ active_agenda: agenda.active }"  v-on:click="addActive(agenda)">
-                <i v-bind:class="{ green: agenda.active }" class="right triangle icon"></i>
-                <div v-bind:class="{ active_agenda: agenda.active }" class="content">
-                    <div class="description">
-                        {{agenda.text}}
-                    </div>
+        <div class="ui middle aligned selection list" style="margin-top: 1px; ">
+            <a class="item" v-for="agenda in agendas" v-bind:class="{ active_agenda: agenda.active }"
+               v-on:click="addActive(agenda)">
+
+                <div class="ui  red right floated " v-on:click="deleteAgenda(agenda)" style="margin:0px;">
+                    <i class="remove icon "></i>
                 </div>
+                <div v-bind:class="{ active_agenda: agenda.active }" class="content">
+                    <i v-bind:class="{ green: agenda.active }" class="right triangle icon"></i>
+                    <span class="name" style="color: rgba(0, 0, 0, 0.87);">
+                        {{agenda.text}}
+
+                    </span>
+
+                </div>
+
+
             </a>
         </div>
 
@@ -52,6 +61,12 @@
                 })
 
                 this.agenda = ''
+            },
+            deleteAgenda: function (agenda) {
+                var index = this.agendas.indexOf(agenda)
+                if (index > -1) {
+                    this.agendas.splice(index, 1);
+                }
             },
             addActive: function (item) {
                 for (var key in this.agendas) {

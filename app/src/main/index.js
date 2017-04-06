@@ -17,7 +17,7 @@ function createWindow() {
         height: 600,
         'minHeight': 600,
         'minWidth': 1200,
-        icon: `${__dirname}/../../icons/pen.ico`
+        icon: `${app.getAppPath()}/../../icons/pen.ico`
     })
 
     mainWindow.loadURL(winURL)
@@ -139,7 +139,7 @@ function createWindow() {
 }
 
 app.on('ready', createWindow)
-
+console.log(__dirname)
 ipcMain.on('data-saved', function (event, args) {
     console.log('Saved')
 })

@@ -88,6 +88,7 @@
       methods: {
 
         readFile: function () {
+            this.saving = 1;
           var x = this;
           jsonfile.readFile(this.filename, function (err, obj) {
             if (x.checkFileValidity(obj) == false) {
