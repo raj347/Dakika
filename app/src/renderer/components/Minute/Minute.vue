@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </div>
-            <div class="view-pane" style="margin-top: 74px; height: 100%;">
+            <div class="view-pane" style="margin-top: 83px; height: 100%; padding-top: 6px;">
                 <div class="ui  grid" style="height: 100%;">
                     <div class="ten wide column"
                          style=" border-right: 1px solid rgba(0,0,0,0.1); padding-right: 0px !important; padding-top: 0px !important;">
@@ -28,7 +28,7 @@
 
                     </div>
                     <div class="six wide column"
-                         style="  background: #fdfcfd; padding-top: 0px !important;height: 100%; overflow-y: scroll; padding-bottom: 80px; padding-left: 0px;padding-right: 4px;  ">
+                         style="   padding-top: 0px !important;height: 100%; overflow-y: scroll; padding-bottom: 80px; padding-left: 0px;padding-right: 4px;  ">
 
                         <agenda :agendas="agendas" v-on:input="updateAgenda"></agenda>
 

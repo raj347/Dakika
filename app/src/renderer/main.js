@@ -13,8 +13,7 @@ Vue.use(Electron)
 
 Vue.use(Resource)
 Vue.use(Router)
-Vue.config.debug = tru
-e
+Vue.config.debug = true
 
 const router = new Router({
   scrollBehavior: () => ({y: 0}),

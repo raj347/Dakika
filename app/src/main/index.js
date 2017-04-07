@@ -17,7 +17,7 @@ function createWindow() {
         height: 600,
         'minHeight': 600,
         'minWidth': 1200,
-        icon: `${app.getAppPath()}/../../icons/pen.ico`
+        icon: `${__dirname}/../icons/pen.ico`
     })
 
     mainWindow.loadURL(winURL)
@@ -131,7 +131,7 @@ function createWindow() {
 
     Menu.setApplicationMenu(menu);
 
-    appIcon = new Tray(`${__dirname}/../../icons/pen.ico`);
+    appIcon = new Tray(`${__dirname}/../icons/pen.ico`);
     appIcon.setToolTip('Dakika');
     // eslint-disable-next-line no-console
     console.log('mainWindow opened')

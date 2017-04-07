@@ -11,7 +11,7 @@
         </div>
         <img class="ui avatar image" src="veronika.jpg">
         <div class="content">
-            <div class="name" style="font-weight: bold;color: rgba(0, 0, 0, 0.87);">
+            <div class="name noselect" style="font-weight: bold;color: rgba(0, 0, 0, 0.87);">
                 {{attendant.attendant}}-{{attendant.acronym}}
 
             </div>

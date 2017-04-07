@@ -1,6 +1,6 @@
 <template>
 
-    <div style="padding-right: 0.5em !important;">
+    <div class="gradient" style="padding-right: 0.5em !important; height: 100%;">
         <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 4px; width: 99%;">
             <div class=" field">
                 <div class="ui mini icon input">
