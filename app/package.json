@@ -1,5 +1,5 @@
 {
-  "name": "smartmeet",
+  "name": "Dakika",
   "version": "0.0.0",
   "description": "A minute taking application",
   "main": "./dist/main.js",

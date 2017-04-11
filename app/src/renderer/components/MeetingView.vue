@@ -29,175 +29,178 @@
     const jsonfile = require('jsonfile')
 
     export default {
-        components: {
-            Attendant,
-            Minute,
-            Setup
-        },
-        mounted: function () {
-            // const app = require('electron').remote.app;
+      components: {
+        Attendant,
+        Minute,
+        Setup
+      },
+      mounted: function () {
+        // const app = require('electron').remote.app;
 
-            var filename = this.$route.params.fileName;
-            if (typeof filename != 'undefined') {
-                this.filename = filename
-                this.readFile(filename);
-            }
-            ipc.on('file-opened', (event, arg) => {
-                this.filename = arg;
-                this.readFile(this.filename);
+        ipc.send('get-file-data');
 
-            });
-            ipc.on('new-file', (event, arg) => {
-                this.truncateData();
-                this.filename = arg;
-                console.log(arg)
-            });
-            ipc.on('save-file', (event, arg) => {
-                this.saveFile()
-            });
-
-            ipc.on('print-pdf', (event, arg) => {
-                this.$router.push({
-                    name: 'savepdf', params: {
-                        data: {
-                            agenda: this.agenda,
-                            attendants: this.attendants,
-                            minutes: this.minutes,
-                            fileName: this.filename
-                        },
-
-                    }
-                })
-            });
-
-        },
-        data: function () {
-            return {
-                attendants: [],
-                minutes: [],
-                meeting: [],
-                agenda: [],
-                old_minutes: [],
-                old_attendants: [],
-                old_agendas: [],
-                filename: null,
-                saving: 1,
-
-            }
-        },
-        methods: {
-
-            readFile: function () {
-                this.saving = 1;
-                var x = this;
-                jsonfile.readFile(this.filename, function (err, obj) {
-                    if (x.checkFileValidity(obj) == false) {
-
-                        app.showMessageBox({
-                            title: 'Error Opening File',
-                            detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
-                        });
-                        x.truncateData()
-                        return 0;
-                    }
-                    if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
-                        x.old_minutes = obj.minutes;
-                        x.minutes = obj.minutes;
-                    }
-                    if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
-                        x.old_attendants = obj.attendants;
-                        x.attendants = obj.attendants;
-                    }
-                    if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
-                        x.old_agendas = obj.agenda;
-                        x.agenda = obj.agenda;
-                    }
-
-                })
-                this.saving = 0;
-            },
-            setupMeeting: function () {
-                $('.long.modal').modal('show')
-            },
-            attendantAdded: function ($attendants) {
-                this.attendants = $attendants;
-            },
-            minuteChanged: function (minutes) {
-                this.minutes = minutes;
-            },
-            agendaUpdated: function (agenda) {
-                this.agenda = agenda
-                this.saveFileDebounce();
-            },
-            checkFileValidity: function (obj) {
-                try {
-                    JSON.parse(JSON.stringify(obj));
-                } catch (e) {
-                    return false;
-                }
-                return true;
-
-            },
-            truncateData: function () {
-                this.attendants = []
-                this.minutes = []
-                this.meeting = []
-                this.agenda = []
-                this.old_minutes = []
-                this.old_attendants = []
-                this.old_agendas = []
-                this.editing_minute = null
-                this.filename = null
-            },
-            saveFile: function () {
-                if (this.saving === 1) {
-                    console.log(this.saving)
-                    return 0;
-                }
-                if (this.filename === null) {
-                    app.showMessageBox({
-                        title: 'Error Opening File',
-                        detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
-                    });
-                    return 0;
-                }
-                this.saving = 1;
-
-                var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
-                var x = this;
-                jsonfile.writeFile(this.filename, obj, function (err, obj) {
-                    if (err) throw err;
-                    x.saving = 0;
-                    ipc.send('data-saved')
-                    console.log('saved')
-                });
-
-            },
-            saveFileDebounce: debounce(function () {
-                this.saveFile()
-            }, 10000)
-        },
-        watch: {
-            attendants: function () {
-
-                this.saveFileDebounce;
-
-            }
-            ,
-            minutes: function () {
-
-                this.saveFileDebounce;
-
-            }
-            ,
-            agenda: function () {
-
-            },
-            filename: function () {
-                document.title = 'Dakika : ' + this.filename.split('\\').pop().split('/').pop();
-                ;
-            }
+        var filename = this.$route.params.fileName;
+        if (typeof filename != 'undefined') {
+          this.filename = filename
+          this.readFile(filename);
         }
+        ipc.on('file-opened', (event, arg) => {
+          this.filename = arg;
+          this.readFile(this.filename);
+
+        });
+        ipc.on('new-file', (event, arg) => {
+          this.truncateData();
+          this.filename = arg;
+          //this.saving = 0;
+        });
+        ipc.on('save-file', (event, arg) => {
+          this.saveFile()
+        });
+
+        ipc.on('print-pdf', (event, arg) => {
+          this.$router.push({
+            name: 'savepdf', params: {
+              data: {
+                agenda: this.agenda,
+                attendants: this.attendants,
+                minutes: this.minutes,
+                fileName: this.filename
+              },
+
+            }
+          })
+        });
+
+      },
+      data: function () {
+        return {
+          attendants: [],
+          minutes: [],
+          meeting: [],
+          agenda: [],
+          old_minutes: [],
+          old_attendants: [],
+          old_agendas: [],
+          filename: null,
+          saving: 1,
+
+        }
+      },
+      methods: {
+
+        readFile: function () {
+          this.saving = 1;
+          var x = this;
+          jsonfile.readFile(this.filename, function (err, obj) {
+            if (x.checkFileValidity(obj) == false) {
+
+              app.showMessageBox({
+                title: 'Error Opening File',
+                detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
+              });
+              x.truncateData()
+              return 0;
+            }
+            if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
+              x.old_minutes = obj.minutes;
+              x.minutes = obj.minutes;
+            }
+            if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
+              x.old_attendants = obj.attendants;
+              x.attendants = obj.attendants;
+            }
+            if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
+              x.old_agendas = obj.agenda;
+              x.agenda = obj.agenda;
+            }
+
+          })
+          this.saving = 0;
+        },
+        setupMeeting: function () {
+          $('.long.modal').modal('show')
+        },
+        attendantAdded: function ($attendants) {
+          this.attendants = $attendants;
+        },
+        minuteChanged: function (minutes) {
+          this.minutes = minutes;
+        },
+        agendaUpdated: function (agenda) {
+          this.agenda = agenda
+          this.saveFileDebounce();
+        },
+        checkFileValidity: function (obj) {
+          try {
+            JSON.parse(JSON.stringify(obj));
+          } catch (e) {
+            return false;
+          }
+          return true;
+
+        },
+        truncateData: function () {
+          this.attendants = []
+          this.minutes = []
+          this.meeting = []
+          this.agenda = []
+          this.old_minutes = []
+          this.old_attendants = []
+          this.old_agendas = []
+          this.editing_minute = null
+          this.filename = null
+        },
+        saveFile: function () {
+          if (this.saving === 1) {
+            console.log(this.saving)
+            return 0;
+          }
+          if (this.filename === null) {
+            app.showMessageBox({
+              title: 'Error Opening File',
+              detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
+            });
+            return 0;
+          }
+          this.saving = 1;
+
+          var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+          var x = this;
+          jsonfile.writeFile(this.filename, obj, function (err, obj) {
+            if (err) throw err;
+            x.saving = 0;
+            ipc.send('data-saved')
+            console.log('saved')
+          });
+
+        },
+        saveFileDebounce: debounce(function () {
+          this.saveFile()
+        }, 10000)
+      },
+      watch: {
+        attendants: function () {
+
+          this.saveFileDebounce;
+
+        }
+        ,
+        minutes: function () {
+
+          this.saveFileDebounce;
+
+        }
+        ,
+        agenda: function () {
+
+        },
+        filename: function () {
+          if(this.filename !== null){
+            document.title = 'Dakika : ' + this.filename.split('\\').pop().split('/').pop();
+          }
+        }
+      }
     }
 </script>
 
@@ -234,15 +237,18 @@
         -ms-box-orient: horizontal;
         box-orient: horizontal;
     }
+
     .noselect {
         -webkit-touch-callout: none; /* iOS Safari */
         -webkit-user-select: none; /* Safari */
         -khtml-user-select: none; /* Konqueror HTML */
         -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                         supported by Chrome and Opera */
     }
+
     .nav {
         background: -moz-linear-gradient(272deg, rgba(250, 250, 250, 1) 0%, rgba(255, 255, 255, 1) 100%); /* ff3.6+ */
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(250, 250, 250, 1)), color-stop(100%, rgba(255, 255, 255, 1))); /* safari4+,chrome */

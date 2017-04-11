@@ -18,6 +18,8 @@ File /r "C:\Users\dwanyoike\Dakika\builds\Dakika-win32-x64\*"
 WriteUninstaller $INSTDIR\uninstaller.exe
  
 ${registerExtension} "$INSTDIR\Dakika.exe" ".min" "Minute File" 
+
+#WriteRegStr HKCR "Minute File" "" "$INSTDIR\Dakika.exe,1"
 #-------
 # default section end
 SectionEnd
@@ -27,7 +29,7 @@ SectionEnd
 Section "Uninstall"
  
 # Always delete uninstaller first
-
+${unregisterExtension} ".min" "Minute File" 
  
 #remove the install directory 
 RmDir /r $INSTDIR
