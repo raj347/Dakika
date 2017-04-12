@@ -12,7 +12,7 @@ Section
 SetOutPath $INSTDIR
  
 # specify file to go in output path
-File /r "C:\Users\dwanyoike\Dakika\builds\Dakika-win32-x64\*"
+File /r "C:\Users\dwany\Dakika\builds\Dakika-win32-x64\*"
  
 # define uninstaller name
 WriteUninstaller $INSTDIR\uninstaller.exe

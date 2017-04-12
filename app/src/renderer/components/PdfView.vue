@@ -66,7 +66,11 @@
             printData: function () {
                 const dialog = require('electron').remote.dialog;
                 var x = this;
-                dialog.showSaveDialog({title: 'Create PDF of Minutes'}, function (fileNames) {
+                dialog.showSaveDialog({filters: [
+
+                    { name: 'PDF File', extensions: ['pdf'] }
+
+                ],title: 'Create PDF of Minutes'}, function (fileNames) {
                     if (fileNames === undefined) {
                         console.log('Error')
                     } else {

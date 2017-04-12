@@ -4,7 +4,8 @@
         <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 4px; width: 99%;">
             <div class=" field">
                 <div class="ui mini icon input">
-                    <input v-on:keyup.enter="addAgenda" v-model="agenda" type="text" placeholder="Add Agenda">
+                    <input :disabled="filename == null ? true : false" v-on:keyup.enter="addAgenda" v-model="agenda"
+                           type="text" placeholder="Add Agenda">
                     <i class="add user icon"></i>
                 </div>
             </div>
@@ -40,7 +41,7 @@
 
 
     export default {
-        props: ['agendas'],
+        props: ['agendas', 'filename'],
         components: {},
         data: function () {
             return {

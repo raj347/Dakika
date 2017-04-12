@@ -3,11 +3,11 @@
     <div class="container">
 
         <div class="nav">
-            <attendant :saved_attendants="old_attendants" v-model="attendants"></attendant>
+            <attendant :saved_attendants="old_attendants" :filename="filename" v-model="attendants"></attendant>
 
         </div>
         <div class="main">
-            <minute :saved_minutes="old_minutes" :saved_agendas="old_agendas" v-model="minutes"
+            <minute :saved_minutes="old_minutes" :filename="filename" :saved_agendas="old_agendas" v-model="minutes"
                     v-on:agenda="agendaUpdated"
                     :attendants="attendants"></minute>
 
@@ -26,181 +26,213 @@
 
     const ipc = require('electron').ipcRenderer
     const app = require('electron').remote.dialog;
-    const jsonfile = require('jsonfile')
-
+    const fs = require('fs');
     export default {
-      components: {
-        Attendant,
-        Minute,
-        Setup
-      },
-      mounted: function () {
-        // const app = require('electron').remote.app;
+        components: {
+            Attendant,
+            Minute,
+            Setup
+        },
+        mounted: function () {
+            // const app = require('electron').remote.app;
 
-        ipc.send('get-file-data');
+            ipc.send('get-file-data');
 
-        var filename = this.$route.params.fileName;
-        if (typeof filename != 'undefined') {
-          this.filename = filename
-          this.readFile(filename);
-        }
-        ipc.on('file-opened', (event, arg) => {
-          this.filename = arg;
-          this.readFile(this.filename);
-
-        });
-        ipc.on('new-file', (event, arg) => {
-          this.truncateData();
-          this.filename = arg;
-          //this.saving = 0;
-        });
-        ipc.on('save-file', (event, arg) => {
-          this.saveFile()
-        });
-
-        ipc.on('print-pdf', (event, arg) => {
-          this.$router.push({
-            name: 'savepdf', params: {
-              data: {
-                agenda: this.agenda,
-                attendants: this.attendants,
-                minutes: this.minutes,
-                fileName: this.filename
-              },
-
+            var filename = this.$route.params.fileName;
+            if (typeof filename != 'undefined') {
+                this.filename = filename
+                this.readFile(filename);
             }
-          })
-        });
+            ipc.on('file-opened', (event, arg) => {
+                this.filename = arg;
+                this.readFile(this.filename);
 
-      },
-      data: function () {
-        return {
-          attendants: [],
-          minutes: [],
-          meeting: [],
-          agenda: [],
-          old_minutes: [],
-          old_attendants: [],
-          old_agendas: [],
-          filename: null,
-          saving: 1,
-
-        }
-      },
-      methods: {
-
-        readFile: function () {
-          this.saving = 1;
-          var x = this;
-          jsonfile.readFile(this.filename, function (err, obj) {
-            if (x.checkFileValidity(obj) == false) {
-
-              app.showMessageBox({
-                title: 'Error Opening File',
-                detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
-              });
-              x.truncateData()
-              return 0;
-            }
-            if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
-              x.old_minutes = obj.minutes;
-              x.minutes = obj.minutes;
-            }
-            if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
-              x.old_attendants = obj.attendants;
-              x.attendants = obj.attendants;
-            }
-            if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
-              x.old_agendas = obj.agenda;
-              x.agenda = obj.agenda;
-            }
-
-          })
-          this.saving = 0;
-        },
-        setupMeeting: function () {
-          $('.long.modal').modal('show')
-        },
-        attendantAdded: function ($attendants) {
-          this.attendants = $attendants;
-        },
-        minuteChanged: function (minutes) {
-          this.minutes = minutes;
-        },
-        agendaUpdated: function (agenda) {
-          this.agenda = agenda
-          this.saveFileDebounce();
-        },
-        checkFileValidity: function (obj) {
-          try {
-            JSON.parse(JSON.stringify(obj));
-          } catch (e) {
-            return false;
-          }
-          return true;
-
-        },
-        truncateData: function () {
-          this.attendants = []
-          this.minutes = []
-          this.meeting = []
-          this.agenda = []
-          this.old_minutes = []
-          this.old_attendants = []
-          this.old_agendas = []
-          this.editing_minute = null
-          this.filename = null
-        },
-        saveFile: function () {
-          if (this.saving === 1) {
-            console.log(this.saving)
-            return 0;
-          }
-          if (this.filename === null) {
-            app.showMessageBox({
-              title: 'Error Opening File',
-              detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
             });
-            return 0;
-          }
-          this.saving = 1;
+            ipc.on('new-file', (event, arg) => {
+                this.truncateData();
+                this.filename = arg;
+                this.saving = 0;
+            });
+            ipc.on('save-file', (event, arg) => {
+                this.saveFile()
+            });
 
-          var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
-          var x = this;
-          jsonfile.writeFile(this.filename, obj, function (err, obj) {
-            if (err) throw err;
-            x.saving = 0;
-            ipc.send('data-saved')
-            console.log('saved')
-          });
+            ipc.on('print-pdf', (event, arg) => {
+                this.$router.push({
+                    name: 'savepdf', params: {
+                        data: {
+                            agenda: this.agenda,
+                            attendants: this.attendants,
+                            minutes: this.minutes,
+                            fileName: this.filename
+                        },
 
-        },
-        saveFileDebounce: debounce(function () {
-          this.saveFile()
-        }, 10000)
-      },
-      watch: {
-        attendants: function () {
-
-          this.saveFileDebounce;
-
-        }
-        ,
-        minutes: function () {
-
-          this.saveFileDebounce;
-
-        }
-        ,
-        agenda: function () {
+                    }
+                })
+            });
 
         },
-        filename: function () {
-          if(this.filename !== null){
-            document.title = 'Dakika : ' + this.filename.split('\\').pop().split('/').pop();
-          }
+        data: function () {
+            return {
+                attendants: [],
+                minutes: [],
+                meeting: [],
+                agenda: [],
+                old_minutes: [],
+                old_attendants: [],
+                old_agendas: [],
+                filename: null,
+                saving: 1,
+
+            }
+        },
+        methods: {
+            getFileStatus: function () {
+                var x = this;
+                fs.readFile(x.filename, function (err, data) {
+                    try {
+                        var obj = JSON.parse(data)
+                    } catch (e) {
+                        document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop() + ' - Unsaved';
+                        return 0;
+                    }
+
+                    var liveObj = {agenda: x.agenda, attendants: x.attendants, minutes: x.minutes}
+                    console.log(liveObj)
+                    console.log(obj)
+                    if (JSON.stringify(liveObj) == JSON.stringify(obj)) {
+                        document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop();
+                    } else {
+                        document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop() + ' - Unsaved';
+                    }
+                });
+
+
+            },
+            readFile: function () {
+                this.saving = 1;
+                try {
+                    var obj = JSON.parse(fs.readFileSync(this.filename));
+                    if (this.checkFileValidity(obj) == false) {
+
+                        app.showMessageBox({
+                            title: 'Error Opening File',
+                            detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
+                        });
+                        this.truncateData()
+                        return 0;
+                    }
+                    if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
+                        this.old_minutes = obj.minutes;
+                        this.minutes = obj.minutes;
+                    }
+                    if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
+                        this.old_attendants = obj.attendants;
+                        this.attendants = obj.attendants;
+                    }
+                    if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
+                        this.old_agendas = obj.agenda;
+                        this.agenda = obj.agenda;
+                    }
+
+                } catch (error) {
+                    // if there was some kind of error, return the passed in defaults instead.
+                    console.log(error)
+
+                }
+                this.saving = 0;
+            }
+            ,
+            attendantAdded: function ($attendants) {
+                this.attendants = $attendants;
+            }
+            ,
+            minuteChanged: function (minutes) {
+                this.minutes = minutes;
+            }
+            ,
+            agendaUpdated: function (agenda) {
+                this.agenda = agenda
+                this.saveFileDebounce();
+            }
+            ,
+            checkFileValidity: function (obj) {
+                try {
+                    JSON.parse(JSON.stringify(obj));
+                } catch (e) {
+                    return false;
+                }
+                return true;
+
+            }
+            ,
+            truncateData: function () {
+                this.attendants = []
+                this.minutes = []
+                this.meeting = []
+                this.agenda = []
+                this.old_minutes = []
+                this.old_attendants = []
+                this.old_agendas = []
+                this.editing_minute = null
+                this.filename = null
+                this.saving = 1
+            }
+            ,
+            saveFile: function () {
+                if (this.saving === 1) {
+                    console.log("Not Saving")
+                    return 0;
+                } else {
+                    console.log("Saving File")
+                }
+                if (this.filename === null) {
+                    app.showMessageBox({
+                        title: 'Error Opening File',
+                        detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
+                    });
+                    return 0;
+                }
+                this.saving = 1;
+
+                var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+                try {
+                    fs.writeFileSync(this.filename, JSON.stringify(obj));
+                    this.getFileStatus()
+                    this.saving = 0;
+                } catch (error) {
+                    console.log(error)
+                    // if there was some kind of error, return the passed in defaults instead.
+
+                }
+
+            }
+            ,
+            saveFileDebounce: debounce(function () {
+                this.saveFile()
+            }, 10000)
+        },
+        watch: {
+            attendants: function () {
+                this.getFileStatus();
+                this.saveFileDebounce;
+
+            }
+            ,
+            minutes: function () {
+                this.getFileStatus();
+                this.saveFileDebounce;
+
+            }
+            ,
+            agenda: function () {
+                this.getFileStatus();
+            }
+            ,
+            filename: function () {
+                this.getFileStatus();
+            }
         }
-      }
     }
 </script>
 

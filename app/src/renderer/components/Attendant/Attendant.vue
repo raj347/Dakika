@@ -5,7 +5,8 @@
         <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 5px;">
             <div class=" field">
                 <div class="ui mini icon input">
-                    <input v-on:keyup.enter="addAttendant" v-model="attendant" type="text" placeholder="Add Attendants">
+                    <input :disabled="filename == null ? true : false" v-on:keyup.enter="addAttendant"
+                           v-model="attendant" type="text" placeholder="Add Attendants">
                     <i class="add user icon"></i>
                 </div>
             </div>
@@ -25,7 +26,7 @@
 
     import Attendant from './AttendantItem.vue'
     export default {
-        props: ['minutes', 'saved_attendants'],
+        props: ['minutes', 'saved_attendants', 'filename'],
         components: {
             Attendant
         },

@@ -26,7 +26,11 @@ function createWindow () {
     mainWindow = null
   })
   const openFile = function () {
-    dialog.showOpenDialog({title: 'Open a Previous Meeting Recording'}, function (fileNames) {
+    dialog.showOpenDialog({ filters: [
+
+        { name: 'Minute File', extensions: ['min'] }
+
+    ],title: 'Open a Previous Meeting Recording'}, function (fileNames) {
 
       if (fileNames === undefined) {
 
@@ -38,7 +42,11 @@ function createWindow () {
   }
 
   const newFile = function () {
-    dialog.showSaveDialog({title: 'Create a New Meeting Recording'}, function (fileNames) {
+    dialog.showSaveDialog({filters: [
+
+        { name: 'Minute File', extensions: ['min'] }
+
+    ],title: 'Create a New Meeting Recording'}, function (fileNames) {
       if (fileNames === undefined) {
         console.log('Error')
       } else {
