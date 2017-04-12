@@ -14,6 +14,7 @@ let config = {
   // webpack-dev-server port
   port: 9080,
 
+
   // electron-packager options
   // Docs: https://simulatedgreg.gitbooks.io/electron-vue/content/docs/building_your_app.html
   building: {
@@ -24,7 +25,14 @@ let config = {
     ignore: /\b(src|index\.ejs)\b/,
     out: path.join(__dirname, 'builds'),
     overwrite: true,
-    platform: process.env.PLATFORM_TARGET || 'all'
+    platform: process.env.PLATFORM_TARGET || 'all',
+    win32metadata: {
+      CompanyName: 'CodedCell',
+      FileDescription: 'Dakika',
+      ProductName: 'Dakika',
+      InternalName: 'Dakika',
+      OriginalFilename: 'Dakika'
+    }
   }
 }
 

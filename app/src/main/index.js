@@ -1,6 +1,64 @@
 'use strict'
 
 import { app, BrowserWindow, dialog, globalShortcut, ipcMain, Menu, shell, Tray } from 'electron'
+var path = require('path')
+var exec = require('child_process').exec
+
+var handleStartupEvent = function () {
+  if (process.platform !== 'win32') {
+    return false
+  }
+
+  var squirrelCommand = process.argv[1]
+  switch (squirrelCommand) {
+    case '--squirrel-install':
+      var target = path.basename(process.execPath)
+      var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+      var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
+      console.log(createShortcut)
+      exec(createShortcut)
+    case '--squirrel-updated':
+
+      // Optionally do things such as:
+      //
+      // - Install desktop and start menu shortcuts
+      // - Add your .exe to the PATH
+      // - Write to the registry for things like file associations and
+      //   explorer context menus
+      var target = path.basename(process.execPath)
+      var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+      var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
+      console.log(createShortcut)
+      exec(createShortcut)
+      // Always quit when done
+      app.quit()
+
+      return true
+    case '--squirrel-uninstall':
+      // Undo anything you did in the --squirrel-install and
+      // --squirrel-updated handlers
+      var target = path.basename(process.execPath)
+      var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+      var createShortcut = updateDotExe + ' --removeShortcut=' + target
+      console.log(createShortcut)
+      exec(createShortcut)
+      // Always quit when done
+      app.quit()
+
+      return true
+    case '--squirrel-obsolete':
+      // This is called on the outgoing version of your app before
+      // we update to the new version - it's the opposite of
+      // --squirrel-updated
+      app.quit()
+      return true
+  }
+}
+
+if (handleStartupEvent()) {
+  console.log('here')
+}
+
 const fs = require('fs')
 var appIcon = null
 let mainWindow
@@ -26,11 +84,13 @@ function createWindow () {
     mainWindow = null
   })
   const openFile = function () {
-    dialog.showOpenDialog({ filters: [
+    dialog.showOpenDialog({
+      filters: [
 
-        { name: 'Minute File', extensions: ['min'] }
+        {name: 'Minute File', extensions: ['min']}
 
-    ],title: 'Open a Previous Meeting Recording'}, function (fileNames) {
+      ], title: 'Open a Previous Meeting Recording'
+    }, function (fileNames) {
 
       if (fileNames === undefined) {
 
@@ -42,11 +102,13 @@ function createWindow () {
   }
 
   const newFile = function () {
-    dialog.showSaveDialog({filters: [
+    dialog.showSaveDialog({
+      filters: [
 
-        { name: 'Minute File', extensions: ['min'] }
+        {name: 'Minute File', extensions: ['min']}
 
-    ],title: 'Create a New Meeting Recording'}, function (fileNames) {
+      ], title: 'Create a New Meeting Recording'
+    }, function (fileNames) {
       if (fileNames === undefined) {
         console.log('Error')
       } else {
@@ -153,7 +215,7 @@ ipcMain.on('data-saved', function (event, args) {
 })
 
 ipcMain.on('get-file-data', function (event) {
-  if(typeof process.argv[1] === 'string'){
+  if (typeof process.argv[1] === 'string') {
     console.log(process.argv[1])
     event.sender.send('file-opened', process.argv[1])
   }

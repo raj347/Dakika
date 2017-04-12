@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "debounce": "^1.0.0",
+    "electron-regedit": "^1.0.6",
     "moment": "^2.18.1",
     "semantic-ui-css": "^2.2.9"
   }

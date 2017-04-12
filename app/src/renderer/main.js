@@ -2,15 +2,13 @@ import Vue from 'vue'
 import Electron from 'vue-electron'
 import Resource from 'vue-resource'
 import Router from 'vue-router'
-
 import 'semantic-ui-css/semantic.css'
 import 'semantic-ui-css/components/icon.css'
-
 import App from './App'
 import routes from './routes'
 
-Vue.use(Electron)
 
+Vue.use(Electron)
 Vue.use(Resource)
 Vue.use(Router)
 Vue.config.debug = true
