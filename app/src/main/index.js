@@ -65,17 +65,24 @@ let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:${require('../../../config').port}`
   : `file://${__dirname}/index.html`
-
+var icons = null
+if(process.env.NODE_ENV === 'development'){
+  icons = `${__dirname}/../../icons/pen.ico`
+}else{
+  icons = `${__dirname}/../icons/pen.ico`
+}
 function createWindow () {
   /**
    * Initial window options
    */
+
+
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 600,
     'minHeight': 600,
     'minWidth': 1200,
-    icon: `${__dirname}/../icons/pen.ico`
+    icon: icons
   })
 
   mainWindow.loadURL(winURL)
@@ -201,7 +208,7 @@ function createWindow () {
 
   Menu.setApplicationMenu(menu)
 
-  appIcon = new Tray(`${__dirname}/../icons/pen.ico`)
+  appIcon = new Tray(icons)
   appIcon.setToolTip('Dakika')
   // eslint-disable-next-line no-console
   console.log('mainWindow opened')
@@ -216,8 +223,11 @@ ipcMain.on('data-saved', function (event, args) {
 
 ipcMain.on('get-file-data', function (event) {
   if (typeof process.argv[1] === 'string') {
-    console.log(process.argv[1])
-    event.sender.send('file-opened', process.argv[1])
+    // console.log(process.argv[1])
+    //console.log(path.extname(process.argv[1]))
+    if (path.extname(process.argv[1]) == '.min') {
+      event.sender.send('file-opened', process.argv[1])
+    }
   }
 
 })
@@ -242,6 +252,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+  app.quit()
 })
 
 app.on('activate', () => {

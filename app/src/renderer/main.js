@@ -6,7 +6,10 @@ import 'semantic-ui-css/semantic.css'
 import 'semantic-ui-css/components/icon.css'
 import App from './App'
 import routes from './routes'
+// register the plugin on vue
+import Toasted from 'vue-toasted';
 
+Vue.use(Toasted)
 
 Vue.use(Electron)
 Vue.use(Resource)

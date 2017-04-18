@@ -7,11 +7,16 @@
             <thead>
             <tr>
                 <th>Attendants</th>
+                <th>Present</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="attendant in data.attendants">
                 <td>{{attendant.attendant}}</td>
+                <td>
+                    <span v-if="attendant.present"> Present </span>
+                    <span v-else> Not Present </span>
+                </td>
             </tr>
             </tbody>
         </table>

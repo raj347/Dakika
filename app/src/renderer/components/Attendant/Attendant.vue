@@ -12,7 +12,8 @@
             </div>
         </div>
         <div class="ui middle aligned selection list">
-            <attendant :attendant="attendant" v-on:delete-item="deleteItem" v-for="attendant in attendants"></attendant>
+            <attendant :attendant="attendant" v-on:delete-item="deleteItem" v-on:user-present="userPresence"
+                       v-for="attendant in attendants"></attendant>
         </div>
 
 
@@ -26,54 +27,61 @@
 
     import Attendant from './AttendantItem.vue'
     export default {
-        props: ['minutes', 'saved_attendants', 'filename'],
-        components: {
-            Attendant
-        },
-        data: function () {
-            return {
-                attendants: [],
-                attendant: '',
-                autoSave: ''
-            }
-        },
-        mounted: function () {
-
-        },
-        methods: {
-            deleteItem: function (item) {
-                var index = this.attendants.indexOf(item)
-                if (index > -1) {
-                    this.attendants.splice(index, 1);
-                }
-            },
-            createAcronym: function (str) {
-                var matches = str.match(/\b(\w)/g)              // ['J','S','O','N']
-                return matches.join('')
-            },
-            addAttendant: function () {
-                var acronym = this.createAcronym(this.attendant)
-                var attendantObject = {
-                    attendant: this.attendant,
-                    acronym: acronym,
-                    email: 'email@example.com'
-                }
-                this.attendants.push(attendantObject)
-                this.$emit('input', this.attendants)
-                this.attendant = ''
-            },
-            deleteattendant: function () {
-
-            },
-            editLastAttendant: function () {
-                this.attendant = this.attendants.slice(-1)[0].attendant
-            }
-        },
-        watch: {
-            saved_attendants: function () {
-                this.attendants = this.saved_attendants
-            }
+      props: ['minutes', 'saved_attendants', 'filename'],
+      components: {
+        Attendant
+      },
+      data: function () {
+        return {
+          attendants: [],
+          attendant: '',
+          autoSave: ''
         }
+      },
+      mounted: function () {
+
+      },
+      methods: {
+        deleteItem: function (item) {
+          var index = this.attendants.indexOf(item)
+          if (index > -1) {
+            this.attendants.splice(index, 1);
+          }
+        },
+        createAcronym: function (str) {
+          var matches = str.match(/\b(\w)/g)              // ['J','S','O','N']
+          return matches.join('')
+        },
+        userPresence: function (item) {
+          var index = this.attendants.indexOf(item)
+          if (index > -1) {
+            this.attendants[index].present = !this.attendants[index].present
+          }
+        },
+        addAttendant: function () {
+          var acronym = this.createAcronym(this.attendant)
+          var attendantObject = {
+            attendant: this.attendant,
+            acronym: acronym,
+            email: 'email@example.com',
+            present: true
+          }
+          this.attendants.push(attendantObject)
+          this.$emit('input', this.attendants)
+          this.attendant = ''
+        },
+        deleteattendant: function () {
+
+        },
+        editLastAttendant: function () {
+          this.attendant = this.attendants.slice(-1)[0].attendant
+        }
+      },
+      watch: {
+        saved_attendants: function () {
+          this.attendants = this.saved_attendants
+        }
+      }
     }
 </script>
 

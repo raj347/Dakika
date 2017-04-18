@@ -28,9 +28,8 @@
 
                 </div>
 
-                <div class="ui  red right floated label" v-on:click="deleteItem(minute)"
-                     style="margin:0px; cursor: pointer">
-                    Delete
+                <div class="mini  ui icon button red right floated "  style="margin:0px; cursor: pointer">
+                    <i class="remove icon " v-on:click="deleteItem(minute)"> </i> Delete
 
 
                 </div>

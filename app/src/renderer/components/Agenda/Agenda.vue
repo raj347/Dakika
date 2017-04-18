@@ -10,27 +10,29 @@
                 </div>
             </div>
         </div>
-        <div class="ui middle aligned selection list" style="margin-top: 1px; ">
-            <a class="item" v-for="agenda in agendas" v-bind:class="{ active_agenda: agenda.active }"
-               v-on:click="addActive(agenda)">
 
-                <div class="ui  red right floated " v-on:click="deleteAgenda(agenda)" style="margin:0px;">
-                    <i class="remove icon "></i>
+        <div class="ui middle aligned selection list">
+            <div v-for="agenda in agendas" class="item" style="padding-top: 0.2em !important; padding-bottom: 0.2em !important; padding-left: 0.3em; border-top: 1px solid rgba(34, 36, 38, 0.0470588);">
+                <div class="right floated content">
+                    <div class="mini circular ui icon button red right floated" v-on:click="deleteAgenda(agenda)" style="margin: 0px;"><i
+                            class="remove icon "></i></div>
+                    <div v-on:click="addActive(agenda)" class="mini circular ui icon button  right floated " v-bind:class="[agenda.active ? activeClass : '', errorClass]" style="margin-right: 3px;"><i
+                            class="flag checkered icon "></i></div>
                 </div>
-                <div v-bind:class="{ active_agenda: agenda.active }" class="content">
-                    <i v-bind:class="{ green: agenda.active }" class="right triangle icon"></i>
-                    <span class="name" style="color: rgba(0, 0, 0, 0.87);">
+                <img src="list2.png" class="ui avatar image">
+                <div class="content">
+                    <div class="name noselect" style="font-weight: bold; color: rgba(0, 0, 0, 0.870588);">
                         {{agenda.text}}
 
-                    </span>
-
+                    </div>
                 </div>
+            </div>
 
-
-            </a>
         </div>
 
-
+        <div style="margin: 10px;" class="ui blue message">
+            Press Alt+N to move to the next Agenda, or just click on the flag icon.
+        </div>
     </div>
 
 
@@ -39,51 +41,61 @@
 <script>
     /* eslint-disable indent */
 
-
     export default {
-        props: ['agendas', 'filename'],
-        components: {},
-        data: function () {
-            return {
-                agenda: ''
-            }
-        },
-        mounted: function () {
-
-        },
-        methods: {
-
-            addAgenda: function () {
-                var agenda = this.agenda
-
-                this.agendas.push({
-                    text: this.agenda,
-                    active: false
-                })
-
-                this.agenda = ''
-            },
-            deleteAgenda: function (agenda) {
-                var index = this.agendas.indexOf(agenda)
-                if (index > -1) {
-                    this.agendas.splice(index, 1);
-                }
-            },
-            addActive: function (item) {
-                for (var key in this.agendas) {
-                    this.agendas[key].active = false
-                }
-                console.log(JSON.stringify(item));
-                item.active = true;
-                console.log(JSON.stringify(item));
-
-            }
-        },
-        watch: {
-            agenda: function () {
-                this.$emit('input', this.agendas)
-            }
+      props: ['agendas', 'filename'],
+      components: {},
+      data: function () {
+        return {
+          agenda: '',
+          activeClass: 'green',
+          errorClass: 'gray',
         }
+      },
+      mounted: function () {
+
+      },
+      methods: {
+
+        addAgenda: function () {
+          var agenda = this.agenda
+
+          if (this.agendas.length == 0) {
+            this.agendas.push({
+              text: this.agenda,
+              active: true
+            })
+          } else {
+            this.agendas.push({
+              text: this.agenda,
+              active: false
+            })
+          }
+          this.agenda = ''
+        },
+        deleteAgenda: function (agenda) {
+          var index = this.agendas.indexOf(agenda)
+          if (index > -1) {
+            this.agendas.splice(index, 1);
+          }
+        },
+        addActive: function (item) {
+          for (var key in this.agendas) {
+            this.agendas[key].active = false
+          }
+          console.log(JSON.stringify(item));
+          var index = this.agendas.indexOf(item)
+          if (index > -1) {
+            this.agendas[index].active = !this.agendas[index].active
+          }
+          console.log(JSON.stringify(item));
+
+        }
+      },
+      watch: {
+        agenda: function () {
+          this.$emit('input', this.agendas)
+        }
+      }
     }
 </script>
 
