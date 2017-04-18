@@ -20,7 +20,6 @@
     /* eslint-disable indent,semi,no-undef,no-unused-vars */
 
     import Attendant from './Attendant/Attendant.vue'
-    import Setup from './MeetingSetup.vue'
     import Minute from './Minute/Minute.vue'
     import debounce from 'debounce';
 
@@ -30,8 +29,7 @@
     export default {
       components: {
         Attendant,
-        Minute,
-        Setup
+        Minute
       },
       mounted: function () {
         // const app = require('electron').remote.app;
@@ -99,8 +97,6 @@
             }
 
             var liveObj = {agenda: x.agenda, attendants: x.attendants, minutes: x.minutes}
-            console.log(liveObj)
-            console.log(obj)
             if (JSON.stringify(liveObj) == JSON.stringify(obj)) {
               document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop();
             } else {

@@ -1,9 +1,18 @@
 <template>
-    <div  style="margin: 5px;">
-        <div v-on:click="printData" class="no-print ui secondary button">Print</div>
-        <div v-on:click="back" class="no-print ui primary button">Go Back</div>
+    <div style="margin: 5px;">
+        <div class="no-print ui  center aligned segment">
+            <button v-on:click="printData" class="no-print ui secondary button">
+                <i class="icon print"></i>
+                Print
 
-        <table class="ui striped table" style="padding: 0px;">
+
+            </button>
+            <button v-on:click="back" class="no-print ui primary button">
+                <i class="icon backward"></i>
+                Go Back
+            </button>
+        </div>
+        <table class="ui orange striped table" style="padding: 0px;">
             <thead>
             <tr>
                 <th>Attendants</th>
@@ -20,25 +29,28 @@
             </tr>
             </tbody>
         </table>
-        <table class="ui striped table" style="    padding-right: 0rem;  padding-left: 0rem;">
-            <tr v-for="minute in data.minutes" style="display: block;  page-break-inside: avoid; ">
+        <table class="ui green striped table" style="    padding-right: 0rem;  padding-left: 0rem;">
+            <thead>
+            <tr>
+                <th>Minutes of the Meeting</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="minute in data.minutes" style="  page-break-inside: avoid; ">
                 <td style="  page-break-inside: avoid; ">
 
                     <b>Agenda :</b> {{minute.agenda}}<br/>
-                    <p style="text-align: justify; text-justify: inter-word; padding: 2px;   page-break-inside: avoid; ">{{minute.modified_minute}}</p>
+                    <p style="text-align: justify; text-justify: inter-word; padding: 2px;   page-break-inside: avoid; ">
+                        {{minute.modified_minute}}</p>
                     <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}}</span> &nbsp
-
-
-
-
-
-
-
 
                 </td>
             </tr>
+            </tbody>
         </table>
-        <b style="text-align: center;">End of Meeting</b>
+        <div class=" ui center aligned segment">
+            <b style="text-align: center;">End of Meeting</b>
+        </div>
     </div>
 </template>
 
@@ -52,9 +64,12 @@
             this.data = this.$route.params.data
 
 
-
             ipc.on('wrote-pdf', (event, arg) => {
-                console.log(arg)
+                this.$toasted.info('Succesfuly created your PDF file '+ arg, {
+                    theme: "bubble",
+                    position: "bottom-center",
+                    duration: 8000
+                })
             });
 
         },
@@ -66,16 +81,18 @@
         },
         methods: {
             back: function () {
-                 this.$router.push({name: 'landing-page', params: {fileName: this.data.fileName}})
+                this.$router.push({name: 'landing-page', params: {fileName: this.data.fileName}})
             },
             printData: function () {
                 const dialog = require('electron').remote.dialog;
                 var x = this;
-                dialog.showSaveDialog({filters: [
+                dialog.showSaveDialog({
+                    filters: [
 
-                    { name: 'PDF File', extensions: ['pdf'] }
+                        {name: 'PDF File', extensions: ['pdf']}
 
-                ],title: 'Create PDF of Minutes'}, function (fileNames) {
+                    ], title: 'Create PDF of Minutes'
+                }, function (fileNames) {
                     if (fileNames === undefined) {
                         console.log('Error')
                     } else {
@@ -96,15 +113,17 @@
 <style scoped>
     * {
         overflow: auto;
+        border-radius: 0px;
     }
-
+    * {
+        border-radius: 0 !important;
+        font-family: "Times New Roman", Times, serif;
+    }
     html,
     body {
         height: auto;
         overflow: auto;
     }
-
-
 
     thead {
         display: table-header-group

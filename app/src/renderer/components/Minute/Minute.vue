@@ -19,15 +19,20 @@
                      style=" border-right: 1px solid rgba(0,0,0,0.1); padding-right: 0px !important; padding-top: 0px !important;">
 
                     <div style="height: 100%; overflow-y: scroll; padding-bottom: 80px;  ">
-                        <div v-if="filename == null"  style="margin: 10px;" class="ui blue message">
+                        <div v-if="filename == null" style="margin: 10px;" class="ui blue message">
                             Please Open an existing or create a new
                             minutes file to start
+
+
+
+
                         </div>
 
 
                         <div class="ui divided items minute-item">
 
                             <Item :minute="minute" v-on:edit-item="editMinute" v-on:delete-item="deleteMinute"
+                                  v-on:add-item-after="addItemAfter"
                                   v-for="minute in ordered_mins"></Item>
 
 
@@ -58,173 +63,185 @@
     import Vue from 'vue'
 
     export default {
-      props: ['saved_minutes', 'attendants', 'saved_agendas', 'filename'],
-      components: {
-        Agenda,
-        Item
-      },
-      mounted: function () {
-
-
-      },
-      data: function () {
-        return {
-          minutes: [],
-          minute: '',
-          tags: '',
-          modified_minute: '',
-          agenda: '',
-          agendas: [],
-          editing_minute: null
-        }
-      },
-      methods: {
-
-        getTags: function findHashtags (searchText) {
-          var regexp = /\B\#\w\w+\b/g
-          var result = searchText.match(regexp)
-          if (result) {
-            return result
-          } else {
-            return false
-          }
+        props: ['saved_minutes', 'attendants', 'saved_agendas', 'filename'],
+        components: {
+            Agenda,
+            Item
         },
-        getPeople: function findHashtags (searchText) {
-          var regexp = /\B\@\w\w+\b/g
-          var result = searchText.match(regexp)
-          var items = []
-          if (result == null) {
-            return []
-          }
-          for (var i = 0; i < result.length; i++) {
-            var item = result[i]
-            item = item.replace(/@(\w+)/g, '$1')
-            var x = this.attendants.findIndex(x => x.acronym == item)
-            console.log(x)
-            if (x > -1) {
-              items.push(this.attendants[x].attendant)
+        mounted: function () {
+
+
+        },
+        data: function () {
+            return {
+                minutes: [],
+                minute: '',
+                tags: '',
+                modified_minute: '',
+                agenda: '',
+                agendas: [],
+                editing_minute: null,
+                insert_after: null
             }
-          }
-          if (result) {
-            return items
-          } else {
-            return false
-          }
         },
-        updateAgenda: function (agenda) {
-          this.agendas = agenda;
-          this.$emit('agenda', agenda)
-        },
-        cancelEdit: function () {
-          this.editing_minute = null;
-          this.minute = '';
-        },
-        editMinute: function (item) {
-          console.log()
-          this.$refs.minuteEditor.focus()
-          this.$toasted.info('You are editing a minute press ESC key to discard', {
-            theme: "bubble",
-            position: "bottom-center",
-            duration: 8000
-          })
-          this.editing_minute = this.minutes.indexOf(item)
-          this.minute = item.minute.trim()
-        },
-        substitutePeople: function (minute) {
-          for (var key in this.attendants) {
-            var attendant = this.attendants[key].attendant
-            var acronym = this.attendants[key].acronym
-            var replace = '@' + acronym
-            minute = minute.replace(replace, attendant)
-          }
-          return minute
-        },
-        getActiveAgenda: function () {
-          var x = this.agendas.findIndex(x => x.active == true)
-          if (x > -1) {
-            this.agenda = this.agendas[x].text
-          }
-        },
-        addMinute: function () {
-          this.tags = this.getTags(this.minute)
-          this.people = this.getPeople(this.minute)
-          this.modified_minute = this.minute.replace(/#(\w+)/g, '$1')
-          this.modified_minute = this.substitutePeople(this.modified_minute)
-          this.getActiveAgenda()
-          var minuteObject = {
-            minute: this.minute.trim(),
-            modified_minute: this.modified_minute,
-            tags: this.tags,
-            people: this.people,
-            attendants: this.attendants,
-            agenda: this.agenda,
-            date: moment().format('YYYY-M-D'),
-            time: moment().format('h:mm')
-          }
-          if (this.editing_minute !== null) {
-            this.minutes[this.editing_minute] = minuteObject
-            this.editing_minute = null
-            this.$toasted.success('Minute Updated', {
-              theme: "bubble",
-              position: "bottom-center",
-              duration: 5000
-            })
+        methods: {
+            addItemAfter: function (item) {
+                var index = this.minutes.indexOf(item)
+                this.insert_after = index + 1
+                this.$refs.minuteEditor.focus()
+                this.$toasted.info('You are inserting a minute press ESC to discard', {
+                    theme: "bubble",
+                    position: "bottom-center",
+                    duration: 8000
+                })
+            },
+            getTags: function findHashtags(searchText) {
+                var regexp = /\B\#\w\w+\b/g
+                var result = searchText.match(regexp)
+                if (result) {
+                    return result
+                } else {
+                    return false
+                }
+            },
+            getPeople: function findHashtags(searchText) {
+                var regexp = /\B\@\w\w+\b/g
+                var result = searchText.match(regexp)
+                var items = []
+                if (result == null) {
+                    return []
+                }
+                for (var i = 0; i < result.length; i++) {
+                    var item = result[i]
+                    item = item.replace(/@(\w+)/g, '$1')
+                    var x = this.attendants.findIndex(x => x.acronym == item)
+                    if (x > -1) {
+                        items.push(this.attendants[x].attendant)
+                    }
+                }
+                if (result) {
+                    return items
+                } else {
+                    return false
+                }
+            },
+            updateAgenda: function (agenda) {
+                this.agendas = agenda;
+                this.$emit('agenda', agenda)
+            },
+            cancelEdit: function () {
+                this.editing_minute = null;
+                this.insert_after = null;
+                this.minute = '';
+            },
+            editMinute: function (item) {
 
-          } else {
-            this.minutes.push(minuteObject)
-            this.editing_minute = null
-          }
+                this.$refs.minuteEditor.focus()
+                this.$toasted.info('You are editing a minute press ESC key to discard', {
+                    theme: "bubble",
+                    position: "bottom-center",
+                    duration: 8000
+                })
+                this.editing_minute = this.minutes.indexOf(item)
+                this.minute = item.minute.trim()
+            },
+            substitutePeople: function (minute) {
+                for (var key in this.attendants) {
+                    var attendant = this.attendants[key].attendant
+                    var acronym = this.attendants[key].acronym
+                    var replace = '@' + acronym
+                    minute = minute.replace(replace, attendant)
+                }
+                return minute
+            },
+            getActiveAgenda: function () {
+                var x = this.agendas.findIndex(x => x.active == true)
+                if (x > -1) {
+                    this.agenda = this.agendas[x].text
+                }
+            },
+            addMinute: function () {
+                this.tags = this.getTags(this.minute)
+                this.people = this.getPeople(this.minute)
+                this.modified_minute = this.minute.replace(/#(\w+)/g, '$1')
+                this.modified_minute = this.substitutePeople(this.modified_minute)
+                this.getActiveAgenda()
+                var minuteObject = {
+                    minute: this.minute.trim(),
+                    modified_minute: this.modified_minute,
+                    tags: this.tags,
+                    people: this.people,
+                    attendants: this.attendants,
+                    agenda: this.agenda,
+                    date: moment().format('YYYY-M-D'),
+                    time: moment().format('h:mm')
+                }
+                if (this.editing_minute !== null) {
+                    this.minutes[this.editing_minute] = minuteObject
+                    this.editing_minute = null
+                    this.$toasted.success('Minute Updated', {
+                        theme: "bubble",
+                        position: "bottom-center",
+                        duration: 5000
+                    })
 
-          this.minute = ''
-        },
-        deleteMinute: function (item) {
-          var index = this.minutes.indexOf(item)
-          if (index > -1) {
-            this.minutes.splice(index, 1);
-          }
-        },
-        editLastMinute: function () {
-          this.editMinute(this.minutes.slice(-1)[0])
-        },
-        moveToNextAgenda: function () {
-          var x = this.agendas.findIndex(x => x.active == true)
-          var index = 0;
-          if (x > -1) {
-            this.agendas[x].active = false
-            index = x + 1
-          }
-          if (index > this.agendas.length - 1) {
-            index = 0;
-          }
-          this.agendas[index].active = true
-          this.agenda = this.agendas[index].text
-          this.$toasted.error('You are now writing Minutes for agenda : '+this.agenda , {
-            theme: "bubble",
-            position: "bottom-center",
-            duration: 8000
-          })
-        }
-      },
-      watch: {
-        minutes: function () {
-          this.$emit('input', this.minutes)
-        },
-        agenda: function () {
+                } else if (this.insert_after !== null) {
+                    this.minutes.splice(this.insert_after, 0, minuteObject);
+                    this.insert_after = null
+                } else {
+                    this.minutes.push(minuteObject)
+                    this.editing_minute = null
+                }
 
+                this.minute = ''
+            },
+            deleteMinute: function (item) {
+                var index = this.minutes.indexOf(item)
+                if (index > -1) {
+                    this.minutes.splice(index, 1);
+                }
+            },
+            editLastMinute: function () {
+                this.editMinute(this.minutes.slice(-1)[0])
+            },
+            moveToNextAgenda: function () {
+                var x = this.agendas.findIndex(x => x.active == true)
+                var index = 0;
+                if (x > -1) {
+                    this.agendas[x].active = false
+                    index = x + 1
+                }
+                if (index > this.agendas.length - 1) {
+                    index = 0;
+                }
+                this.agendas[index].active = true
+                this.agenda = this.agendas[index].text
+                this.$toasted.error('You are now writing Minutes for agenda : ' + this.agenda, {
+                    theme: "bubble",
+                    position: "bottom-center",
+                    duration: 8000
+                })
+            }
         },
-        saved_minutes: function () {
-          console.log(this.saved_minutes)
-          this.minutes = this.saved_minutes
+        watch: {
+            minutes: function () {
+                this.$emit('input', this.minutes)
+            },
+            agenda: function () {
+
+            },
+            saved_minutes: function () {
+                this.minutes = this.saved_minutes
+            },
+            saved_agendas: function () {
+                this.agendas = this.saved_agendas
+            }
         },
-        saved_agendas: function () {
-          this.agendas = this.saved_agendas
+        computed: {
+            ordered_mins: function () {
+                return this.minutes.slice().reverse();
+            }
         }
-      },
-      computed: {
-        ordered_mins: function () {
-          return this.minutes.slice().reverse();
-        }
-      }
     }
 </script>
 

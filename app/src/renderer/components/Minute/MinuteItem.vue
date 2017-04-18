@@ -28,8 +28,13 @@
 
                 </div>
 
-                <div class="mini  ui icon button red right floated "  style="margin:0px; cursor: pointer">
-                    <i class="remove icon " v-on:click="deleteItem(minute)"> </i> Delete
+                <div class="mini  ui icon button red right floated " v-on:click="deleteItem(minute)"  style=" cursor: pointer">
+                    <i class="remove icon " > </i> Delete
+
+
+                </div>
+                <div tooltip="Insert Minute After" class="mini circular ui icon button purple right floated "  style="cursor: pointer">
+                    <i class="angle double up icon " v-on:click="addItemAfter(minute)"> </i>
 
 
                 </div>
@@ -47,6 +52,9 @@
             },
             editItem: function (item) {
                 this.$emit('edit-item', item)
+            },
+            addItemAfter:function(item){
+                this.$emit('add-item-after', item)
             }
         }
     }

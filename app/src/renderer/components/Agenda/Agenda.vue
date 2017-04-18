@@ -30,7 +30,7 @@
 
         </div>
 
-        <div style="margin: 10px;" class="ui blue message">
+        <div v-if="agendas.count > 0" style="margin: 10px;" class="ui blue message">
             Press Alt+N to move to the next Agenda, or just click on the flag icon.
         </div>
     </div>
@@ -82,12 +82,10 @@
           for (var key in this.agendas) {
             this.agendas[key].active = false
           }
-          console.log(JSON.stringify(item));
           var index = this.agendas.indexOf(item)
           if (index > -1) {
             this.agendas[index].active = !this.agendas[index].active
           }
-          console.log(JSON.stringify(item));
 
         }
       },

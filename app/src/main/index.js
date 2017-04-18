@@ -15,7 +15,6 @@ var handleStartupEvent = function () {
       var target = path.basename(process.execPath)
       var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
       var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
-      console.log(createShortcut)
       exec(createShortcut)
     case '--squirrel-updated':
 
@@ -28,7 +27,6 @@ var handleStartupEvent = function () {
       var target = path.basename(process.execPath)
       var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
       var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
-      console.log(createShortcut)
       exec(createShortcut)
       // Always quit when done
       app.quit()
@@ -40,7 +38,6 @@ var handleStartupEvent = function () {
       var target = path.basename(process.execPath)
       var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
       var createShortcut = updateDotExe + ' --removeShortcut=' + target
-      console.log(createShortcut)
       exec(createShortcut)
       // Always quit when done
       app.quit()
@@ -56,7 +53,7 @@ var handleStartupEvent = function () {
 }
 
 if (handleStartupEvent()) {
-  console.log('here')
+  console.log('Done Handling Startup Events')
 }
 
 const fs = require('fs')
@@ -216,7 +213,6 @@ function createWindow () {
 }
 
 app.on('ready', createWindow)
-console.log(__dirname)
 ipcMain.on('data-saved', function (event, args) {
   console.log('Saved')
 })
