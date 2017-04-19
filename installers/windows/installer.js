@@ -12,7 +12,7 @@ resultPromise = electronInstaller.createWindowsInstaller({
     owners: 'CodedCell',
     title: 'Dakika',
     setupIcon: `${__dirname}\\pen.ico`,
-    setupExe: 'Dakika.exe',
+    setupExe: 'Dakika_Setup.exe',
     iconUrl: `${__dirname}\\pen.ico`,
     //remoteReleases: 'http://updates.codedcell.com/'
 })

@@ -33,7 +33,7 @@
 
 
                 </div>
-                <div tooltip="Insert Minute After" class="mini circular ui icon button purple right floated "  style="cursor: pointer">
+                <div data-tooltip="Insert minute After" class="mini circular ui icon button purple right floated "  style="cursor: pointer">
                     <i class="angle double up icon " v-on:click="addItemAfter(minute)"> </i>
 
 

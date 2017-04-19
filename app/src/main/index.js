@@ -63,10 +63,13 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:${require('../../../config').port}`
   : `file://${__dirname}/index.html`
 var icons = null
-if(process.env.NODE_ENV === 'development'){
+var icon_path = null
+if (process.env.NODE_ENV === 'development') {
   icons = `${__dirname}/../../icons/pen.ico`
-}else{
+  icon_path = `${__dirname}/../../icons`
+} else {
   icons = `${__dirname}/../icons/pen.ico`
+  icon_path = `${__dirname}/../icons`
 }
 function createWindow () {
   /**
@@ -127,6 +130,7 @@ function createWindow () {
       submenu: [
         {
           label: 'Open Old Meeting Minutes',
+          icon: `${icon_path}/Open_16x16.png`,
           accelerator: 'CmdOrCtrl+O',
           click () {
 
@@ -136,6 +140,7 @@ function createWindow () {
         {
           label: 'New Meeting Minutes',
           accelerator: 'CmdOrCtrl+N',
+          icon: `${icon_path}/New_16x16.png`,
           click () {
             newFile()
 
@@ -143,6 +148,7 @@ function createWindow () {
         },
         {
           label: 'Save Minutes',
+          icon: `${icon_path}/Save_16x16.png`,
           accelerator: 'CmdOrCtrl+S',
           click () {
             mainWindow.webContents.send('save-file')
@@ -152,6 +158,7 @@ function createWindow () {
         {
           label: 'Print as PDF',
           accelerator: 'CmdOrCtrl+P',
+          icon: `${icon_path}/Print_16x16.png`,
           click () {
             mainWindow.webContents.send('print-pdf')
 
@@ -162,15 +169,26 @@ function createWindow () {
     {
       label: 'Edit',
       submenu: [
-        {role: 'undo'},
-        {role: 'redo'},
+        {
+          role: 'undo',
+          icon: `${icon_path}/Print_16x16.png`,
+        },
+        {role: 'redo',
+          icon: `${icon_path}/Redo_16x16.png`,
+
+        },
         {type: 'separator'},
-        {role: 'cut'},
-        {role: 'copy'},
-        {role: 'paste'},
-        {role: 'pasteandmatchstyle'},
-        {role: 'delete'},
-        {role: 'selectall'}
+        {role: 'cut',
+          icon: `${icon_path}/Cut_16x16.png`,
+        },
+        {
+          role: 'copy',
+          icon: `${icon_path}/Copy_16x16.png`,
+        },
+        {role: 'paste',
+          icon: `${icon_path}/Copy_16x16.png`,
+
+        }
       ]
     },
     {
@@ -178,15 +196,10 @@ function createWindow () {
       submenu: [
         {role: 'reload'},
         {role: 'toggledevtools'},
-        {role: 'resetzoom'},
+        {role: 'resetzoom',
+          icon: `${icon_path}/Zoom Out_16x16.png`,
+        },
 
-      ]
-    },
-    {
-      role: 'window',
-      submenu: [
-        {role: 'minimize'},
-        {role: 'close'}
       ]
     },
     {
@@ -194,8 +207,9 @@ function createWindow () {
       submenu: [
         {
           label: 'Learn More',
+          icon: `${icon_path}/Help_16x16.png`,
           click () {
-            require('electron').shell.openExternal('https://electron.atom.io')
+            require('electron').shell.openExternal('https://github.com/Madawar/Dakika')
           }
         }
       ]

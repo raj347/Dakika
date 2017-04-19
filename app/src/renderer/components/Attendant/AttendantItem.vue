@@ -10,7 +10,7 @@
 
                 <i class="remove icon " v-on:click="deleteItem(attendant)"></i>
             </div>
-            <div class="mini circular ui icon button  right floated" v-bind:class="[attendant.present ? activeClass : '', errorClass]" v-on:click="userPresent(attendant)"
+            <div data-variation="mini" data-position="left center" data-tooltip="Toogle User Presence" class="mini circular ui icon button  right floated" v-bind:class="[attendant.present ? activeClass : '', errorClass]" v-on:click="userPresent(attendant)"
                  style="margin-right:3px;">
 
 

@@ -57,6 +57,7 @@
 
         ipc.on('print-pdf', (event, arg) => {
           this.saveFile()
+          this.readFile()
           this.$router.push({
             name: 'savepdf', params: {
               data: {

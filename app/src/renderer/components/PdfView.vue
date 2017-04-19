@@ -42,7 +42,8 @@
                     <b>Agenda :</b> {{minute.agenda}}<br/>
                     <p style="text-align: justify; text-justify: inter-word; padding: 2px;   page-break-inside: avoid; ">
                         {{minute.modified_minute}}</p>
-                    <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}}</span> &nbsp
+                    <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}}</span>
+                    &nbsp
 
                 </td>
             </tr>
@@ -57,56 +58,67 @@
 <script>
     /* eslint-disable indent,semi,no-undef,no-unused-vars */
     const ipc = require('electron').ipcRenderer
+    const fs = require('fs');
     export default {
-        components: {},
-        mounted: function () {
+      beforeRouteEnter(to, from, next) {
+        console.log(JSON.stringify(to.params.data.minutes))
+        console.log(from.params.data)
+        next(vm => {
+          try {
+            var obj = JSON.parse(fs.readFileSync(to.params.data.fileName))
+            vm.filename = to.params.data.fileName
+            vm.data = obj
+          } catch (error) {
+            console.log(error)
+          }
 
-            this.data = this.$route.params.data
+        })
+      },
+      components: {},
+      mounted: function () {
+        ipc.on('wrote-pdf', (event, arg) => {
+          this.$toasted.info('Succesfuly created your PDF file ' + arg, {
+            theme: "bubble",
+            position: "bottom-center",
+            duration: 8000
+          })
+        });
 
+      },
+      data: function () {
+        return {
+          data: {},
+          filename:''
 
-            ipc.on('wrote-pdf', (event, arg) => {
-                this.$toasted.info('Succesfuly created your PDF file '+ arg, {
-                    theme: "bubble",
-                    position: "bottom-center",
-                    duration: 8000
-                })
-            });
-
+        }
+      },
+      methods: {
+        back: function () {
+          this.$router.push({name: 'landing-page', params: {fileName: this.filename}})
         },
-        data: function () {
-            return {
-                data: {}
+        printData: function () {
+          const dialog = require('electron').remote.dialog;
+          var x = this;
+          dialog.showSaveDialog({
+            filters: [
+
+              {name: 'PDF File', extensions: ['pdf']}
+
+            ], title: 'Create PDF of Minutes'
+          }, function (fileNames) {
+            if (fileNames === undefined) {
+              console.log('Error')
+            } else {
+              ipc.send('print-to-pdf', fileNames)
 
             }
+
+          });
+
         },
-        methods: {
-            back: function () {
-                this.$router.push({name: 'landing-page', params: {fileName: this.data.fileName}})
-            },
-            printData: function () {
-                const dialog = require('electron').remote.dialog;
-                var x = this;
-                dialog.showSaveDialog({
-                    filters: [
-
-                        {name: 'PDF File', extensions: ['pdf']}
-
-                    ], title: 'Create PDF of Minutes'
-                }, function (fileNames) {
-                    if (fileNames === undefined) {
-                        console.log('Error')
-                    } else {
-                        ipc.send('print-to-pdf', fileNames)
-
-                    }
-
-                });
-
-
-            },
-        }
-        ,
-        watch: {}
+      }
+      ,
+      watch: {}
     }
 </script>
 
@@ -115,10 +127,12 @@
         overflow: auto;
         border-radius: 0px;
     }
+
     * {
         border-radius: 0 !important;
         font-family: "Times New Roman", Times, serif;
     }
+
     html,
     body {
         height: auto;
