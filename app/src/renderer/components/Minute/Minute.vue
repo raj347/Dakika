@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="six wide column"
-                     style="   padding-top: 0px !important;height: 100%; overflow-y: scroll; padding-bottom: 80px; padding-left: 0px;padding-right: 4px;  ">
+                     style="   padding-top: 0px !important;height: 100%;  padding-left: 0px;padding-right: 4px;  ">
 
                     <agenda :filename="filename" :agendas="agendas" v-on:input="updateAgenda"></agenda>
 

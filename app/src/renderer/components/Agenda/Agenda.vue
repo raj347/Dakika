@@ -10,24 +10,28 @@
                 </div>
             </div>
         </div>
+        <div style="padding-top: 0px !important;height: 100%; overflow-y: scroll; padding-bottom: 100px; padding-left: 0px;padding-right: 4px;  ">
+            <div class="ui middle aligned selection list">
+                <div v-for="agenda in agendas" class="item"
+                     style="border-radius: 0px; padding-top: 0.2em !important; padding-bottom: 0.2em !important; padding-left: 0.3em; border-top: 1px solid rgba(34, 36, 38, 0.0470588);">
+                    <div class="right floated content">
+                        <div class="mini circular ui icon button red right floated" v-on:click="deleteAgenda(agenda)"
+                             style="margin: 0px;"><i
+                                class="remove icon "></i></div>
+                        <div v-on:click="addActive(agenda)" class="mini circular ui icon button  right floated "
+                             v-bind:class="[agenda.active ? activeClass : '', errorClass]" style="margin-right: 3px;"><i
+                                class="flag checkered icon "></i></div>
+                    </div>
+                    <img src="list2.png" class="ui avatar image">
+                    <div class="content">
+                        <div class="name noselect" style="font-weight: bold; color: rgba(0, 0, 0, 0.870588);">
+                            {{agenda.text}}
 
-        <div class="ui middle aligned selection list">
-            <div v-for="agenda in agendas" class="item" style="padding-top: 0.2em !important; padding-bottom: 0.2em !important; padding-left: 0.3em; border-top: 1px solid rgba(34, 36, 38, 0.0470588);">
-                <div class="right floated content">
-                    <div class="mini circular ui icon button red right floated" v-on:click="deleteAgenda(agenda)" style="margin: 0px;"><i
-                            class="remove icon "></i></div>
-                    <div v-on:click="addActive(agenda)" class="mini circular ui icon button  right floated " v-bind:class="[agenda.active ? activeClass : '', errorClass]" style="margin-right: 3px;"><i
-                            class="flag checkered icon "></i></div>
-                </div>
-                <img src="list2.png" class="ui avatar image">
-                <div class="content">
-                    <div class="name noselect" style="font-weight: bold; color: rgba(0, 0, 0, 0.870588);">
-                        {{agenda.text}}
-
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
 
         <div v-if="agendas.count > 0" style="margin: 10px;" class="ui blue message">

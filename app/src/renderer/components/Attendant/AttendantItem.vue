@@ -1,7 +1,7 @@
 <template>
 
     <div class="item"
-         style="padding-top: 0.2em !important; padding-bottom: 0.2em !important;     padding-left: 0.3em;     border-top: 1px solid rgba(34, 36, 38, 0.05);">
+         style="border-radius:0px; padding-top: 0.2em !important; padding-bottom: 0.3em !important; padding-top: 0.3em !important;     padding-left: 0.3em;     border-top: 1px solid rgba(34, 36, 38, 0.05);">
         <div class="right floated content">
 
             <div class="mini circular ui icon button red right floated" v-on:click="deleteItem(attendant)"

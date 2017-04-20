@@ -2,7 +2,7 @@
 
     <div>
 
-        <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 5px;">
+        <div class="ui form" style="padding-left: 1px; padding-right:1px; padding-top: 5px; padding-bottom: 8px; ">
             <div class=" field">
                 <div class="ui mini icon input">
                     <input :disabled="filename == null ? true : false" v-on:keyup.enter="addAttendant"
@@ -11,9 +11,11 @@
                 </div>
             </div>
         </div>
-        <div class="ui middle aligned selection list">
-            <attendant :attendant="attendant" v-on:delete-item="deleteItem" v-on:user-present="userPresence"
-                       v-for="attendant in attendants"></attendant>
+        <div class="" style="overflow-y: scroll;height: 100%; width: 299px; position: fixed; padding-bottom: 50px;">
+            <div class="ui middle aligned selection list">
+                <attendant :attendant="attendant" v-on:delete-item="deleteItem" v-on:user-present="userPresence"
+                           v-for="attendant in attendants"></attendant>
+            </div>
         </div>
 
 
