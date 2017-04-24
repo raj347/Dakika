@@ -42,7 +42,7 @@
                     <b>Agenda :</b> {{minute.agenda}}<br/>
                     <p style="text-align: justify; text-justify: inter-word; padding: 2px;   page-break-inside: avoid; ">
                         {{minute.modified_minute}}</p>
-                    <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}}</span>
+                    <b>Participants :</b> <span style="  page-break-inside: avoid; " v-for="person in minute.people">{{person}} </span>
                     &nbsp
 
                 </td>

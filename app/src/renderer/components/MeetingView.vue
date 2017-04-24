@@ -3,6 +3,7 @@
     <div class="container">
 
         <div class="nav">
+            <div id="stop">Stop</div>
             <attendant :saved_attendants="old_attendants" :filename="filename" v-model="attendants"></attendant>
 
         </div>
@@ -26,6 +27,7 @@
     const ipc = require('electron').ipcRenderer
     const app = require('electron').remote.dialog;
     const fs = require('fs');
+    var RecordRTC = require('recordrtc');
     export default {
       components: {
         Attendant,
@@ -33,6 +35,34 @@
       },
       mounted: function () {
         // const app = require('electron').remote.app;
+        var constraints = {audio: true, video: false};
+        var recordRTC;
+        navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+          recordRTC = RecordRTC(stream, {
+            type: 'audio',
+            // recorderType: StereoAudioRecorder
+          });
+          recordRTC.startRecording();
+          document.getElementById('stop').onclick = function () {
+            recordRTC.stopRecording(function (audioURL) {
+              var recordedBlob = recordRTC.getBlob();
+              console.log(recordRTC.blob)
+              try {
+                recordRTC.save();
+
+                //recordRTC.writeToDisk();
+                fs.writeFileSync('C:\\record.webm', Buffer(new Uint8Array(recordRTC.blob)));
+              } catch (error) {
+                console.log(error)
+                // if there was some kind of error, return the passed in defaults instead.
+              }
+              recordRTC.getDataURL(function (dataURL) { });
+            });
+          }
+
+        }).catch(function (err) {
+          console.log('navigator.getUserMedia error: ', err);
+        });
 
         ipc.send('get-file-data');
 
@@ -74,6 +104,7 @@
       },
       data: function () {
         return {
+          stream: '',
           attendants: [],
           minutes: [],
           meeting: [],
@@ -232,8 +263,6 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Roboto|Rubik');
-
-
 
     html,
     body {
