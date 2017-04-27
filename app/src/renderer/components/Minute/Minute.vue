@@ -25,7 +25,7 @@
                             <i class="file pdf 0utline icon"></i>
                         </button>
                     </div>
-                    <div style="height: 100%; overflow-y: scroll; padding-bottom: 80px;  ">
+                    <div style="height: 100%; overflow-y: auto; padding-bottom: 80px;  ">
                         <div v-if="filename == null" style="margin: 10px;" class="ui blue message">
                             Please Open an existing or create a new
                             minutes file to start
@@ -108,6 +108,17 @@
             return false
           }
         },
+        checkIfIncomplete: function (searchText) {
+          var regexp = /\?{2}/g
+          var result = searchText.match(regexp)
+          console.log(result)
+          if (result == null) {
+            return false
+          } else {
+            this.minute = this.minute.replace(/\?{2}/g, '')
+            return true
+          }
+        },
         getPeople: function findHashtags (searchText) {
           var regexp = /\B\@\w\w+\b/g
           var result = searchText.match(regexp)
@@ -165,9 +176,11 @@
           }
         },
         addMinute: function () {
+          var incomplete = this.checkIfIncomplete(this.minute)
           this.tags = this.getTags(this.minute)
           this.people = this.getPeople(this.minute)
           this.modified_minute = this.minute.replace(/#(\w+)/g, '$1')
+          this.modified_minute = this.modified_minute.replace(/^\@(\w+)/g, '@$1 :')
           this.modified_minute = this.substitutePeople(this.modified_minute)
           this.getActiveAgenda()
           var minuteObject = {
@@ -178,7 +191,8 @@
             attendants: this.attendants,
             agenda: this.agenda,
             date: moment().format('YYYY-M-D'),
-            time: moment().format('h:mm')
+            time: moment().format('h:mm'),
+            incomplete: incomplete
           }
           if (this.editing_minute !== null) {
             this.minutes[this.editing_minute] = minuteObject
@@ -250,6 +264,10 @@
 </script>
 
 <style>
+    .incomplete {
+        background: rgba(214, 3, 3, 0.6) !important;
+    }
+
     .list-enter-active, .list-leave-active {
         transition: all 1s;
     }

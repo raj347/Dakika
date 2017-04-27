@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div style="padding-top: 0px !important;height: 100%; overflow-y: scroll; padding-bottom: 100px; padding-left: 0px;padding-right: 4px;  ">
+        <div style="padding-top: 0px !important;height: 100%; overflow-y: auto; padding-bottom: 100px; padding-left: 0px;padding-right: 4px;  ">
             <div class="ui middle aligned selection list">
                 <div v-for="agenda in agendas" class="item"
                      style="border-radius: 0px; padding-top: 0.2em !important; padding-bottom: 0.2em !important; padding-left: 0.3em; border-top: 1px solid rgba(34, 36, 38, 0.0470588);">
@@ -22,7 +22,7 @@
                              v-bind:class="[agenda.active ? activeClass : '', errorClass]" style="margin-right: 3px;"><i
                                 class="flag checkered icon "></i></div>
                     </div>
-                    <img src="list2.png" class="ui avatar image">
+                    <img src="list2.png" class="ui avatar image"  v-bind:class="[agenda.active ? activeAgendaClass : '', errorAgendaClass]">
                     <div class="content">
                         <div class="name noselect" style="font-weight: bold; color: rgba(0, 0, 0, 0.870588);">
                             {{agenda.text}}
@@ -52,7 +52,9 @@
         return {
           agenda: '',
           activeClass: 'green',
+          activeAgendaClass: 'blink_me',
           errorClass: 'gray',
+          errorAgendaClass: '',
         }
       },
       mounted: function () {

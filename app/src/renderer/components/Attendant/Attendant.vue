@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="" style="overflow-y: scroll;height: 100%; width: 299px; position: fixed; padding-bottom: 50px;">
+        <div class="" style="overflow-y: auto;height: 100%; width: 299px; position: fixed; padding-bottom: 150px;">
             <div class="ui middle aligned selection list">
                 <attendant :attendant="attendant" v-on:delete-item="deleteItem" v-on:user-present="userPresence"
                            v-for="attendant in attendants"></attendant>

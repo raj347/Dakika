@@ -11,12 +11,14 @@
         }
         ::-webkit-scrollbar {
             background-color: #fff;
-            width: .1em;
+            width: 0.6em;
         }
+
         ::-webkit-scrollbar-thumb:window-inactive,
         ::-webkit-scrollbar-thumb {
-            background: black;
+            background: gray;
         }
+
     </style>
     <% if (htmlWebpackPlugin.options.appModules) { %>
     <!-- Add `app/node_modules` to global paths so `require` works properly in development -->
