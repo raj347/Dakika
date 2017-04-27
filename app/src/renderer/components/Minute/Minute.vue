@@ -38,7 +38,7 @@
 
                             <Item :minute="minute" v-on:edit-item="editMinute" v-on:delete-item="deleteMinute"
                                   v-on:add-item-after="addItemAfter"
-                                  v-for="minute in ordered_mins"></Item>
+                                  v-for="minute in minutes.slice().reverse()"></Item>
 
 
                         </div>

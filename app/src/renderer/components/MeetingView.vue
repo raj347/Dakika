@@ -3,7 +3,23 @@
     <div class="container">
 
         <div class="nav">
-            <div id="stop">Stop</div>
+            <div class="audio-recorder" style="height: 79px; border-bottom: 1px solid #e7e6e8;">
+                <div style="margin: 0 auto; text-align: center; padding-top: 5px;">
+                    <select v-model="recording_device" style="">
+                        <option v-for="device in audio_devices" v-bind:value="device.id">{{device.label}}</option>
+                    </select>
+                </div>
+                <div style="text-align: center; margin: 0 auto; padding-top: 3px;">
+                    <div v-if="recording == false" v-on:click="startAudioRecording" id="stop"><i class="big green play icon"></i>
+                    </div>
+                    <div v-else v-on:click="stopAudioRecording" id="start"><i class="big stop red icon"></i></div>
+                </div>
+                <div v-if="recording" class="blink_me" style="text-align: center; margin: 0 auto; padding-top: 1px;">
+                    Recording
+                </div>
+
+            </div>
+
             <attendant :saved_attendants="old_attendants" :filename="filename" v-model="attendants"></attendant>
 
         </div>
@@ -35,34 +51,19 @@
       },
       mounted: function () {
         // const app = require('electron').remote.app;
-        var constraints = {audio: true, video: false};
-        var recordRTC;
-        navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-          recordRTC = RecordRTC(stream, {
-            type: 'audio',
-            // recorderType: StereoAudioRecorder
-          });
-          recordRTC.startRecording();
-          document.getElementById('stop').onclick = function () {
-            recordRTC.stopRecording(function (audioURL) {
-              var recordedBlob = recordRTC.getBlob();
-              console.log(recordRTC.blob)
-              try {
-                recordRTC.save();
-
-                //recordRTC.writeToDisk();
-                fs.writeFileSync('C:\\record.webm', Buffer(new Uint8Array(recordRTC.blob)));
-              } catch (error) {
-                console.log(error)
-                // if there was some kind of error, return the passed in defaults instead.
+        var x = this;
+        navigator.mediaDevices.enumerateDevices()
+          .then(function (devices) {
+            devices.forEach(function (device) {
+              if (device.kind === 'audioinput') {
+                x.audio_devices.push({label: device.label, id: device.deviceId})
+                console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
               }
-              recordRTC.getDataURL(function (dataURL) { });
             });
-          }
-
-        }).catch(function (err) {
-          console.log('navigator.getUserMedia error: ', err);
-        });
+          })
+          .catch(function (err) {
+            console.log(err.name + ": " + err.message);
+          });
 
         ipc.send('get-file-data');
 
@@ -114,10 +115,55 @@
           old_agendas: [],
           filename: null,
           saving: 1,
+          recording: false,
+          audio_devices: [],
+          recording_device: null,
+          rtc: null
 
         }
       },
       methods: {
+        startAudioRecording: function () {
+          var constraints = {
+            audio: {exact: this.recording_device},
+            video: false,
+            deviceId: {exact: this.recording_device}
+          };
+          var recordRTC;
+          navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+            recordRTC = RecordRTC(stream, {
+              type: 'audio',
+              // recorderType: StereoAudioRecorder
+            });
+            window.rtc = recordRTC;
+
+            recordRTC.startRecording()
+
+          }).catch(function (err) {
+            console.log('navigator.getUserMedia error: ', err);
+          });
+
+          this.recording = true;
+        },
+        stopAudioRecording: function () {
+          window.rtc.stopRecording(function (audioURL) {
+            var recordedBlob = window.rtc.getBlob();
+            console.log(window.rtc.blob)
+            try {
+              window.rtc.save();
+
+              //recordRTC.writeToDisk();
+
+            } catch (error) {
+              console.log(error)
+              // if there was some kind of error, return the passed in defaults instead.
+            }
+            window.rtc.getDataURL(function (dataURL) {
+              //fs.writeFileSync('C:\\record.webm', dataURL);
+            });
+          });
+          this.recording = false;
+        },
         getFileStatus: function () {
           var x = this;
           fs.readFile(x.filename, function (err, data) {
@@ -271,7 +317,13 @@
         margin: 0;
 
     }
+    .blink_me {
+        animation: blinker 1s linear infinite;
+    }
 
+    @keyframes blinker {
+        50% { opacity: 0; }
+    }
     .modal {
         border-radius: 0px;
     }
