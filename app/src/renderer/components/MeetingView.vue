@@ -133,6 +133,11 @@
           navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
             recordRTC = RecordRTC(stream, {
               type: 'audio',
+                mimeType: 'audio/wav',
+                bitsPerSecond: 128000,
+                bufferSize: 512,
+                numberOfAudioChannels: 2,
+
               // recorderType: StereoAudioRecorder
             });
             window.rtc = recordRTC;
