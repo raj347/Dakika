@@ -10,9 +10,11 @@
 
 # Features
 ## Use Attendant name Shortcut for fast typing
+Use name initials that will be automatically extrapolated by the system
 ![Extrapolate Attendance](http://codedcell.com/storage/Extrapolate.gif)
 
 ## Record Audio
+Record Multiple audio Clips
 ![Record Audio](http://codedcell.com/storage/MinutesAudioRecording.gif)
 
 ## Mark Minutes as incomplete
