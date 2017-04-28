@@ -1,6 +1,13 @@
 # Dakika
-
 > A minute taking application that makes writing minutes a breeze.
+
+> Dakika is Kiswahili for minute
+
+# Built With
+* Electron
+* Vue.js
+* sox - For audio Recording
+
 # Features
 ## Record Audio
 ![Record Audio](http://codedcell.com/storage/MinutesAudioRecording.gif)
