@@ -9,16 +9,22 @@
 * sox - For audio Recording
 
 # Features
+## Use Attendant name Shortcut for fast typing
+![Extrapolate Attendance](http://codedcell.com/storage/Extrapolate.gif)
+
 ## Record Audio
 ![Record Audio](http://codedcell.com/storage/MinutesAudioRecording.gif)
+
 ## Mark Minutes as incomplete
 ![Mark Minutes as Incomplete](http://codedcell.com/storage/IncompleteMinutes.gif)
+
 ## Mark Attendance as Present or Absent
 ![Attendance](http://codedcell.com/storage/UserPresence.gif)
+
 ## Generate PDFS
 [PDF Sample](http://codedcell.com/storage/MeetingExamplePDF.pdf)
-## Use Attendant name Shortcut for fast typing
-[PDF Sample](http://codedcell.com/storage/Extrapolate.gif)
+
+
 
 
 ## Keyboard Shortcuts
