@@ -1,10 +1,10 @@
 # Dakika
 
 > A minute taking application that makes writing minutes a breeze.
-#Features
-##Record Audio
+# Features
+## Record Audio
 ![Record Audio](http://codedcell.com/storage/MinutesAudioRecording.gif)
-##Mark Minutes as incomplete
+## Mark Minutes as incomplete
 ![Mark Minutes as Incomplete](http://codedcell.com/storage/IncompleteMinutes.gif)
 ## Build Setup
 
