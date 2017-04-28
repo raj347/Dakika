@@ -4,18 +4,18 @@
 
         <div class="nav">
             <div class="audio-recorder" style="height: 79px; border-bottom: 1px solid #e7e6e8;">
-                <div style="margin: 0 auto; text-align: center; padding-top: 5px;">
-                    <select v-model="recording_device" style="">
-                        <option v-for="device in audio_devices" v-bind:value="device.id">{{device.label}}</option>
-                    </select>
-                </div>
-                <div style="text-align: center; margin: 0 auto; padding-top: 3px;">
-                    <div v-if="recording == false" v-on:click="startAudioRecording" id="stop"><i class="big green play icon"></i>
+
+                <div style="text-align: center; margin: 0 auto; padding-top: 7px;">
+                    <div v-if="recording == false" v-on:click="startAudioRecording" id="stop"><i
+                            class="big green play icon"></i>
                     </div>
                     <div v-else v-on:click="stopAudioRecording" id="start"><i class="big stop red icon"></i></div>
                 </div>
                 <div v-if="recording" class="blink_me" style="text-align: center; margin: 0 auto; padding-top: 1px;">
                     Recording
+                </div>
+                <div class="" style="text-align: center;">
+                    {{recording_filenames.length}} - Meeting Recording <span v-if="recording_filenames.length<2">Clip</span> <span v-else>Clips</span>
                 </div>
 
             </div>
@@ -43,272 +43,240 @@
     const ipc = require('electron').ipcRenderer
     const app = require('electron').remote.dialog;
     const fs = require('fs');
-    var RecordRTC = require('recordrtc');
+    const {spawn} = require('child_process');
+    let exec_path = `${process.resourcesPath}/sox/sox.exe`
     export default {
-      components: {
-        Attendant,
-        Minute
-      },
-      mounted: function () {
-        // const app = require('electron').remote.app;
-        var x = this;
-        navigator.mediaDevices.enumerateDevices()
-          .then(function (devices) {
-            devices.forEach(function (device) {
-              if (device.kind === 'audioinput') {
-                x.audio_devices.push({label: device.label, id: device.deviceId})
-                console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
-              }
+        components: {
+            Attendant,
+            Minute
+        },
+        mounted: function () {
+            // const app = require('electron').remote.app;
+            var x = this;
+
+            ipc.send('get-file-data');
+            var filename = this.$route.params.fileName;
+            if (typeof filename != 'undefined') {
+                this.filename = filename
+                this.readFile(filename);
+            }
+            ipc.on('file-opened', (event, arg) => {
+                this.filename = arg;
+                this.readFile(this.filename);
+
             });
-          })
-          .catch(function (err) {
-            console.log(err.name + ": " + err.message);
-          });
-
-        ipc.send('get-file-data');
-
-        var filename = this.$route.params.fileName;
-        if (typeof filename != 'undefined') {
-          this.filename = filename
-          this.readFile(filename);
-        }
-        ipc.on('file-opened', (event, arg) => {
-          this.filename = arg;
-          this.readFile(this.filename);
-
-        });
-        ipc.on('new-file', (event, arg) => {
-          this.truncateData();
-          this.filename = arg;
-          this.saving = 0;
-        });
-        ipc.on('save-file', (event, arg) => {
-          this.saveFile()
-        });
-
-        ipc.on('print-pdf', (event, arg) => {
-          this.saveFile()
-          this.readFile()
-          this.$router.push({
-            name: 'savepdf', params: {
-              data: {
-                agenda: this.agenda,
-                attendants: this.attendants,
-                minutes: this.minutes,
-                fileName: this.filename
-              },
-
-            }
-          })
-        });
-
-      },
-      data: function () {
-        return {
-          stream: '',
-          attendants: [],
-          minutes: [],
-          meeting: [],
-          agenda: [],
-          old_minutes: [],
-          old_attendants: [],
-          old_agendas: [],
-          filename: null,
-          saving: 1,
-          recording: false,
-          audio_devices: [],
-          recording_device: null,
-          rtc: null
-
-        }
-      },
-      methods: {
-        startAudioRecording: function () {
-          var constraints = {
-            audio: {exact: this.recording_device},
-            video: false,
-            deviceId: {exact: this.recording_device}
-          };
-          var recordRTC;
-          navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-            recordRTC = RecordRTC(stream, {
-              type: 'audio',
-                mimeType: 'audio/wav',
-                bitsPerSecond: 128000,
-                bufferSize: 512,
-                numberOfAudioChannels: 2,
-
-              // recorderType: StereoAudioRecorder
+            ipc.on('new-file', (event, arg) => {
+                this.truncateData();
+                this.filename = arg;
+                this.saving = 0;
             });
-            window.rtc = recordRTC;
-
-            recordRTC.startRecording()
-
-          }).catch(function (err) {
-            console.log('navigator.getUserMedia error: ', err);
-          });
-
-          this.recording = true;
-        },
-        stopAudioRecording: function () {
-          window.rtc.stopRecording(function (audioURL) {
-            var recordedBlob = window.rtc.getBlob();
-            console.log(window.rtc.blob)
-            try {
-              window.rtc.save();
-
-              //recordRTC.writeToDisk();
-
-            } catch (error) {
-              console.log(error)
-              // if there was some kind of error, return the passed in defaults instead.
-            }
-            window.rtc.getDataURL(function (dataURL) {
-              //fs.writeFileSync('C:\\record.webm', dataURL);
+            ipc.on('save-file', (event, arg) => {
+                this.saveFile()
             });
-          });
-          this.recording = false;
-        },
-        getFileStatus: function () {
-          var x = this;
-          fs.readFile(x.filename, function (err, data) {
-            try {
-              var obj = JSON.parse(data)
-            } catch (e) {
-              document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop() + ' - Unsaved';
-              return 0;
-            }
 
-            var liveObj = {agenda: x.agenda, attendants: x.attendants, minutes: x.minutes}
-            if (JSON.stringify(liveObj) == JSON.stringify(obj)) {
-              document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop();
-            } else {
-              document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop() + ' - Unsaved';
-            }
-          });
+            ipc.on('print-pdf', (event, arg) => {
+                this.saveFile()
+                this.readFile()
+                this.$router.push({
+                    name: 'savepdf', params: {
+                        data: {
+                            agenda: this.agenda,
+                            attendants: this.attendants,
+                            minutes: this.minutes,
+                            fileName: this.filename
+                        },
 
-        },
-        readFile: function () {
-          this.saving = 1;
-          try {
-            var obj = JSON.parse(fs.readFileSync(this.filename));
-            if (this.checkFileValidity(obj) == false) {
-
-              app.showMessageBox({
-                title: 'Error Opening File',
-                detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
-              });
-              this.truncateData()
-              return 0;
-            }
-            if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
-              this.old_minutes = obj.minutes;
-              this.minutes = obj.minutes;
-            }
-            if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
-              this.old_attendants = obj.attendants;
-              this.attendants = obj.attendants;
-            }
-            if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
-              this.old_agendas = obj.agenda;
-              this.agenda = obj.agenda;
-            }
-
-          } catch (error) {
-            // if there was some kind of error, return the passed in defaults instead.
-            console.log(error)
-
-          }
-          this.saving = 0;
-
-        }
-        ,
-        attendantAdded: function ($attendants) {
-          this.attendants = $attendants;
-        }
-        ,
-        minuteChanged: function (minutes) {
-          this.minutes = minutes;
-        }
-        ,
-        agendaUpdated: function (agenda) {
-          this.agenda = agenda
-          this.saveFileDebounce();
-        }
-        ,
-        checkFileValidity: function (obj) {
-          try {
-            JSON.parse(JSON.stringify(obj));
-          } catch (e) {
-            return false;
-          }
-          return true;
-
-        }
-        ,
-        truncateData: function () {
-          this.attendants = []
-          this.minutes = []
-          this.meeting = []
-          this.agenda = []
-          this.old_minutes = []
-          this.old_attendants = []
-          this.old_agendas = []
-          this.editing_minute = null
-          this.filename = null
-          this.saving = 1
-        }
-        ,
-        saveFile: function () {
-          if (this.saving === 1) {
-            console.log("Not Saving")
-            return 0;
-          } else {
-            console.log("Saving File")
-          }
-          if (this.filename === null) {
-            app.showMessageBox({
-              title: 'Error Opening File',
-              detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
+                    }
+                })
             });
-            return 0;
-          }
-          this.saving = 1;
-
-          var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
-          try {
-            fs.writeFileSync(this.filename, JSON.stringify(obj));
-            this.getFileStatus()
-            this.saving = 0;
-          } catch (error) {
-            console.log(error)
-            // if there was some kind of error, return the passed in defaults instead.
-
-          }
 
         },
-        saveFileDebounce: debounce(function () {
-          this.saveFile()
-        }, 10000)
-      },
-      watch: {
-        attendants: function () {
-          this.getFileStatus();
-          this.saveFileDebounce;
+        data: function () {
+            return {
+                stream: '',
+                attendants: [],
+                minutes: [],
+                meeting: [],
+                agenda: [],
+                old_minutes: [],
+                old_attendants: [],
+                old_agendas: [],
+                filename: null,
+                saving: 1,
+                ps: null,
+                recording_filenames: [],
+                recording: false
 
+            }
         },
-        minutes: function () {
-          this.getFileStatus();
-          this.saveFileDebounce;
+        methods: {
+            startAudioRecording: function () {
+                var len = this.recording_filenames.length
+                var file = this.filename
+                file = file.replace(/\.[^/.]+$/, "")
+                file = file + "_" + len + ".wav"
+                this.recording_filenames.push(file)
+                try {
+                    this.ps = spawn(exec_path, ["-t", "waveaudio", "-d", file]);
+                    this.recording = true;
+                } catch (e) {
+                    console.log(e)
+                }
 
+            },
+            stopAudioRecording: function () {
+                try {
+                    this.ps.kill()
+                    this.recording = false;
+                    stats = fs.statSync("myfile.txt")
+                    fileSizeInBytes = stats.size
+                    fileSizeInMegabytes = fileSizeInBytes / 1000000.0
+                } catch (e) {
+                    console.log(e)
+                }
+
+
+            },
+            getFileStatus: function () {
+                var x = this;
+                fs.readFile(x.filename, function (err, data) {
+                    try {
+                        var obj = JSON.parse(data)
+                    } catch (e) {
+                        document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop() + ' - Unsaved';
+                        return 0;
+                    }
+
+                    var liveObj = {agenda: x.agenda, attendants: x.attendants, minutes: x.minutes}
+                    if (JSON.stringify(liveObj) == JSON.stringify(obj)) {
+                        document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop();
+                    } else {
+                        document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop() + ' - Unsaved';
+                    }
+                });
+
+            },
+            readFile: function () {
+                this.saving = 1;
+                try {
+                    var obj = JSON.parse(fs.readFileSync(this.filename));
+                    if (this.checkFileValidity(obj) == false) {
+
+                        app.showMessageBox({
+                            title: 'Error Opening File',
+                            detail: 'The file you are opening is in the wrong format, Please make sure you are opening a .min file'
+                        });
+                        this.truncateData()
+                        return 0;
+                    }
+                    if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
+                        this.old_minutes = obj.minutes;
+                        this.minutes = obj.minutes;
+                    }
+                    if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
+                        this.old_attendants = obj.attendants;
+                        this.attendants = obj.attendants;
+                    }
+                    if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
+                        this.old_agendas = obj.agenda;
+                        this.agenda = obj.agenda;
+                    }
+
+                } catch (error) {
+                    // if there was some kind of error, return the passed in defaults instead.
+                    console.log(error)
+
+                }
+                this.saving = 0;
+
+            }
+            ,
+            attendantAdded: function ($attendants) {
+                this.attendants = $attendants;
+            }
+            ,
+            minuteChanged: function (minutes) {
+                this.minutes = minutes;
+            }
+            ,
+            agendaUpdated: function (agenda) {
+                this.agenda = agenda
+                this.saveFileDebounce();
+            }
+            ,
+            checkFileValidity: function (obj) {
+                try {
+                    JSON.parse(JSON.stringify(obj));
+                } catch (e) {
+                    return false;
+                }
+                return true;
+
+            }
+            ,
+            truncateData: function () {
+                this.attendants = []
+                this.minutes = []
+                this.meeting = []
+                this.agenda = []
+                this.old_minutes = []
+                this.old_attendants = []
+                this.old_agendas = []
+                this.editing_minute = null
+                this.filename = null
+                this.saving = 1
+            }
+            ,
+            saveFile: function () {
+                if (this.saving === 1) {
+                    console.log("Not Saving")
+                    return 0;
+                } else {
+                    console.log("Saving File")
+                }
+                if (this.filename === null) {
+                    app.showMessageBox({
+                        title: 'Error Opening File',
+                        detail: 'You have not opened a file for saving, Please make sure you have opened a .min file'
+                    });
+                    return 0;
+                }
+                this.saving = 1;
+
+                var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+                try {
+                    fs.writeFileSync(this.filename, JSON.stringify(obj));
+                    this.getFileStatus()
+                    this.saving = 0;
+                } catch (error) {
+                    console.log(error)
+                    // if there was some kind of error, return the passed in defaults instead.
+
+                }
+
+            },
+            saveFileDebounce: debounce(function () {
+                this.saveFile()
+            }, 10000)
         },
-        agenda: function () {
-          this.getFileStatus();
-        },
-        filename: function () {
-          this.getFileStatus();
+        watch: {
+            attendants: function () {
+                this.getFileStatus();
+                this.saveFileDebounce;
+
+            },
+            minutes: function () {
+                this.getFileStatus();
+                this.saveFileDebounce;
+
+            },
+            agenda: function () {
+                this.getFileStatus();
+            },
+            filename: function () {
+                this.getFileStatus();
+            }
         }
-      }
     }
 </script>
 
@@ -322,13 +290,17 @@
         margin: 0;
 
     }
+
     .blink_me {
         animation: blinker 1s linear infinite;
     }
 
     @keyframes blinker {
-        50% { opacity: 0; }
+        50% {
+            opacity: 0;
+        }
     }
+
     .modal {
         border-radius: 0px;
     }

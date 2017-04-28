@@ -81,7 +81,6 @@
   "dependencies": {
     "debounce": "^1.0.0",
     "moment": "^2.18.1",
-    "recordrtc": "^5.4.1",
     "semantic-ui-css": "^2.2.9",
     "vue-toasted": "^1.0.27"
   }
