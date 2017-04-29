@@ -41,10 +41,13 @@ Move to next Agenda | Alt + N
 
 ## Help Me
 I need to get a CodeSigning Certificate for Dakika. This is to make Dakika Executables more safe and installable without tripping anitvirus softwares
+
 This Costs anywhere from 100-250$ per year.
+
 As a general requirement this also incurs me the below cost :-
 * Business Registration
 * Notary/Lawyer Fees
+
 If you are not able to help with development please consider donating.
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TPWD9LHWGDBFA)
