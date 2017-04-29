@@ -43,7 +43,7 @@
     const ipc = require('electron').ipcRenderer
     const app = require('electron').remote.dialog;
     const fs = require('fs');
-    const {spawn} = require('child_process');
+    const spawn = require('child_process').spawn;
     let exec_path = `${process.resourcesPath}/sox/sox.exe`
     export default {
         components: {
@@ -117,7 +117,7 @@
                 file = file + "_" + len + ".wav"
                 this.recording_filenames.push(file)
                 try {
-                    this.ps = spawn(exec_path, ["-t", "waveaudio", "-d", file]);
+                    this.ps = spawn(exec_path, ["-q","-t", "waveaudio", "-d", file]);
                     this.recording = true;
                 } catch (e) {
                     console.log(e)
@@ -128,9 +128,6 @@
                 try {
                     this.ps.kill()
                     this.recording = false;
-                    stats = fs.statSync("myfile.txt")
-                    fileSizeInBytes = stats.size
-                    fileSizeInMegabytes = fileSizeInBytes / 1000000.0
                 } catch (e) {
                     console.log(e)
                 }
