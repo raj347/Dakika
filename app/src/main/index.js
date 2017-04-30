@@ -8,12 +8,32 @@ var handleStartupEvent = function () {
     if (process.platform !== 'win32') {
         return false
     }
+    const ChildProcess = require('child_process');
+    const path = require('path');
 
+    const appFolder = path.resolve(process.execPath, '..');
+    const rootAtomFolder = path.resolve(appFolder, '..');
+    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
+    const exeName = path.basename(process.execPath);
+
+    const spawn = function(command, args) {
+        let spawnedProcess, error;
+
+        try {
+            spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
+        } catch (error) {}
+
+        return spawnedProcess;
+    };
+
+    const spawnUpdate = function(args) {
+        return spawn(updateDotExe, args);
+    };
     var squirrelCommand = process.argv[1]
     switch (squirrelCommand) {
         case '--squirrel-install':
             var target = path.basename(process.execPath)
-            var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+                // var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
             var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
             exec(createShortcut)
         case '--squirrel-updated':
@@ -25,7 +45,7 @@ var handleStartupEvent = function () {
             // - Write to the registry for things like file associations and
             //   explorer context menus
             var target = path.basename(process.execPath)
-            var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+           // var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
             var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
             exec(createShortcut)
             // Always quit when done
@@ -36,7 +56,7 @@ var handleStartupEvent = function () {
             // Undo anything you did in the --squirrel-install and
             // --squirrel-updated handlers
             var target = path.basename(process.execPath)
-            var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+            //var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
             var createShortcut = updateDotExe + ' --removeShortcut=' + target
             exec(createShortcut)
             // Always quit when done
