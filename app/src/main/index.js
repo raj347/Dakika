@@ -92,20 +92,22 @@ function createWindow() {
     mainWindow.loadURL(winURL)
     const version = app.getVersion();
     const platform = process.platform === 'darwin' ? 'osx' : process.platform;
-    const url = `http://updates.codedcell.com/update/${platform}/${version}`;
+    //const url = `http://updates.codedcell.com/update/win32`;
+    const url = `http://updates.codedcell.com/update/win32`;
 
 
     mainWindow.webContents.on('did-finish-load', function() {
         mainWindow.webContents.executeJavaScript(`alert("${url}")`);
+        mainWindow.webContents.executeJavaScript("alert('Test')");
         autoUpdater.setFeedURL(url);
         autoUpdater.on('update-available', function(){
-            mainWindow.webContents.executeJavaScript("Update Available");
+            mainWindow.webContents.executeJavaScript("alert('Update Available')");
         })
         autoUpdater.on('update-not-available', function(){
-            mainWindow.webContents.executeJavaScript("Update Not Available");
+            mainWindow.webContents.executeJavaScript("alert('Update Not Available')");
         })
         autoUpdater.on('checking-for-update', function(){
-            mainWindow.webContents.executeJavaScript("Checking For Update");
+            mainWindow.webContents.executeJavaScript("alert('Checking For Update')");
         })
         autoUpdater.checkForUpdates();
         autoUpdater.on('update-downloaded', function () {
