@@ -3,7 +3,7 @@ console.log('Building from this directory' + `${__dirname}/../../builds/Dakika-w
 resultPromise = electronInstaller.createWindowsInstaller({
     appDirectory: `${__dirname}/../../builds/Dakika-win32-x64`,
     outputDirectory: './Dakika',
-    version: '0.0.1',
+    version: '0.0.2',
     authors: 'CodedCell',
     description: 'Make Writing minutes a breeze',
     noMsi: true,
@@ -16,7 +16,7 @@ resultPromise = electronInstaller.createWindowsInstaller({
     iconUrl: `${__dirname}\\pen.ico`,
     loadingGif: `${__dirname}\\DakikaLoadingScreen.gif`,
     remoteReleases: 'https://github.com/Madawar/Dakika',
-  //  remoteToken :'0e9c10ca1b5a781606c88d4297d84f9427b1cee6'
+
 })
 
 resultPromise.then(() => console.log('It worked!'), (e) => console.log(`No dice: ${e.message}`))

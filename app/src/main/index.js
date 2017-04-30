@@ -98,7 +98,6 @@ function createWindow() {
 
     mainWindow.webContents.on('did-finish-load', function() {
         mainWindow.webContents.executeJavaScript(`alert("${url}")`);
-        mainWindow.webContents.executeJavaScript("alert('Test')");
         autoUpdater.setFeedURL(url);
         autoUpdater.on('update-available', function(){
             mainWindow.webContents.executeJavaScript("alert('Update Available')");
