@@ -15,7 +15,7 @@ resultPromise = electronInstaller.createWindowsInstaller({
     setupExe: 'Dakika_Setup.exe',
     iconUrl: `${__dirname}\\pen.ico`,
     loadingGif: `${__dirname}\\DakikaLoadingScreen.gif`,
-    remoteReleases: 'https://github.com/Madawar/Dakika'
+  //  remoteReleases: 'https://github.com/Madawar/Dakika'
 })
 
 resultPromise.then(() => console.log('It worked!'), (e) => console.log(`No dice: ${e.message}`))

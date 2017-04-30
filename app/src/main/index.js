@@ -1,6 +1,6 @@
 'use strict'
 
-import {app, BrowserWindow, dialog, globalShortcut, ipcMain, Menu, shell, Tray} from 'electron'
+import {app, BrowserWindow, dialog, globalShortcut, ipcMain, Menu, shell, Tray,autoUpdater} from 'electron'
 var path = require('path')
 var exec = require('child_process').exec
 
@@ -8,32 +8,12 @@ var handleStartupEvent = function () {
     if (process.platform !== 'win32') {
         return false
     }
-    const ChildProcess = require('child_process');
-    const path = require('path');
 
-    const appFolder = path.resolve(process.execPath, '..');
-    const rootAtomFolder = path.resolve(appFolder, '..');
-    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
-    const exeName = path.basename(process.execPath);
-
-    const spawn = function(command, args) {
-        let spawnedProcess, error;
-
-        try {
-            spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
-        } catch (error) {}
-
-        return spawnedProcess;
-    };
-
-    const spawnUpdate = function(args) {
-        return spawn(updateDotExe, args);
-    };
     var squirrelCommand = process.argv[1]
     switch (squirrelCommand) {
         case '--squirrel-install':
             var target = path.basename(process.execPath)
-                // var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+            var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
             var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
             exec(createShortcut)
         case '--squirrel-updated':
@@ -45,7 +25,7 @@ var handleStartupEvent = function () {
             // - Write to the registry for things like file associations and
             //   explorer context menus
             var target = path.basename(process.execPath)
-           // var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+            var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
             var createShortcut = updateDotExe + ' --createShortcut=' + target + ' --shortcut-locations=Desktop,StartMenu'
             exec(createShortcut)
             // Always quit when done
@@ -56,7 +36,7 @@ var handleStartupEvent = function () {
             // Undo anything you did in the --squirrel-install and
             // --squirrel-updated handlers
             var target = path.basename(process.execPath)
-            //var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
+            var updateDotExe = path.resolve(path.dirname(process.execPath), '..', 'update.exe')
             var createShortcut = updateDotExe + ' --removeShortcut=' + target
             exec(createShortcut)
             // Always quit when done
@@ -75,6 +55,9 @@ var handleStartupEvent = function () {
 if (handleStartupEvent()) {
     console.log('Done Handling Startup Events')
 }
+const version = app.getVersion()
+console.log(version)
+
 
 const fs = require('fs')
 var appIcon = null
@@ -107,6 +90,30 @@ function createWindow() {
     })
 
     mainWindow.loadURL(winURL)
+    const version = app.getVersion();
+    const platform = process.platform === 'darwin' ? 'osx' : process.platform;
+    const url = `http://updates.codedcell.com/update/${platform}/${version}`;
+
+
+    mainWindow.webContents.on('did-finish-load', function() {
+        mainWindow.webContents.executeJavaScript(`alert("${url}")`);
+        autoUpdater.setFeedURL(url);
+        autoUpdater.on('update-available', function(){
+            mainWindow.webContents.executeJavaScript("Update Available");
+        })
+        autoUpdater.on('update-not-available', function(){
+            mainWindow.webContents.executeJavaScript("Update Not Available");
+        })
+        autoUpdater.on('checking-for-update', function(){
+            mainWindow.webContents.executeJavaScript("Checking For Update");
+        })
+        autoUpdater.checkForUpdates();
+        autoUpdater.on('update-downloaded', function () {
+            autoUpdater.quitAndInstall()
+        });
+    });
+
+
 
     mainWindow.on('closed', () => {
         mainWindow = null
