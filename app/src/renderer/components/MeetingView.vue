@@ -278,8 +278,6 @@
 </script>
 
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Roboto|Rubik');
-
     html,
     body {
         height: 100%;

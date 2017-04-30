@@ -14,7 +14,7 @@ resultPromise = electronInstaller.createWindowsInstaller({
     setupIcon: `${__dirname}\\pen.ico`,
     setupExe: 'Dakika_Setup.exe',
     iconUrl: `${__dirname}\\pen.ico`,
-    //remoteReleases: 'http://updates.codedcell.com/'
+    remoteReleases: 'http://updates.codedcell.com/'
 })
 
 resultPromise.then(() => console.log('It worked!'), (e) => console.log(`No dice: ${e.message}`))

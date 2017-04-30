@@ -24,7 +24,7 @@
                     </div>
                     <img src="list2.png" class="ui avatar image"  v-bind:class="[agenda.active ? activeAgendaClass : '', errorAgendaClass]">
                     <div class="content">
-                        <div class="name noselect" style="font-weight: bold; color: rgba(0, 0, 0, 0.870588);">
+                        <div class="name noselect" style="font-family:Roboto; font-weight: bold; color: rgba(0, 0, 0, 0.870588);">
                             {{agenda.text}}
 
                         </div>
