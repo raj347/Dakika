@@ -14,6 +14,9 @@
                 <div v-if="recording" class="blink_me" style="text-align: center; margin: 0 auto; padding-top: 1px;">
                     Recording
 
+
+
+
                 </div>
                 <div class="" style="text-align: center;">
                     {{recording_filenames.length}} - Meeting Recording <span
@@ -27,7 +30,8 @@
         </div>
         <div class="main">
 
-            <minute :saved_minutes="old_minutes" :updatable="updatable" :filename="filename" :saved_agendas="old_agendas" v-model="minutes"
+            <minute :saved_minutes="old_minutes" :updatable="updatable" :filename="filename"
+                    :saved_agendas="old_agendas" v-model="minutes"
                     v-on:agenda="agendaUpdated"
                     :attendants="attendants"></minute>
 
@@ -176,15 +180,20 @@
                         this.truncateData()
                         return 0;
                     }
-                    if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
+                    if (typeof obj.minutes  != 'undefined') {
                         this.old_minutes = obj.minutes;
                         this.minutes = obj.minutes;
                     }
-                    if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
+
+                    if (typeof obj.recording_filenames  != 'undefined') {
+                        this.recording_filenames = obj.recording_filenames
+                    }
+
+                    if (typeof obj.attendants  != 'undefined') {
                         this.old_attendants = obj.attendants;
                         this.attendants = obj.attendants;
                     }
-                    if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
+                    if (typeof obj.agenda  != 'undefined') {
                         this.old_agendas = obj.agenda;
                         this.agenda = obj.agenda;
                     }
@@ -250,7 +259,12 @@
                 }
                 this.saving = 1;
 
-                var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+                var obj = {
+                    recording_filenames: this.recording_filenames,
+                    agenda: this.agenda,
+                    attendants: this.attendants,
+                    minutes: this.minutes
+                }
                 try {
                     fs.writeFileSync(this.filename, JSON.stringify(obj));
                     this.getFileStatus()

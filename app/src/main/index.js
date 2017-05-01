@@ -3,7 +3,7 @@
 import {app, BrowserWindow, dialog, globalShortcut, ipcMain, Menu, shell, Tray,autoUpdater} from 'electron'
 var path = require('path')
 var exec = require('child_process').exec
-
+const version = app.getVersion();
 var handleStartupEvent = function () {
     if (process.platform !== 'win32') {
         return false
@@ -55,8 +55,7 @@ var handleStartupEvent = function () {
 if (handleStartupEvent()) {
     console.log('Done Handling Startup Events')
 }
-const version = app.getVersion()
-console.log(version)
+
 
 
 const fs = require('fs')
@@ -242,6 +241,13 @@ function createWindow() {
                     icon: `${icon_path}/Help_16x16.png`,
                     click () {
                         require('electron').shell.openExternal('https://github.com/Madawar/Dakika')
+                    }
+                },
+                {
+                    label: 'Dakika Version: '+ version,
+                    icon: `${icon_path}/Information_16x16.png`,
+                    click () {
+                        require('electron').shell.openExternal('https://github.com/Madawar/Dakika/releases')
                     }
                 }
             ]
