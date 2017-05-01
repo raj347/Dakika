@@ -32,7 +32,7 @@
 
 
                         </div>
-
+                        <div style="margin: 10px;" class="ui red message" v-on:click="updateApp" v-if="updatable && filename == null"> Update Available click to install</div>
 
                         <div class="ui divided items minute-item">
 
@@ -66,9 +66,10 @@
     import Item from './MinuteItem.vue'
     import Agenda from '../Agenda/Agenda.vue'
     import Vue from 'vue'
+    const ipc = require('electron').ipcRenderer
 
     export default {
-      props: ['saved_minutes', 'attendants', 'saved_agendas', 'filename'],
+      props: ['saved_minutes', 'attendants', 'saved_agendas', 'filename','updatable'],
       components: {
         Agenda,
         Item
@@ -89,6 +90,9 @@
         }
       },
       methods: {
+          updateApp:function(){
+              ipc.send('updateApplication');
+          },
         addItemAfter: function (item) {
           var index = this.minutes.indexOf(item)
           this.insert_after = index + 1

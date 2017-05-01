@@ -13,9 +13,11 @@
                 </div>
                 <div v-if="recording" class="blink_me" style="text-align: center; margin: 0 auto; padding-top: 1px;">
                     Recording
+
                 </div>
                 <div class="" style="text-align: center;">
-                    {{recording_filenames.length}} - Meeting Recording <span v-if="recording_filenames.length<2">Clip</span> <span v-else>Clips</span>
+                    {{recording_filenames.length}} - Meeting Recording <span
+                        v-if="recording_filenames.length<2">Clip</span> <span v-else>Clips</span>
                 </div>
 
             </div>
@@ -24,7 +26,8 @@
 
         </div>
         <div class="main">
-            <minute :saved_minutes="old_minutes" :filename="filename" :saved_agendas="old_agendas" v-model="minutes"
+
+            <minute :saved_minutes="old_minutes" :updatable="updatable" :filename="filename" :saved_agendas="old_agendas" v-model="minutes"
                     v-on:agenda="agendaUpdated"
                     :attendants="attendants"></minute>
 
@@ -65,6 +68,11 @@
                 this.readFile(this.filename);
 
             });
+
+            ipc.on('updatable', (event, arg) => {
+                this.updatable = true;
+            });
+
             ipc.on('new-file', (event, arg) => {
                 this.truncateData();
                 this.filename = arg;
@@ -105,11 +113,13 @@
                 saving: 1,
                 ps: null,
                 recording_filenames: [],
-                recording: false
+                recording: false,
+                updatable: false
 
             }
         },
         methods: {
+
             startAudioRecording: function () {
                 var len = this.recording_filenames.length
                 var file = this.filename
@@ -117,7 +127,7 @@
                 file = file + "_" + len + ".wav"
                 this.recording_filenames.push(file)
                 try {
-                    this.ps = spawn(exec_path, ["-q","-t", "waveaudio", "-d", file]);
+                    this.ps = spawn(exec_path, ["-q", "-t", "waveaudio", "-d", file]);
                     this.recording = true;
                 } catch (e) {
                     console.log(e)

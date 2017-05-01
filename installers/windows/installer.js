@@ -3,7 +3,7 @@ console.log('Building from this directory' + `${__dirname}/../../builds/Dakika-w
 resultPromise = electronInstaller.createWindowsInstaller({
     appDirectory: `${__dirname}/../../builds/Dakika-win32-x64`,
     outputDirectory: './Dakika',
-    version: '0.0.2',
+    version: '0.0.3',
     authors: 'CodedCell',
     description: 'Make Writing minutes a breeze',
     noMsi: true,

@@ -97,20 +97,19 @@ function createWindow() {
 
 
     mainWindow.webContents.on('did-finish-load', function() {
-        mainWindow.webContents.executeJavaScript(`alert("${url}")`);
         autoUpdater.setFeedURL(url);
         autoUpdater.on('update-available', function(){
-            mainWindow.webContents.executeJavaScript("alert('Update Available')");
+
         })
         autoUpdater.on('update-not-available', function(){
-            mainWindow.webContents.executeJavaScript("alert('Update Not Available')");
+            //mainWindow.webContents.executeJavaScript("alert('Update Not Available')");
         })
         autoUpdater.on('checking-for-update', function(){
-            mainWindow.webContents.executeJavaScript("alert('Checking For Update')");
+            //mainWindow.webContents.executeJavaScript("alert('Checking For Update')");
         })
         autoUpdater.checkForUpdates();
         autoUpdater.on('update-downloaded', function () {
-            autoUpdater.quitAndInstall()
+            mainWindow.webContents.send('updatable')
         });
     });
 
@@ -262,6 +261,10 @@ function createWindow() {
 app.on('ready', createWindow)
 ipcMain.on('data-saved', function (event, args) {
     console.log('Saved')
+})
+
+ipcMain.on('updateApplication', function (event, args) {
+    autoUpdater.quitAndInstall()
 })
 
 ipcMain.on('get-file-data', function (event) {
