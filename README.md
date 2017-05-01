@@ -38,6 +38,7 @@ Move to next Agenda | Alt + N
 ## TODO
 * Post to web apps (Dropbox, OneNote, Evernote, Generate Word Docs)
 * Online Version of Dakika (Sync Minutes and Share Online)
+* Create VSTO Outlook Add-in that automatically loads recepients and Agenda from Emails :gem:
 
 ## Help Me
 I need to get a CodeSigning Certificate for Dakika. This is to make Dakika Executables more safe and installable without tripping anitvirus softwares

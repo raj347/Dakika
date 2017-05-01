@@ -1,6 +1,6 @@
 {
   "name": "Dakika",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A minute taking application",
   "scripts": {
     "build": "node tasks/release.js",

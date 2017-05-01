@@ -32,7 +32,7 @@
 
 
                         </div>
-                        <div style="margin: 10px;" class="ui red message" v-on:click="updateApp" v-if="updatable && filename == null"> Update Available click to install</div>
+                        <div style="margin: 10px; margin-bottom:-25px; cursor: pointer; " class="ui red message" v-on:click="updateApp" v-if="updatable"><i class="cloud download icon"></i> Update Available click to install</div>
 
                         <div class="ui divided items minute-item">
 

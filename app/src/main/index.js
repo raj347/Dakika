@@ -1,9 +1,10 @@
 'use strict'
 
-import {app, BrowserWindow, dialog, globalShortcut, ipcMain, Menu, shell, Tray,autoUpdater} from 'electron'
+import {app, BrowserWindow, dialog, globalShortcut, ipcMain, Menu, shell, Tray, autoUpdater} from 'electron'
 var path = require('path')
 var exec = require('child_process').exec
-
+var closeCount = 0
+const version = app.getVersion();
 var handleStartupEvent = function () {
     if (process.platform !== 'win32') {
         return false
@@ -55,8 +56,6 @@ var handleStartupEvent = function () {
 if (handleStartupEvent()) {
     console.log('Done Handling Startup Events')
 }
-const version = app.getVersion()
-console.log(version)
 
 
 const fs = require('fs')
@@ -89,6 +88,14 @@ function createWindow() {
         experimentalFeatures: true
     })
 
+    mainWindow.on('close', function (e) {
+        mainWindow.webContents.send('app-closing')
+        console.log(closeCount)
+        if (closeCount == 0) {
+            e.preventDefault();
+        }
+
+    });
     mainWindow.loadURL(winURL)
     const version = app.getVersion();
     const platform = process.platform === 'darwin' ? 'osx' : process.platform;
@@ -96,15 +103,15 @@ function createWindow() {
     const url = `http://updates.codedcell.com/update/win32`;
 
 
-    mainWindow.webContents.on('did-finish-load', function() {
+    mainWindow.webContents.on('did-finish-load', function () {
         autoUpdater.setFeedURL(url);
-        autoUpdater.on('update-available', function(){
+        autoUpdater.on('update-available', function () {
 
         })
-        autoUpdater.on('update-not-available', function(){
+        autoUpdater.on('update-not-available', function () {
             //mainWindow.webContents.executeJavaScript("alert('Update Not Available')");
         })
-        autoUpdater.on('checking-for-update', function(){
+        autoUpdater.on('checking-for-update', function () {
             //mainWindow.webContents.executeJavaScript("alert('Checking For Update')");
         })
         autoUpdater.checkForUpdates();
@@ -112,7 +119,6 @@ function createWindow() {
             mainWindow.webContents.send('updatable')
         });
     });
-
 
 
     mainWindow.on('closed', () => {
@@ -243,6 +249,13 @@ function createWindow() {
                     click () {
                         require('electron').shell.openExternal('https://github.com/Madawar/Dakika')
                     }
+                },
+                {
+                    label: 'Dakika Version: ' + version,
+                    icon: `${icon_path}/Information_16x16.png`,
+                    click () {
+                        require('electron').shell.openExternal('https://github.com/Madawar/Dakika/releases')
+                    }
                 }
             ]
         }
@@ -257,10 +270,25 @@ function createWindow() {
     console.log('mainWindow opened')
 
 }
+var shouldQuit = app.makeSingleInstance(function (commandLine, workingDirectory) {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+        if (mainWindow.isMinimized()) mainWindow.restore();
+        mainWindow.focus();
+    }
+});
 
+if (shouldQuit) {
+    app.quit();
+}
 app.on('ready', createWindow)
 ipcMain.on('data-saved', function (event, args) {
     console.log('Saved')
+})
+
+ipcMain.on('app-close', function (event, args) {
+    closeCount = 1
+    app.quit()
 })
 
 ipcMain.on('updateApplication', function (event, args) {
@@ -294,7 +322,9 @@ ipcMain.on('print-to-pdf', function (event, args) {
     })
 })
 
-app.on('window-all-closed', () => {
+
+app.on('window-all-closed', (e) => {
+
     if (process.platform !== 'darwin') {
         app.quit()
     }

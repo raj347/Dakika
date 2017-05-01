@@ -4,22 +4,22 @@
 
         <div class="nav">
             <div class="audio-recorder" style="height: 79px; border-bottom: 1px solid #e7e6e8;">
-
+<div v-if="filename != null" >
                 <div style="text-align: center; margin: 0 auto; padding-top: 7px;">
-                    <div v-if="recording == false" v-on:click="startAudioRecording" id="stop"><i
+                    <div v-if="recording == false " v-on:click="startAudioRecording" id="stop"><i
                             class="big green play icon"></i>
                     </div>
                     <div v-else v-on:click="stopAudioRecording" id="start"><i class="big stop red icon"></i></div>
                 </div>
                 <div v-if="recording" class="blink_me" style="text-align: center; margin: 0 auto; padding-top: 1px;">
                     Recording
-
                 </div>
                 <div class="" style="text-align: center;">
                     {{recording_filenames.length}} - Meeting Recording <span
                         v-if="recording_filenames.length<2">Clip</span> <span v-else>Clips</span>
                 </div>
-
+</div>
+                <div style="padding: 10px; padding-top: 30px; text-align: center" v-else >Open A new Minute File to start recording</div>
             </div>
 
             <attendant :saved_attendants="old_attendants" :filename="filename" v-model="attendants"></attendant>
@@ -27,7 +27,8 @@
         </div>
         <div class="main">
 
-            <minute :saved_minutes="old_minutes" :updatable="updatable" :filename="filename" :saved_agendas="old_agendas" v-model="minutes"
+            <minute :saved_minutes="old_minutes" :updatable="updatable" :filename="filename"
+                    :saved_agendas="old_agendas" v-model="minutes"
                     v-on:agenda="agendaUpdated"
                     :attendants="attendants"></minute>
 
@@ -68,6 +69,12 @@
                 this.readFile(this.filename);
 
             });
+            ipc.on('app-closing', (event, arg) => {
+                this.saveFile();
+                this.stopAudioRecording();
+                ipc.send('app-close');
+
+            });
 
             ipc.on('updatable', (event, arg) => {
                 this.updatable = true;
@@ -77,6 +84,7 @@
                 this.truncateData();
                 this.filename = arg;
                 this.saving = 0;
+                this.stopAudioRecording()
             });
             ipc.on('save-file', (event, arg) => {
                 this.saveFile()
@@ -84,6 +92,7 @@
 
             ipc.on('print-pdf', (event, arg) => {
                 this.saveFile()
+                this.stopAudioRecording()
                 this.readFile()
                 this.$router.push({
                     name: 'savepdf', params: {
@@ -154,7 +163,7 @@
                         return 0;
                     }
 
-                    var liveObj = {agenda: x.agenda, attendants: x.attendants, minutes: x.minutes}
+                    var liveObj = {recording_filenames: x.recording_filenames,agenda: x.agenda, attendants: x.attendants, minutes: x.minutes}
                     if (JSON.stringify(liveObj) == JSON.stringify(obj)) {
                         document.title = 'Dakika : ' + x.filename.split('\\').pop().split('/').pop();
                     } else {
@@ -176,15 +185,20 @@
                         this.truncateData()
                         return 0;
                     }
-                    if (obj.minutes !== 'undefined' || obj.minutes !== null || obj.minutes !== undefined) {
+                    if (typeof obj.minutes != 'undefined') {
                         this.old_minutes = obj.minutes;
                         this.minutes = obj.minutes;
                     }
-                    if (obj.attendants !== 'undefined' || obj.attendants !== null || obj.attendants !== undefined) {
+
+                    if (typeof obj.recording_filenames != 'undefined') {
+                        this.recording_filenames = obj.recording_filenames
+                    }
+
+                    if (typeof obj.attendants != 'undefined') {
                         this.old_attendants = obj.attendants;
                         this.attendants = obj.attendants;
                     }
-                    if (obj.agenda !== 'undefined' || obj.agenda !== null || obj.agenda !== undefined) {
+                    if (typeof obj.agenda != 'undefined') {
                         this.old_agendas = obj.agenda;
                         this.agenda = obj.agenda;
                     }
@@ -231,6 +245,7 @@
                 this.old_agendas = []
                 this.editing_minute = null
                 this.filename = null
+                this.recording_filenames = []
                 this.saving = 1
             }
             ,
@@ -250,7 +265,12 @@
                 }
                 this.saving = 1;
 
-                var obj = {agenda: this.agenda, attendants: this.attendants, minutes: this.minutes}
+                var obj = {
+                    recording_filenames: this.recording_filenames,
+                    agenda: this.agenda,
+                    attendants: this.attendants,
+                    minutes: this.minutes
+                }
                 try {
                     fs.writeFileSync(this.filename, JSON.stringify(obj));
                     this.getFileStatus()
@@ -279,10 +299,17 @@
             },
             agenda: function () {
                 this.getFileStatus();
+                this.saveFileDebounce;
             },
             filename: function () {
                 this.getFileStatus();
+                this.saveFileDebounce;
+            },
+            recording_filenames: function () {
+                this.getFileStatus();
+                this.saveFileDebounce;
             }
+
         }
     }
 </script>
