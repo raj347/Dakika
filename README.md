@@ -8,6 +8,12 @@ Download an Executable [Here](https://github.com/Madawar/Dakika/releases/latest)
 
 > Remember its unsigned so your antivirus may act up. If you want to help read Help Me section below
 
+## TODO
+* Post to web apps (Dropbox, OneNote, Evernote, Generate Word Docs)
+* Online Version of Dakika (Sync Minutes and Share Online)
+* Create VSTO Outlook Add-in that automatically loads recepients and Agenda from Emails :gem:
+
+
 # Built With
 * Electron
 * Vue.js
@@ -46,11 +52,6 @@ Action | Shortcut
 ------------ | -------------
 Edit Last Item | Alt + e
 Move to next Agenda | Alt + N
-
-## TODO
-* Post to web apps (Dropbox, OneNote, Evernote, Generate Word Docs)
-* Online Version of Dakika (Sync Minutes and Share Online)
-* Create VSTO Outlook Add-in that automatically loads recepients and Agenda from Emails :gem:
 
 ## Help Me
 I need to get a CodeSigning Certificate for Dakika. This is to make Dakika Executables more safe and installable without tripping anitvirus softwares
