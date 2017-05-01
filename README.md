@@ -3,7 +3,7 @@
 
 > Dakika is Kiswahili for minute
 
-#Get Started
+# Get Started
 Download an Executable [Here](https://github.com/Madawar/Dakika/releases/latest)
 
 > Remember its unsigned so your antivirus may act up. If you want to help read Help Me section below
