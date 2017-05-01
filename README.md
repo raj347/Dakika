@@ -3,6 +3,11 @@
 
 > Dakika is Kiswahili for minute
 
+#Get Started
+Download an Executable [Here](https://github.com/Madawar/Dakika/releases/latest)
+
+> Remember its unsigned so your antivirus may act up. If you want to help read Help Me section below
+
 # Built With
 * Electron
 * Vue.js
@@ -10,11 +15,13 @@
 
 # Features
 ## Use Attendant name Shortcut for fast typing
-Use name initials that will be automatically extrapolated by the system
+Use name initials (e.g @LA gets extrapolated to Lydia Adego) that will be automatically extrapolated by the system
+
 ![Extrapolate Attendance](http://codedcell.com/storage/Extrapolate.gif)
 
 ## Record Audio
 Record Multiple audio Clips
+
 ![Record Audio](http://codedcell.com/storage/MinutesAudioRecording.gif)
 
 ## Mark Minutes as incomplete
@@ -26,6 +33,11 @@ Record Multiple audio Clips
 ## Generate PDFS
 [PDF Sample](http://codedcell.com/storage/MeetingExamplePDF.pdf)
 
+## Low Memory and Network Usage
+Electron apps are notorious for high Memory and Network usage we use as little as possible.
+Below screenshot was taken when opening a 500kb file. Your minute files will rarely get that big
+
+![Low Memory](http://codedcell.com/storage/Memory.png)
 
 
 

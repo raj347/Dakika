@@ -192,7 +192,7 @@
             modified_minute: this.modified_minute,
             tags: this.tags,
             people: this.people,
-            attendants: this.attendants,
+           // attendants: this.attendants,
             agenda: this.agenda,
             date: moment().format('YYYY-M-D'),
             time: moment().format('h:mm'),
